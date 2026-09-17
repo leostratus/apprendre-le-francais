@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Passé composé — organigramme</title>
+<style>
+
+  /* ── Variables & reset ──────────────────────────────────────── */
+  :root {
+    --bg:        #ffffff;
+    --bg2:       #f5f5f3;
+    --bg3:       #eeede8;
+    --text:      #1a1a18;
+    --text2:     #6b6b66;
+    --text3:     #9c9a92;
+    --border:    rgba(0,0,0,0.15);
+    --border2:   rgba(0,0,0,0.30);
+    --border3:   rgba(0,0,0,0.40);
+    --green:     #1D9E75;
+    --green-dk:  #0F6E56;
+    --green-bg:  #E1F5EE;
+    --green-txt: #085041;
+    --blue:      #378ADD;
+    --blue-dk:   #185FA5;
+    --blue-bg:   #E6F1FB;
+    --blue-txt:  #0C447C;
+    --purple-bg: #EEEDFE;
+    --purple-txt:#3C3489;
+    --amber-bg:  #FAEEDA;
+    --amber-txt: #854F0B;
+    --gray:      #888780;
+    --r-sm:      6px;
+    --r-md:      8px;
+    --r-lg:      12px;
+    --r-pill:    20px;
+    --sans:      system-ui, -apple-system, sans-serif;
+    --mono:      ui-monospace, 'Cascadia Code', monospace;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--sans);
+    font-size: 13px;
+    background: var(--bg);
+    color: var(--text);
+    padding: 2rem 1.5rem 4rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  code {
+    font-family: var(--mono);
+    font-size: 11px;
+    background: var(--bg2);
+    padding: 1px 4px;
+    border-radius: 3px;
+  }
+
+  /* ── Layout ─────────────────────────────────────────────────── */
+  .fc {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    padding: 1.5rem 2rem;
+  }
+
+  .branch-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 72px;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .branch-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    flex: 1;
+    min-width: 230px;
+    max-width: 480px;
+  }
+
+  /* ── Arrows ──────────────────────────────────────────────────── */
+  .arr {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1px;
+    margin: 2px 0;
+  }
+
+  .arr-line {
+    width: 1px;
+    background: var(--border2);
+  }
+
+  .arr-head {
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 7px solid var(--border2);
+  }
+
+  .arr-line-short  { height: 8px; }
+  .arr-line-med    { height: 16px; }
+  .arr-line-long   { height: 18px; }
+  .arr-line-inner  { height: 14px; }
+
+  /* ── Nodes ───────────────────────────────────────────────────── */
+  .start-node {
+    background: var(--text);
+    color: var(--bg);
+    border-radius: var(--r-pill);
+    padding: 6px 20px;
+    font-weight: 500;
+    font-size: 13px;
+    display: inline-block;
+    margin-bottom: 4px;
+  }
+
+  .end-node {
+    background: var(--bg);
+    border: 0.5px solid var(--border2);
+    border-radius: var(--r-pill);
+    padding: 8px 20px;
+    font-weight: 500;
+    font-size: 13px;
+    color: var(--text);
+    margin-top: 4px;
+  }
+
+  .q-box {
+    background: var(--bg2);
+    border: 0.5px solid var(--border2);
+    border-radius: var(--r-md);
+    padding: 8px 14px;
+    max-width: 440px;
+    width: 100%;
+    text-align: center;
+    font-weight: 500;
+    color: var(--text);
+    font-size: 13px;
+  }
+
+  .q-box-sm {
+    font-size: 12px;
+  }
+
+  .q-note {
+    font-size: 11px;
+    color: var(--text2);
+    font-style: italic;
+    font-weight: 400;
+    display: block;
+    margin-top: 2px;
+  }
+
+  /* ── Branch labels ───────────────────────────────────────────── */
+  .blabel {
+    font-size: 11px;
+    font-weight: 500;
+    padding: 2px 10px;
+    border-radius: var(--r-pill);
+    margin-bottom: 3px;
+  }
+
+  .blabel-oui        { background: var(--green-bg);  color: var(--green-txt); }
+  .blabel-non        { background: var(--blue-bg);   color: var(--blue-txt); }
+  .blabel-vous       { background: var(--purple-bg); color: var(--purple-txt); }
+  .blabel-nowrap     { white-space: nowrap; }
+
+  /* ── Action boxes ────────────────────────────────────────────── */
+  .action {
+    background: var(--bg);
+    border: 0.5px solid var(--border2);
+    border-radius: var(--r-md);
+    padding: 10px 14px;
+    width: 100%;
+    color: var(--text);
+  }
+
+  .action-etre   { border-left: 3px solid var(--green); }
+  .action-avoir  { border-left: 3px solid var(--blue); }
+  .action-neutral{ border-left: 3px solid var(--gray); }
+  .action-muted  { font-size: 11px; color: var(--text2); padding: 8px 10px; }
+
+  .action-label {
+    font-weight: 500;
+    font-size: 13px;
+    margin-bottom: 6px;
+  }
+
+  .action-label-etre  { color: var(--green-dk); }
+  .action-label-avoir { color: var(--blue-dk); }
+
+  .action-note {
+    font-size: 11px;
+    color: var(--text2);
+    margin-top: 4px;
+    font-style: italic;
+  }
+
+  /* ── Mini tables ─────────────────────────────────────────────── */
+  .mini-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 11px;
+    margin-top: 6px;
+  }
+
+  .mini-table th {
+    background: var(--bg2);
+    color: var(--text2);
+    font-weight: 500;
+    padding: 3px 6px;
+    text-align: left;
+    border: 0.5px solid var(--border);
+  }
+
+  .mini-table td {
+    padding: 3px 6px;
+    border: 0.5px solid var(--border);
+    color: var(--text);
+  }
+
+  .mini-table tr:nth-child(odd) td { background: var(--bg2); }
+
+  /* ── Tag pill ────────────────────────────────────────────────── */
+  .tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 500;
+    padding: 1px 6px;
+    border-radius: 10px;
+    margin-right: 3px;
+    background: var(--amber-bg);
+    color: var(--amber-txt);
+  }
+
+  /* ── Convergence SVG ─────────────────────────────────────────── */
+  .converge-wrap {
+    width: 100%;
+    max-width: 960px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .converge-svg {
+    display: block;
+    width: 100%;
+  }
+
+  /* ── Bottom reference tables ─────────────────────────────────── */
+  .tables-section {
+    width: 100%;
+    max-width: 960px;
+    margin: 2rem auto 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .divider-line {
+    width: 100%;
+    height: 0.5px;
+    background: var(--border);
+    margin: 1rem 0;
+  }
+
+  .table-title {
+    font-weight: 500;
+    font-size: 13px;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+
+  .summary-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+  }
+
+  .summary-table th {
+    background: var(--bg2);
+    color: var(--text2);
+    font-weight: 500;
+    padding: 5px 10px;
+    text-align: left;
+    border: 0.5px solid var(--border);
+  }
+
+  .summary-table td {
+    padding: 5px 10px;
+    border: 0.5px solid var(--border);
+    color: var(--text);
+  }
+
+  .summary-table tr:nth-child(odd) td { background: var(--bg2); }
+
+</style>
+</head>
+<body>
+
+<div class="fc">
+
+  <div class="start-node">Début : passé composé</div>
+  <div class="arr"><div class="arr-line arr-line-long"></div><div class="arr-head"></div></div>
+
+  <div class="q-box">
+    Le verbe exprime un mouvement ou un changement d'état ?
+    <span class="q-note">aller, venir, partir, arriver, naître, mourir, rester, tomber, devenir, revenir, monter, sortir, descendre, entrer, retourner, repartir, rentrer</span>
+  </div>
+  <div class="arr"><div class="arr-line arr-line-short"></div></div>
+
+  <div class="branch-row">
+
+    <div class="branch-col">
+      <div class="blabel blabel-oui">Oui → être</div>
+      <div class="arr"><div class="arr-line arr-line-med"></div><div class="arr-head"></div></div>
+
+      <div class="action action-etre">
+        <div class="action-label action-label-etre">Conjuguer être (présent)</div>
+        <table class="mini-table">
+          <tr><th>Sujet</th><th>Être</th></tr>
+          <tr><td>je</td><td><code>suis</code></td></tr>
+          <tr><td>tu</td><td><code>es</code></td></tr>
+          <tr><td>il / elle / on</td><td><code>est</code></td></tr>
+          <tr><td>nous</td><td><code>sommes</code></td></tr>
+          <tr><td>vous</td><td><code>êtes</code></td></tr>
+          <tr><td>ils / elles</td><td><code>sont</code></td></tr>
+        </table>
+      </div>
+
+      <div class="arr"><div class="arr-line arr-line-med"></div><div class="arr-head"></div></div>
+
+      <div class="q-box">Le verbe est-il pronominal (réfléchi) ?
+        <span class="q-note">se laver, se lever, s'appeler…</span>
+      </div>
+      <div class="arr"><div class="arr-line arr-line-short"></div></div>
+
+      <div class="branch-row">
+        <div class="branch-col">
+          <div class="blabel blabel-oui">Oui</div>
+          <div class="arr"><div class="arr-line arr-line-inner"></div><div class="arr-head"></div></div>
+          <div class="action action-etre">
+            <div class="action-label action-label-etre">Ajouter le pronom réfléchi avant être</div>
+            <table class="mini-table">
+              <tr><th>Sujet</th><th>Pronom</th></tr>
+              <tr><td>je</td><td><code>me (m')</code></td></tr>
+              <tr><td>tu</td><td><code>te (t')</code></td></tr>
+              <tr><td>il/elle</td><td><code>se (s')</code></td></tr>
+              <tr><td>nous</td><td><code>nous</code></td></tr>
+              <tr><td>vous</td><td><code>vous</code></td></tr>
+              <tr><td>ils/elles</td><td><code>se (s')</code></td></tr>
+            </table>
+            <div class="action-note">ex. <em>je me suis lavé</em></div>
+          </div>
+        </div>
+        <div class="branch-col">
+          <div class="blabel blabel-non">Non</div>
+          <div class="arr"><div class="arr-line arr-line-inner"></div><div class="arr-head"></div></div>
+          <div class="action action-etre action-muted">Pas de pronom réfléchi</div>
+        </div>
+      </div>
+
+      <div class="arr"><div class="arr-line arr-line-med"></div><div class="arr-head"></div></div>
+
+      <div class="q-box">Le participe passé est-il irrégulier ?</div>
+      <div class="arr"><div class="arr-line arr-line-short"></div></div>
+
+      <div class="branch-row">
+        <div class="branch-col">
+          <div class="blabel blabel-oui">Oui → utiliser la forme irrégulière</div>
+          <div class="arr"><div class="arr-line arr-line-inner"></div><div class="arr-head"></div></div>
+          <div class="action action-etre">
+            <div class="action-label action-label-etre">Participes irréguliers courants (avec être)</div>
+            <table class="mini-table">
+              <tr><th>Infinitif</th><th>Participe</th></tr>
+              <tr><td>venir</td><td><code>venu</code></td></tr>
+              <tr><td>devenir</td><td><code>devenu</code></td></tr>
+              <tr><td>revenir</td><td><code>revenu</code></td></tr>
+              <tr><td>parvenir</td><td><code>parvenu</code></td></tr>
+              <tr><td>survenir</td><td><code>survenu</code></td></tr>
+              <tr><td>mourir</td><td><code>mort</code></td></tr>
+              <tr><td>naître</td><td><code>né</code></td></tr>
+              <tr><td>partir</td><td><code>parti</code></td></tr>
+              <tr><td>repartir</td><td><code>reparti</code></td></tr>
+              <tr><td>sortir</td><td><code>sorti</code></td></tr>
+              <tr><td>ressortir</td><td><code>ressorti</code></td></tr>
+              <tr><td>tenir</td><td><code>tenu</code></td></tr>
+              <tr><td>retenir</td><td><code>retenu</code></td></tr>
+              <tr><td>appartenir</td><td><code>appartenu</code></td></tr>
+              <tr><td>aller</td><td><code>allé</code></td></tr>
+              <tr><td>rentrer</td><td><code>rentré</code></td></tr>
+              <tr><td>rester</td><td><code>resté</code></td></tr>
+              <tr><td>tomber</td><td><code>tombé</code></td></tr>
+              <tr><td>retomber</td><td><code>retombé</code></td></tr>
+              <tr><td>arriver</td><td><code>arrivé</code></td></tr>
+              <tr><td>entrer</td><td><code>entré</code></td></tr>
+              <tr><td>retourner</td><td><code>retourné</code></td></tr>
+              <tr><td>passer (par)</td><td><code>passé</code></td></tr>
+              <tr><td>monter</td><td><code>monté</code></td></tr>
+              <tr><td>remonter</td><td><code>remonté</code></td></tr>
+              <tr><td>descendre</td><td><code>descendu</code></td></tr>
+              <tr><td>redescendre</td><td><code>redescendu</code></td></tr>
+            </table>
+          </div>
+        </div>
+        <div class="branch-col">
+          <div class="blabel blabel-non">Non → règles régulières</div>
+          <div class="arr"><div class="arr-line arr-line-inner"></div><div class="arr-head"></div></div>
+          <div class="action action-etre">
+            <div class="action-label action-label-etre">Terminaisons régulières</div>
+            <table class="mini-table">
+              <tr><th>Infinitif</th><th>Terminaison</th><th>Exemple</th></tr>
+              <tr><td>-er</td><td><code>-é</code></td><td>allé</td></tr>
+              <tr><td>-ir</td><td><code>-i</code></td><td>parti</td></tr>
+              <tr><td>-re</td><td><code>-u</code></td><td>descendu</td></tr>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="arr"><div class="arr-line arr-line-med"></div><div class="arr-head"></div></div>
+
+      <div class="q-box">Verbe pronominal + COD placé <em>après</em> le verbe ?
+        <span class="q-note">ex. <em>elle s'est lavé les mains</em> (les mains = COD)</span>
+      </div>
+      <div class="arr"><div class="arr-line arr-line-short"></div></div>
+
+      <div class="branch-row">
+        <div class="branch-col">
+          <div class="blabel blabel-oui">Oui → pas d'accord</div>
+          <div class="arr"><div class="arr-line arr-line-inner"></div><div class="arr-head"></div></div>
+          <div class="action action-etre action-muted">
+            Participe invariable<br>
+            <em>Elle s'est lavé les mains.</em>
+          </div>
+        </div>
+        <div class="branch-col">
+          <div class="blabel blabel-non">Non → accord requis</div>
+          <div class="arr"><div class="arr-line arr-line-inner"></div><div class="arr-head"></div></div>
+          <div class="action action-etre">
+            <div class="action-label action-label-etre">Accord avec le sujet</div>
+            <table class="mini-table">
+              <tr><th>Sujet</th><th>Terminaison</th><th>Exemple</th></tr>
+              <tr><td>masc. sing.</td><td>(rien)</td><td>il est parti</td></tr>
+              <tr><td>fém. sing.</td><td><code>+e</code></td><td>elle est partie</td></tr>
+              <tr><td>masc. pl.</td><td><code>+s</code></td><td>ils sont partis</td></tr>
+              <tr><td>fém. pl.</td><td><code>+es</code></td><td>elles sont parties</td></tr>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div style="flex:1; min-height:20px"></div>
+    </div>
+
+    <div class="branch-col">
+      <div class="blabel blabel-non">Non → avoir</div>
+      <div class="arr"><div class="arr-line arr-line-med"></div><div class="arr-head"></div></div>
+
+      <div class="action action-avoir">
+        <div class="action-label action-label-avoir">Conjuguer avoir (présent)</div>
+        <table class="mini-table">
+          <tr><th>Sujet</th><th>Avoir</th></tr>
+          <tr><td>je</td><td><code>ai</code></td></tr>
+          <tr><td>tu</td><td><code>as</code></td></tr>
+          <tr><td>il / elle / on</td><td><code>a</code></td></tr>
+          <tr><td>nous</td><td><code>avons</code></td></tr>
+          <tr><td>vous</td><td><code>avez</code></td></tr>
+          <tr><td>ils / elles</td><td><code>ont</code></td></tr>
+        </table>
+      </div>
+
+      <div class="arr"><div class="arr-line arr-line-med"></div><div class="arr-head"></div></div>
+
+      <div class="q-box">Le participe passé est-il irrégulier ?</div>
+      <div class="arr"><div class="arr-line arr-line-short"></div></div>
+
+      <div class="branch-row">
+        <div class="branch-col">
+          <div class="blabel blabel-oui">Oui → utiliser la forme irrégulière</div>
+          <div class="arr"><div class="arr-line arr-line-inner"></div><div class="arr-head"></div></div>
+          <div class="action action-avoir">
+            <div class="action-label action-label-avoir">Participes irréguliers (avec avoir)</div>
+            <table class="mini-table">
+              <tr><th>Infinitif</th><th>Participe</th></tr>
+              <tr><td>avoir</td><td><code>eu</code></td></tr>
+              <tr><td>être</td><td><code>été</code></td></tr>
+              <tr><td>faire</td><td><code>fait</code></td></tr>
+              <tr><td>défaire</td><td><code>défait</code></td></tr>
+              <tr><td>refaire</td><td><code>refait</code></td></tr>
+              <tr><td>dire</td><td><code>dit</code></td></tr>
+              <tr><td>contredire</td><td><code>contredit</code></td></tr>
+              <tr><td>interdire</td><td><code>interdit</code></td></tr>
+              <tr><td>écrire</td><td><code>écrit</code></td></tr>
+              <tr><td>décrire</td><td><code>décrit</code></td></tr>
+              <tr><td>inscrire</td><td><code>inscrit</code></td></tr>
+              <tr><td>prendre</td><td><code>pris</code></td></tr>
+              <tr><td>apprendre</td><td><code>appris</code></td></tr>
+              <tr><td>comprendre</td><td><code>compris</code></td></tr>
+              <tr><td>reprendre</td><td><code>repris</code></td></tr>
+              <tr><td>surprendre</td><td><code>surpris</code></td></tr>
+              <tr><td>mettre</td><td><code>mis</code></td></tr>
+              <tr><td>admettre</td><td><code>admis</code></td></tr>
+              <tr><td>promettre</td><td><code>promis</code></td></tr>
+              <tr><td>remettre</td><td><code>remis</code></td></tr>
+              <tr><td>soumettre</td><td><code>soumis</code></td></tr>
+              <tr><td>voir</td><td><code>vu</code></td></tr>
+              <tr><td>prévoir</td><td><code>prévu</code></td></tr>
+              <tr><td>revoir</td><td><code>revu</code></td></tr>
+              <tr><td>vouloir</td><td><code>voulu</code></td></tr>
+              <tr><td>pouvoir</td><td><code>pu</code></td></tr>
+              <tr><td>savoir</td><td><code>su</code></td></tr>
+              <tr><td>valoir</td><td><code>valu</code></td></tr>
+              <tr><td>devoir</td><td><code>dû</code></td></tr>
+              <tr><td>recevoir</td><td><code>reçu</code></td></tr>
+              <tr><td>apercevoir</td><td><code>aperçu</code></td></tr>
+              <tr><td>concevoir</td><td><code>conçu</code></td></tr>
+              <tr><td>boire</td><td><code>bu</code></td></tr>
+              <tr><td>lire</td><td><code>lu</code></td></tr>
+              <tr><td>relire</td><td><code>relu</code></td></tr>
+              <tr><td>élire</td><td><code>élu</code></td></tr>
+              <tr><td>plaire</td><td><code>plu</code></td></tr>
+              <tr><td>déplaire</td><td><code>déplu</code></td></tr>
+              <tr><td>pleuvoir</td><td><code>plu</code></td></tr>
+              <tr><td>falloir</td><td><code>fallu</code></td></tr>
+              <tr><td>connaître</td><td><code>connu</code></td></tr>
+              <tr><td>reconnaître</td><td><code>reconnu</code></td></tr>
+              <tr><td>paraître</td><td><code>paru</code></td></tr>
+              <tr><td>apparaître</td><td><code>apparu</code></td></tr>
+              <tr><td>disparaître</td><td><code>disparu</code></td></tr>
+              <tr><td>ouvrir</td><td><code>ouvert</code></td></tr>
+              <tr><td>couvrir</td><td><code>couvert</code></td></tr>
+              <tr><td>découvrir</td><td><code>découvert</code></td></tr>
+              <tr><td>offrir</td><td><code>offert</code></td></tr>
+              <tr><td>souffrir</td><td><code>souffert</code></td></tr>
+              <tr><td>cueillir</td><td><code>cueilli</code></td></tr>
+              <tr><td>tenir</td><td><code>tenu</code></td></tr>
+              <tr><td>obtenir</td><td><code>obtenu</code></td></tr>
+              <tr><td>maintenir</td><td><code>maintenu</code></td></tr>
+              <tr><td>soutenir</td><td><code>soutenu</code></td></tr>
+              <tr><td>contenir</td><td><code>contenu</code></td></tr>
+              <tr><td>vivre</td><td><code>vécu</code></td></tr>
+              <tr><td>survivre</td><td><code>survécu</code></td></tr>
+              <tr><td>suivre</td><td><code>suivi</code></td></tr>
+              <tr><td>poursuivre</td><td><code>poursuivi</code></td></tr>
+              <tr><td>craindre</td><td><code>craint</code></td></tr>
+              <tr><td>plaindre</td><td><code>plaint</code></td></tr>
+              <tr><td>peindre</td><td><code>peint</code></td></tr>
+              <tr><td>éteindre</td><td><code>éteint</code></td></tr>
+              <tr><td>atteindre</td><td><code>atteint</code></td></tr>
+              <tr><td>rejoindre</td><td><code>rejoint</code></td></tr>
+              <tr><td>joindre</td><td><code>joint</code></td></tr>
+              <tr><td>résoudre</td><td><code>résolu</code></td></tr>
+              <tr><td>absoudre</td><td><code>absous</code></td></tr>
+              <tr><td>conduire</td><td><code>conduit</code></td></tr>
+              <tr><td>produire</td><td><code>produit</code></td></tr>
+              <tr><td>traduire</td><td><code>traduit</code></td></tr>
+              <tr><td>construire</td><td><code>construit</code></td></tr>
+              <tr><td>cuire</td><td><code>cuit</code></td></tr>
+              <tr><td>nuire</td><td><code>nui</code></td></tr>
+              <tr><td>rire</td><td><code>ri</code></td></tr>
+              <tr><td>sourire</td><td><code>souri</code></td></tr>
+              <tr><td>vaincre</td><td><code>vaincu</code></td></tr>
+              <tr><td>convaincre</td><td><code>convaincu</code></td></tr>
+              <tr><td>croître</td><td><code>crû</code></td></tr>
+              <tr><td>croire</td><td><code>cru</code></td></tr>
+              <tr><td>courir</td><td><code>couru</code></td></tr>
+              <tr><td>parcourir</td><td><code>parcouru</code></td></tr>
+              <tr><td>secourir</td><td><code>secouru</code></td></tr>
+              <tr><td>acquérir</td><td><code>acquis</code></td></tr>
+              <tr><td>conquérir</td><td><code>conquis</code></td></tr>
+              <tr><td>asseoir</td><td><code>assis</code></td></tr>
+              <tr><td>choir</td><td><code>chu</code></td></tr>
+              <tr><td>coudre</td><td><code>cousu</code></td></tr>
+              <tr><td>moudre</td><td><code>moulu</code></td></tr>
+              <tr><td>répandre</td><td><code>répandu</code></td></tr>
+              <tr><td>perdre</td><td><code>perdu</code></td></tr>
+              <tr><td>répondre</td><td><code>répondu</code></td></tr>
+              <tr><td>fondre</td><td><code>fondu</code></td></tr>
+              <tr><td>battre</td><td><code>battu</code></td></tr>
+              <tr><td>combattre</td><td><code>combattu</code></td></tr>
+              <tr><td>abattre</td><td><code>abattu</code></td></tr>
+            </table>
+          </div>
+        </div>
+        <div class="branch-col">
+          <div class="blabel blabel-non">Non → règles régulières</div>
+          <div class="arr"><div class="arr-line arr-line-inner"></div><div class="arr-head"></div></div>
+          <div class="action action-avoir">
+            <div class="action-label action-label-avoir">Terminaisons régulières</div>
+            <table class="mini-table">
+              <tr><th>Infinitif</th><th>Terminaison</th><th>Exemple</th></tr>
+              <tr><td>-er</td><td><code>-é</code></td><td>mangé</td></tr>
+              <tr><td>-ir</td><td><code>-i</code></td><td>fini</td></tr>
+              <tr><td>-re</td><td><code>-u</code></td><td>vendu</td></tr>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="arr"><div class="arr-line arr-line-med"></div><div class="arr-head"></div></div>
+
+      <div class="q-box">Un COD précède-t-il le verbe ?
+        <span class="q-note">pronom : <em>je l'ai vue</em> · relative : <em>la fille que j'ai vue</em></span>
+      </div>
+      <div class="arr"><div class="arr-line arr-line-short"></div></div>
+
+      <!-- sub-branch: COD avant avoir -->
+      <div class="branch-row">
+        <div class="branch-col">
+          <div class="blabel blabel-oui">Oui → accord requis</div>
+          <div class="arr"><div class="arr-line arr-line-inner"></div><div class="arr-head"></div></div>
+          <div class="action action-avoir">
+            <div class="action-label action-label-avoir">Accord avec le COD qui précède</div>
+            <table class="mini-table">
+              <tr><th>COD</th><th>Terminaison</th><th>Exemple</th></tr>
+              <tr><td>masc. sing.</td><td>(rien)</td><td>je l'ai vu</td></tr>
+              <tr><td>fém. sing.</td><td><code>+e</code></td><td>je l'ai vue</td></tr>
+              <tr><td>masc. pl.</td><td><code>+s</code></td><td>je les ai vus</td></tr>
+              <tr><td>fém. pl.</td><td><code>+es</code></td><td>je les ai vues</td></tr>
+            </table>
+          </div>
+        </div>
+        <div class="branch-col">
+          <div class="blabel blabel-non">Non</div>
+          <div class="arr"><div class="arr-line arr-line-inner"></div><div class="arr-head"></div></div>
+          <div class="action action-avoir action-muted">
+            Participe invariable<br>
+            <em>J'ai mangé.</em>
+          </div>
+        </div>
+      </div>
+      <div style="flex:1; min-height:20px"></div>
+    </div>
+
+  </div>
+
+  <div class="converge-wrap" style="height:54px;">
+    <svg class="converge-svg" viewBox="0 0 760 54" preserveAspectRatio="xMidYMid meet">
+      <polyline points="190,0 190,28 380,28" fill="none" stroke="rgba(0,0,0,0.3)" stroke-width="1"/>
+      <polyline points="570,0 570,28 380,28" fill="none" stroke="rgba(0,0,0,0.3)" stroke-width="1"/>
+      <line x1="380" y1="28" x2="380" y2="46" stroke="rgba(0,0,0,0.3)" stroke-width="1"/>
+      <polygon points="374,46 386,46 380,54" fill="rgba(0,0,0,0.3)"/>
+    </svg>
+  </div>
+
+  <div class="q-box">Y a-t-il une négation ?</div>
+  <div class="arr"><div class="arr-line arr-line-short"></div></div>
+
+  <div class="branch-row" style="max-width:640px;">
+    <div class="branch-col">
+      <div class="blabel blabel-oui">Oui</div>
+      <div class="arr"><div class="arr-line arr-line-inner"></div><div class="arr-head"></div></div>
+      <div class="action action-neutral">
+        <div class="action-label">Encadrer l'auxiliaire de <code>ne…pas</code></div>
+        <table class="mini-table">
+          <tr><th>Auxiliaire</th><th>Exemple</th></tr>
+          <tr><td>avoir</td><td><em>je n'ai pas mangé</em></td></tr>
+          <tr><td>être</td><td><em>elle n'est pas venue</em></td></tr>
+        </table>
+        <div class="action-note"><span class="tag">remarque</span>À l'oral familier, le <code>ne</code> disparaît souvent : <em>j'ai pas mangé</em></div>
+      </div>
+    </div>
+    <div class="branch-col">
+      <div class="blabel blabel-non">Non</div>
+      <div class="arr"><div class="arr-line arr-line-inner"></div><div class="arr-head"></div></div>
+      <div class="action action-neutral action-muted">Rien à changer</div>
+    </div>
+  </div>
+
+  <div class="arr"><div class="arr-line arr-line-med"></div><div class="arr-head"></div></div>
+
+  <div class="q-box">Est-ce une question ?</div>
+  <div class="arr"><div class="arr-line arr-line-short"></div></div>
+
+  <div class="branch-row" style="max-width:640px;">
+    <div class="branch-col">
+      <div class="blabel blabel-oui">Oui</div>
+      <div class="arr"><div class="arr-line arr-line-inner"></div><div class="arr-head"></div></div>
+
+      <div class="q-box q-box-sm">Tutoies-tu ou vouvoyez-vous l'interlocuteur·trice ?</div>
+      <div class="arr"><div class="arr-line arr-line-short"></div></div>
+
+      <div class="branch-row">
+        <div class="branch-col">
+          <div class="blabel blabel-oui blabel-nowrap">Tu (tutoiement)</div>
+          <div class="arr"><div class="arr-line arr-line-inner"></div><div class="arr-head"></div></div>
+          <div class="action action-neutral">
+            <div class="action-label">Forme de question</div>
+            <table class="mini-table">
+              <tr><th>Forme</th><th>Exemple</th><th>Registre</th></tr>
+              <tr><td>Inversion</td><td><em>As-tu mangé ?</em></td><td>soutenu</td></tr>
+              <tr><td><code>Est-ce que</code></td><td><em>Est-ce que tu as mangé ?</em></td><td>neutre</td></tr>
+              <tr><td>Intonation</td><td><em>Tu as mangé ?</em></td><td>familier ★</td></tr>
+            </table>
+            <div class="action-note">★ Le plus courant à l'oral</div>
+          </div>
+        </div>
+        <div class="branch-col">
+          <div class="blabel blabel-vous blabel-nowrap">Vous (vouvoiement)</div>
+          <div class="arr"><div class="arr-line arr-line-inner"></div><div class="arr-head"></div></div>
+          <div class="action action-neutral">
+            <div class="action-label">Forme de question</div>
+            <table class="mini-table">
+              <tr><th>Forme</th><th>Exemple</th><th>Registre</th></tr>
+              <tr><td>Inversion ★</td><td><em>Avez-vous mangé ?</em></td><td>soutenu — recommandé</td></tr>
+              <tr><td><code>Est-ce que</code></td><td><em>Est-ce que vous avez mangé ?</em></td><td>neutre</td></tr>
+              <tr><td>Intonation</td><td><em>Vous avez mangé ?</em></td><td>familier — à éviter</td></tr>
+            </table>
+            <div class="action-note">★ L'inversion est fortement recommandée avec le vouvoiement</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="branch-col">
+      <div class="blabel blabel-non">Non</div>
+      <div class="arr"><div class="arr-line arr-line-inner"></div><div class="arr-head"></div></div>
+      <div class="action action-neutral action-muted">Rien à changer</div>
+    </div>
+  </div>
+
+  <div class="arr"><div class="arr-line arr-line-long"></div><div class="arr-head"></div></div>
+  <div class="end-node">✓ Votre passé composé est correct</div>
+
+</div>
+
+<div class="tables-section">
+  <div class="divider-line"></div>
+
+  <div>
+    <div class="table-title">Familles de participes passés irréguliers</div>
+    <table class="summary-table">
+      <tr><th>Terminaison du participe</th><th>Exemple</th></tr>
+      <tr><td>Verbes en <code>-oir</code> → <code>-u</code></td><td>pouvoir → pu, vouloir → voulu, savoir → su, devoir → dû, recevoir → reçu</td></tr>
+      <tr><td>Verbes en <code>-re</code> (plupart) → <code>-u</code></td><td>boire → bu, lire → lu, connaître → connu, paraître → paru, croire → cru</td></tr>
+      <tr><td>Famille <code>-indre / -oindre / -aindre</code> → <code>-int / -oint</code></td><td>craindre → craint, peindre → peint, joindre → joint, atteindre → atteint</td></tr>
+      <tr><td>Verbes en <code>-rir</code> (ouverts) → <code>-ert</code></td><td>ouvrir → ouvert, offrir → offert, souffrir → souffert, découvrir → découvert</td></tr>
+      <tr><td>Verbes en <code>-ire</code> → <code>-it</code></td><td>dire → dit, écrire → écrit, interdire → interdit, décrire → décrit</td></tr>
+      <tr><td>Verbes en <code>-uire</code> → <code>-uit</code></td><td>conduire → conduit, produire → produit, traduire → traduit, cuire → cuit</td></tr>
+      <tr><td>Famille <code>faire</code> → <code>-fait</code></td><td>faire → fait, défaire → défait, refaire → refait</td></tr>
+      <tr><td>Famille <code>prendre</code> → <code>-pris</code></td><td>prendre → pris, apprendre → appris, comprendre → compris, surprendre → surpris</td></tr>
+      <tr><td>Famille <code>mettre</code> → <code>-mis</code></td><td>mettre → mis, promettre → promis, remettre → remis, soumettre → soumis</td></tr>
+      <tr><td>Famille <code>-enir</code> (tenir/venir) → <code>-enu</code></td><td>venir → venu, tenir → tenu, obtenir → obtenu, devenir → devenu</td></tr>
+    </table>
+  </div>
+
+  <div>
+    <div class="table-title">Formes isolées — à mémoriser</div>
+    <table class="summary-table">
+      <tr><th>Infinitif</th><th>Participe passé</th></tr>
+      <tr><td>être</td><td><code>été</code></td></tr>
+      <tr><td>avoir</td><td><code>eu</code></td></tr>
+      <tr><td>naître</td><td><code>né</code></td></tr>
+      <tr><td>mourir</td><td><code>mort</code></td></tr>
+      <tr><td>vivre</td><td><code>vécu</code></td></tr>
+      <tr><td>suivre</td><td><code>suivi</code></td></tr>
+      <tr><td>courir</td><td><code>couru</code></td></tr>
+      <tr><td>rire</td><td><code>ri</code></td></tr>
+      <tr><td>vaincre</td><td><code>vaincu</code></td></tr>
+      <tr><td>asseoir</td><td><code>assis</code></td></tr>
+      <tr><td>absoudre</td><td><code>absous</code></td></tr>
+      <tr><td>choir</td><td><code>chu</code></td></tr>
+      <tr><td>acquérir</td><td><code>acquis</code></td></tr>
+      <tr><td>nuire</td><td><code>nui</code></td></tr>
+    </table>
+  </div>
+
+</div>
+
+</body>
+</html>

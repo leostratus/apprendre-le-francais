@@ -1,0 +1,109 @@
+.app-body {
+  display: flex;
+  align-items: flex-start;
+}
+
+#app-root { flex: 1; min-width: 0; }
+
+#phoneme-rail {
+  width: 230px;
+  flex-shrink: 0;
+  position: sticky;
+  top: 3.6rem;
+  padding: 1.4rem 1.2rem 1.4rem 0;
+  max-height: calc(100vh - 3.6rem);
+  overflow-y: auto;
+}
+
+.rail-title {
+  font-family: 'Noto Sans Mono', monospace;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  margin-bottom: 0.8rem;
+}
+
+.rail-legend {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.9rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.rail-leg {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  flex-wrap: wrap;
+}
+
+.rail-symbols {
+  font-size: 0.72rem;
+  color: var(--muted);
+  margin-left: auto;
+}
+
+.rail-open-btn {
+  appearance: none;
+  width: 100%;
+  margin-top: 0.8rem;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 0.78rem;
+  font-weight: 500;
+  padding: 0.5rem 0.7rem;
+  border-radius: 6px;
+  cursor: pointer;
+  text-align: left;
+}
+.rail-open-btn:hover { background: var(--border); color: var(--bright); }
+
+.rail-toggle-btn {
+  display: none;
+}
+
+.rail-overlay {
+  position: fixed; inset: 0; z-index: 100;
+  background: rgba(0,0,0,0.55);
+  display: flex; align-items: flex-end; justify-content: flex-end;
+  padding: 1rem;
+}
+.rail-overlay-box {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.2rem;
+  width: 260px;
+  max-width: 90vw;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+}
+
+@media (max-width: 960px) {
+  #phoneme-rail { display: none; }
+  .rail-toggle-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    right: 1.1rem;
+    bottom: 1.1rem;
+    z-index: 60;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--bright);
+    font-size: 1.2rem;
+    cursor: pointer;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+  }
+  .rail-toggle-btn:hover { background: var(--border); }
+}

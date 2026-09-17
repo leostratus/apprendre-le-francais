@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Formation des adverbes — organigramme</title>
+<style>
+  :root {
+    --bg:        #ffffff;
+    --bg2:       #f5f5f3;
+    --bg3:       #eeede8;
+    --text:      #1a1a18;
+    --text2:     #6b6b66;
+    --text3:     #9c9a92;
+    --border:    rgba(0,0,0,0.15);
+    --border2:   rgba(0,0,0,0.30);
+    --border3:   rgba(0,0,0,0.40);
+    --green:     #1D9E75;
+    --green-dk:  #0F6E56;
+    --green-bg:  #E1F5EE;
+    --green-txt: #085041;
+    --blue:      #378ADD;
+    --blue-dk:   #185FA5;
+    --blue-bg:   #E6F1FB;
+    --blue-txt:  #0C447C;
+    --orange:    #D4732A;
+    --orange-dk: #9E4E12;
+    --orange-bg: #FDEBD8;
+    --orange-txt:#7A3510;
+    --purple:    #7C5CBF;
+    --purple-bg: #EEEDFE;
+    --purple-txt:#3C3489;
+    --amber-bg:  #FAEEDA;
+    --amber-txt: #854F0B;
+    --gray:      #888780;
+    --r-sm:      6px;
+    --r-md:      8px;
+    --r-lg:      12px;
+    --r-pill:    20px;
+    --sans:      system-ui, -apple-system, sans-serif;
+    --mono:      ui-monospace, 'Cascadia Code', monospace;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--sans);
+    font-size: 13px;
+    background: var(--bg);
+    color: var(--text);
+    padding: 2rem 1.5rem 4rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  code {
+    font-family: var(--mono);
+    font-size: 11px;
+    background: var(--bg2);
+    padding: 1px 4px;
+    border-radius: 3px;
+  }
+
+  .fc {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    padding: 1.5rem 2rem;
+  }
+
+  .branch-row {
+    display: flex;
+    align-items: flex-start;
+    gap:275px;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .branch-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    flex: 1;
+    min-width: 265px;
+    max-width: 296px;
+  }
+
+  .arr {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1px;
+    margin: 2px 0;
+  }
+
+  .arr-line            { width: 1px; background: var(--border2); }
+  .arr-line-short      { height: 8px; }
+  .arr-line-med        { height: 16px; }
+  .arr-line-long       { height: 18px; }
+  .arr-line-inner      { height: 14px; }
+
+  .arr-head {
+    width: 0; height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 7px solid var(--border2);
+  }
+
+  .start-node {
+    background: var(--text);
+    color: var(--bg);
+    border-radius: var(--r-pill);
+    padding: 6px 20px;
+    font-weight: 500;
+    font-size: 13px;
+    display: inline-block;
+    margin-bottom: 4px;
+  }
+
+  .end-node {
+    background: var(--bg);
+    border: 0.5px solid var(--border2);
+    border-radius: var(--r-pill);
+    padding: 8px 20px;
+    font-weight: 500;
+    font-size: 13px;
+    color: var(--text);
+    margin-top: 4px;
+  }
+
+  .q-box {
+    background: var(--bg2);
+    border: 0.5px solid var(--border2);
+    border-radius: var(--r-md);
+    padding: 8px 14px;
+    max-width: 440px;
+    width: 100%;
+    text-align: center;
+    font-weight: 500;
+    color: var(--text);
+    font-size: 13px;
+  }
+
+  .q-note {
+    font-size: 11px;
+    color: var(--text2);
+    font-style: italic;
+    font-weight: 400;
+    display: block;
+    margin-top: 2px;
+  }
+
+  .blabel {
+    font-size: 11px;
+    font-weight: 500;
+    padding: 2px 10px;
+    border-radius: var(--r-pill);
+    margin-bottom: 3px;
+    white-space: nowrap;
+  }
+
+  .blabel-oui     { background: var(--green-bg);   color: var(--green-txt); }
+  .blabel-non     { background: var(--blue-bg);    color: var(--blue-txt); }
+  .blabel-orange  { background: var(--orange-bg);  color: var(--orange-txt); }
+  .blabel-purple  { background: var(--purple-bg);  color: var(--purple-txt); }
+
+  .action {
+    background: var(--bg);
+    border: 0.5px solid var(--border2);
+    border-radius: var(--r-md);
+    padding: 10px 14px;
+    width: 100%;
+    color: var(--text);
+  }
+
+  .action-green   { border-left: 3px solid var(--green); }
+  .action-blue    { border-left: 3px solid var(--blue); }
+  .action-orange  { border-left: 3px solid var(--orange); }
+  .action-purple  { border-left: 3px solid var(--purple); }
+  .action-neutral { border-left: 3px solid var(--gray); }
+  .action-muted   { font-size: 11px; color: var(--text2); padding: 8px 10px; }
+
+  .action-label {
+    font-weight: 500;
+    font-size: 13px;
+    margin-bottom: 6px;
+  }
+
+  .action-label-green  { color: var(--green-dk); }
+  .action-label-blue   { color: var(--blue-dk); }
+  .action-label-orange { color: var(--orange-dk); }
+  .action-label-purple { color: var(--purple); }
+
+  .action-note {
+    font-size: 11px;
+    color: var(--text2);
+    margin-top: 4px;
+    font-style: italic;
+  }
+
+  .mini-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 11px;
+    margin-top: 6px;
+  }
+
+  .mini-table th {
+    background: var(--bg2);
+    color: var(--text2);
+    font-weight: 500;
+    padding: 3px 6px;
+    text-align: left;
+    border: 0.5px solid var(--border);
+  }
+
+  .mini-table td {
+    padding: 3px 6px;
+    border: 0.5px solid var(--border);
+    color: var(--text);
+  }
+
+  .mini-table tr:nth-child(odd) td { background: var(--bg2); }
+
+  .tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 500;
+    padding: 1px 6px;
+    border-radius: 10px;
+    margin-right: 3px;
+    background: var(--amber-bg);
+    color: var(--amber-txt);
+  }
+
+  .converge-wrap {
+    width: 100%;
+    max-width: 960px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .converge-svg { display: block; width: 100%; }
+
+  .tables-section {
+    width: 100%;
+    max-width: 960px;
+    margin: 2rem auto 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .divider-line {
+    width: 100%;
+    height: 0.5px;
+    background: var(--border);
+    margin: 1rem 0;
+  }
+
+  .table-title {
+    font-weight: 500;
+    font-size: 13px;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+
+  .summary-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+  }
+
+  .summary-table th {
+    background: var(--bg2);
+    color: var(--text2);
+    font-weight: 500;
+    padding: 5px 10px;
+    text-align: left;
+    border: 0.5px solid var(--border);
+  }
+
+  .summary-table td {
+    padding: 5px 10px;
+    border: 0.5px solid var(--border);
+    color: var(--text);
+  }
+
+  .summary-table tr:nth-child(odd) td { background: var(--bg2); }
+
+</style>
+</head>
+<body>
+<div class="fc">
+
+  <div class="start-node">Début : former l'adverbe</div>
+  <div class="arr"><div class="arr-line arr-line-long"></div><div class="arr-head"></div></div>
+
+  <div class="q-box">L'adverbe est-il un mot indépendant (non dérivé d'un adjectif) ?
+    <span class="q-note">très, assez, trop, déjà, souvent, toujours, jamais, hier, bien, mal, vite…</span>
+  </div>
+  <div class="arr"><div class="arr-line arr-line-short"></div></div>
+
+  <div class="branch-row">
+
+    <div class="branch-col">
+      <div class="blabel blabel-oui">Oui → utiliser tel quel</div>
+      <div class="arr"><div class="arr-line arr-line-med"></div><div class="arr-head"></div></div>
+      <div class="action action-green">
+        <div class="action-label action-label-green">Adverbes indépendants courants</div>
+        <table class="mini-table">
+          <tr><th>Adverbe</th><th>Sens</th></tr>
+          <tr><td><code>très</code></td><td>very</td></tr>
+          <tr><td><code>assez</code></td><td>quite / enough</td></tr>
+          <tr><td><code>trop</code></td><td>too much</td></tr>
+          <tr><td><code>plus</code></td><td>more</td></tr>
+          <tr><td><code>moins</code></td><td>less</td></tr>
+          <tr><td><code>aussi</code></td><td>also / as</td></tr>
+          <tr><td><code>déjà</code></td><td>already</td></tr>
+          <tr><td><code>encore</code></td><td>still / again</td></tr>
+          <tr><td><code>jamais</code></td><td>never</td></tr>
+          <tr><td><code>souvent</code></td><td>often</td></tr>
+          <tr><td><code>toujours</code></td><td>always</td></tr>
+          <tr><td><code>parfois</code></td><td>sometimes</td></tr>
+          <tr><td><code>bientôt</code></td><td>soon</td></tr>
+          <tr><td><code>hier</code></td><td>yesterday</td></tr>
+          <tr><td><code>aujourd'hui</code></td><td>today</td></tr>
+          <tr><td><code>demain</code></td><td>tomorrow</td></tr>
+          <tr><td><code>ici</code></td><td>here</td></tr>
+          <tr><td><code>là</code></td><td>there</td></tr>
+          <tr><td><code>partout</code></td><td>everywhere</td></tr>
+          <tr><td><code>bien</code></td><td>well (irrégulier de bon)</td></tr>
+          <tr><td><code>mal</code></td><td>badly (irrégulier de mauvais)</td></tr>
+          <tr><td><code>mieux</code></td><td>better (irrégulier de meilleur)</td></tr>
+          <tr><td><code>vite</code></td><td>fast (irrégulier de rapide)</td></tr>
+          <tr><td><code>peu</code></td><td>little (irrégulier de petit)</td></tr>
+        </table>
+        <div class="action-note"><span class="tag">remarque</span><em>bien, mal, mieux, vite, peu</em> sont irréguliers — leur adjectif de base ne suit aucune règle de formation</div>
+      </div>
+      <div style="flex:1; min-height:20px"></div>
+    </div>
+
+    <div class="branch-col">
+      <div class="blabel blabel-non">Non → dériver de l'adjectif</div>
+      <div class="arr"><div class="arr-line arr-line-med"></div><div class="arr-head"></div></div>
+
+      <div class="q-box">L'adjectif (masc.) se termine-t-il en <code>-ant</code> ou <code>-ent</code> ?</div>
+      <div class="arr"><div class="arr-line arr-line-short"></div></div>
+
+      <div class="branch-row">
+
+        <div class="branch-col">
+          <div class="blabel blabel-oui">Oui</div>
+          <div class="arr"><div class="arr-line arr-line-inner"></div><div class="arr-head"></div></div>
+          <div class="action action-blue">
+            <div class="action-label action-label-blue">Remplacer la terminaison</div>
+            <table class="mini-table">
+              <tr><th>Terminaison</th><th>Remplacer par</th><th>Exemple</th></tr>
+              <tr><td><code>-ant</code></td><td><code>-amment</code></td><td>courant → couramment</td></tr>
+              <tr><td><code>-ent</code></td><td><code>-emment</code></td><td>évident → évidemment</td></tr>
+            </table>
+            <div class="action-note"><span class="tag">prononciation</span><em>-amment</em> et <em>-emment</em> se prononcent de la même façon : [amɑ̃]</div>
+            <table class="mini-table" style="margin-top:10px">
+              <tr><th>Adjectif</th><th>Adverbe</th></tr>
+              <tr><td>constant</td><td><code>constamment</code></td></tr>
+              <tr><td>fréquent</td><td><code>fréquemment</code></td></tr>
+              <tr><td>prudent</td><td><code>prudemment</code></td></tr>
+              <tr><td>patient</td><td><code>patiemment</code></td></tr>
+              <tr><td>récent</td><td><code>récemment</code></td></tr>
+              <tr><td>brillant</td><td><code>brillamment</code></td></tr>
+              <tr><td>élégant</td><td><code>élégamment</code></td></tr>
+            </table>
+          </div>
+        </div>
+
+        <div class="branch-col">
+          <div class="blabel blabel-non">Non</div>
+          <div class="arr"><div class="arr-line arr-line-inner"></div><div class="arr-head"></div></div>
+
+          <div class="q-box">L'adjectif (masc.) se termine-t-il par une voyelle ?
+            <span class="q-note">-é, -i, -u, -ai, -el…</span>
+          </div>
+          <div class="arr"><div class="arr-line arr-line-short"></div></div>
+
+          <div class="branch-row">
+
+            <div class="branch-col">
+              <div class="blabel blabel-oui">Oui</div>
+              <div class="arr"><div class="arr-line arr-line-inner"></div><div class="arr-head"></div></div>
+              <div class="action action-orange">
+                <div class="action-label action-label-orange">Ajouter <code>-ment</code> directement au masculin</div>
+                <table class="mini-table">
+                  <tr><th>Adjectif masc.</th><th>Adverbe</th></tr>
+                  <tr><td>vrai</td><td><code>vraiment</code></td></tr>
+                  <tr><td>poli</td><td><code>poliment</code></td></tr>
+                  <tr><td>absolu</td><td><code>absolument</code></td></tr>
+                  <tr><td>aisé</td><td><code>aisément</code></td></tr>
+                  <tr><td>forcé</td><td><code>forcément</code></td></tr>
+                </table>
+                <div class="action-note"><span class="tag">exception</span><em>gai → gaiement</em> (pas gaiment)</div>
+              </div>
+            </div>
+
+            <div class="branch-col">
+              <div class="blabel blabel-non">Non → consonne finale</div>
+              <div class="arr"><div class="arr-line arr-line-inner"></div><div class="arr-head"></div></div>
+              <div class="action action-purple">
+                <div class="action-label action-label-purple">Mettre au féminin, puis ajouter <code>-ment</code></div>
+                <table class="mini-table">
+                  <tr><th>Masc.</th><th>Fém.</th><th>Adverbe</th></tr>
+                  <tr><td>lent</td><td>lente</td><td><code>lentement</code></td></tr>
+                  <tr><td>doux</td><td>douce</td><td><code>doucement</code></td></tr>
+                  <tr><td>heureux</td><td>heureuse</td><td><code>heureusement</code></td></tr>
+                  <tr><td>actif</td><td>active</td><td><code>activement</code></td></tr>
+                  <tr><td>premier</td><td>première</td><td><code>premièrement</code></td></tr>
+                  <tr><td>naturel</td><td>naturelle</td><td><code>naturellement</code></td></tr>
+                  <tr><td>seul</td><td>seule</td><td><code>seulement</code></td></tr>
+                  <tr><td>franc</td><td>franche</td><td><code>franchement</code></td></tr>
+                </table>
+                <div class="action-note"><span class="tag">exception</span>Certains adjectifs en <em>-e</em> muet prennent un accent pour marquer la syllabe : <em>énorme → énormément, profond → profondément, aveugle → aveuglément</em></div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <div style="flex:1; min-height:20px"></div>
+    </div>
+
+  </div>
+
+  <div class="converge-wrap" style="height:54px;">
+    <svg class="converge-svg" viewBox="0 0 760 54" preserveAspectRatio="xMidYMid meet">
+      <polyline points="190,0 190,28 380,28" fill="none" stroke="rgba(0,0,0,0.3)" stroke-width="1"/>
+      <polyline points="570,0 570,28 380,28" fill="none" stroke="rgba(0,0,0,0.3)" stroke-width="1"/>
+      <line x1="380" y1="28" x2="380" y2="46" stroke="rgba(0,0,0,0.3)" stroke-width="1"/>
+      <polygon points="374,46 386,46 380,54" fill="rgba(0,0,0,0.3)"/>
+    </svg>
+  </div>
+
+  <div class="end-node">✓ Adverbe formé</div>
+
+</div>
+
+
+<div class="fc" style="margin-top: 3rem;">
+
+  <div class="start-node">Début : placer l'adverbe dans la phrase</div>
+  <div class="arr"><div class="arr-line arr-line-long"></div><div class="arr-head"></div></div>
+
+  <div class="q-box">Quel type d'adverbe est-ce ?</div>
+  <div class="arr"><div class="arr-line arr-line-short"></div></div>
+
+  <div class="branch-row">
+
+    <div class="branch-col">
+      <div class="blabel blabel-oui">Manière, intensité ou quantité</div>
+      <div class="arr"><div class="arr-line arr-line-inner"></div><div class="arr-head"></div></div>
+      <div class="action-note" style="font-size:11px; color:var(--text2); margin-bottom:4px; font-style:italic;">lentement, bien, beaucoup, très, trop, assez…</div>
+
+      <div class="q-box">La phrase est-elle au temps simple ou composé ?
+        <span class="q-note">Temps simples : présent, imparfait, futur, conditionnel<br>Temps composés : passé composé, plus-que-parfait…</span>
+      </div>
+      <div class="arr"><div class="arr-line arr-line-short"></div></div>
+
+      <div class="branch-row">
+        <div class="branch-col">
+          <div class="blabel blabel-oui">Temps simple</div>
+          <div class="arr"><div class="arr-line arr-line-inner"></div><div class="arr-head"></div></div>
+          <div class="action action-green">
+            <div class="action-label action-label-green">Après le verbe conjugué</div>
+            <table class="mini-table">
+              <tr><th>Exemple</th></tr>
+              <tr><td><em>Elle parle lentement.</em></td></tr>
+              <tr><td><em>Il travaille bien.</em></td></tr>
+              <tr><td><em>Nous mangeons beaucoup.</em></td></tr>
+            </table>
+          </div>
+        </div>
+
+        <div class="branch-col">
+          <div class="blabel blabel-non">Temps composé</div>
+          <div class="arr"><div class="arr-line arr-line-inner"></div><div class="arr-head"></div></div>
+
+          <div class="q-box">L'adverbe est-il court et courant ?
+            <span class="q-note">bien, mal, mieux, déjà, encore, souvent, toujours, jamais, beaucoup, trop, assez, peu, vite, vraiment…</span>
+          </div>
+          <div class="arr"><div class="arr-line arr-line-short"></div></div>
+
+          <div class="branch-row">
+            <div class="branch-col">
+              <div class="blabel blabel-oui">Oui → entre auxiliaire et participe</div>
+              <div class="arr"><div class="arr-line arr-line-inner"></div><div class="arr-head"></div></div>
+              <div class="action action-green">
+                <div class="action-label action-label-green">Auxiliaire + adverbe + participe</div>
+                <table class="mini-table">
+                  <tr><th>Exemple</th></tr>
+                  <tr><td><em>Il a bien mangé.</em></td></tr>
+                  <tr><td><em>Elle a déjà fini.</em></td></tr>
+                  <tr><td><em>Nous avons beaucoup travaillé.</em></td></tr>
+                  <tr><td><em>Je n'ai jamais compris.</em></td></tr>
+                </table>
+              </div>
+            </div>
+            <div class="branch-col">
+              <div class="blabel blabel-non">Non (adverbe long) → après le participe</div>
+              <div class="arr"><div class="arr-line arr-line-inner"></div><div class="arr-head"></div></div>
+              <div class="action action-blue">
+                <div class="action-label action-label-blue">Auxiliaire + participe + adverbe</div>
+                <table class="mini-table">
+                  <tr><th>Exemple</th></tr>
+                  <tr><td><em>Elle a parlé lentement.</em></td></tr>
+                  <tr><td><em>Il a répondu poliment.</em></td></tr>
+                  <tr><td><em>Nous avons travaillé sérieusement.</em></td></tr>
+                </table>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div style="flex:1; min-height:20px"></div>
+    </div>
+
+    <div class="branch-col">
+      <div class="blabel blabel-orange">Temps ou lieu</div>
+      <div class="arr"><div class="arr-line arr-line-inner"></div><div class="arr-head"></div></div>
+      <div class="action-note" style="font-size:11px; color:var(--text2); margin-bottom:4px; font-style:italic;">hier, aujourd'hui, demain, bientôt, ici, là, partout…</div>
+
+      <div class="action action-orange">
+        <div class="action-label action-label-orange">En début ou en fin de proposition</div>
+        <table class="mini-table">
+          <tr><th>Position</th><th>Exemple</th><th>Effet</th></tr>
+          <tr><td>Début</td><td><em>Hier, il est parti.</em></td><td>mise en relief</td></tr>
+          <tr><td>Fin</td><td><em>Il est parti hier.</em></td><td>neutre</td></tr>
+          <tr><td>Début</td><td><em>Ici, on parle français.</em></td><td>mise en relief</td></tr>
+          <tr><td>Fin</td><td><em>On parle français ici.</em></td><td>neutre</td></tr>
+        </table>
+        <div class="action-note"><span class="tag">remarque</span>Les deux positions sont correctes — le début de phrase met l'adverbe en relief stylistique</div>
+      </div>
+      <div style="flex:1; min-height:20px"></div>
+    </div>
+
+    <div class="branch-col">
+      <div class="blabel blabel-purple">Modifie un adjectif ou un autre adverbe</div>
+      <div class="arr"><div class="arr-line arr-line-inner"></div><div class="arr-head"></div></div>
+      <div class="action-note" style="font-size:11px; color:var(--text2); margin-bottom:4px; font-style:italic;">très, assez, trop, si, vraiment, plutôt…</div>
+
+      <div class="action action-purple">
+        <div class="action-label action-label-purple">Directement avant le mot modifié</div>
+        <table class="mini-table">
+          <tr><th>Modifie</th><th>Exemple</th></tr>
+          <tr><td>adjectif</td><td><em>très grand, assez facile, trop lent</em></td></tr>
+          <tr><td>adverbe</td><td><em>très bien, assez souvent, trop vite</em></td></tr>
+          <tr><td>adjectif</td><td><em>vraiment beau, plutôt sympa</em></td></tr>
+        </table>
+        <div class="action-note"><span class="tag">règle</span>Ces adverbes d'intensité précèdent toujours le mot qu'ils modifient — jamais après</div>
+      </div>
+      <div style="flex:1; min-height:20px"></div>
+    </div>
+
+  </div>
+
+  <div class="converge-wrap" style="height:54px;">
+    <svg class="converge-svg" viewBox="0 0 760 54" preserveAspectRatio="xMidYMid meet">
+      <polyline points="127,0 127,28 380,28" fill="none" stroke="rgba(0,0,0,0.3)" stroke-width="1"/>
+      <line x1="380" y1="0" x2="380" y2="28" stroke="rgba(0,0,0,0.3)" stroke-width="1"/>
+      <polyline points="633,0 633,28 380,28" fill="none" stroke="rgba(0,0,0,0.3)" stroke-width="1"/>
+      <line x1="380" y1="28" x2="380" y2="46" stroke="rgba(0,0,0,0.3)" stroke-width="1"/>
+      <polygon points="374,46 386,46 380,54" fill="rgba(0,0,0,0.3)"/>
+    </svg>
+  </div>
+
+  <div class="end-node">✓ Adverbe correctement placé</div>
+
+</div>
+
+<div class="tables-section">
+  <div class="divider-line"></div>
+
+  <div>
+    <div class="table-title">Récapitulatif : règles de formation</div>
+    <table class="summary-table">
+      <tr><th>Terminaison du participe</th><th>Règle</th><th>Exemples</th></tr>
+      <tr><td>Adjectif masc. en <code>-ant</code></td><td>Remplacer par <code>-amment</code></td><td>courant → couramment, brillant → brillamment</td></tr>
+      <tr><td>Adjectif masc. en <code>-ent</code></td><td>Remplacer par <code>-emment</code></td><td>évident → évidemment, récent → récemment</td></tr>
+      <tr><td>Adjectif masc. terminé par une voyelle</td><td>Ajouter <code>-ment</code> au masculin</td><td>vrai → vraiment, absolu → absolument</td></tr>
+      <tr><td>Adjectif masc. terminé par une consonne</td><td>Féminiser, puis ajouter <code>-ment</code></td><td>lent → lente → lentement, actif → active → activement</td></tr>
+    </table>
+  </div>
+
+  <div>
+    <div class="table-title">Adverbes irréguliers — à mémoriser</div>
+    <table class="summary-table">
+      <tr><th>Adjectif de base</th><th>Adverbe irrégulier</th><th>Sens</th></tr>
+      <tr><td>bon</td><td><code>bien</code></td><td>well</td></tr>
+      <tr><td>mauvais</td><td><code>mal</code></td><td>badly</td></tr>
+      <tr><td>meilleur</td><td><code>mieux</code></td><td>better</td></tr>
+      <tr><td>petit</td><td><code>peu</code></td><td>little / not much</td></tr>
+      <tr><td>rapide</td><td><code>vite</code></td><td>fast</td></tr>
+    </table>
+  </div>
+
+</div>
+
+</body>
+</html>

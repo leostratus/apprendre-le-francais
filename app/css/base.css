@@ -1,0 +1,185 @@
+/* Noto Sans for IPA — excellent Unicode coverage, designed for phonetics */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Sans+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap');
+
+:root {
+  --bg:      #0f1117;
+  --surface: #171a22;
+  --surface2:#1e2130;
+  --surface3:#242838;
+  --border:  #272b3a;
+  --muted:   #525a72;
+  --dim:     #8590aa;
+  --text:    #ccd2e8;
+  --bright:  #edf0fb;
+
+  /* tense family colors, reused site-wide as the wizard "tone" palette */
+  --present: #e06840;
+  --imperf:  #4f8ef5;
+  --future:  #3ec28a;
+  --cond:    #a86af5;
+  --subj:    #e8b830;
+  --ps:      #7a8290;
+
+  --bg-present: rgba(224,104,64,0.09);
+  --bg-imperf:  rgba(79,142,245,0.09);
+  --bg-future:  rgba(62,194,138,0.09);
+  --bg-cond:    rgba(168,106,245,0.09);
+  --bg-subj:    rgba(232,184,48,0.09);
+  --bg-ps:      rgba(122,130,144,0.07);
+
+  /* phoneme type colors */
+  --ph-vowel:   #f5a623;
+  --ph-nasal:   #d080f0;
+  --ph-cons:    #60c8e8;
+  --ph-rhotic:  #50e0b0;
+  --ph-glide:   #90e060;
+
+  /* wizard tone aliases — reuse the tense palette so both tools feel like one system */
+  --wiz-green:     var(--future);
+  --wiz-green-bg:  var(--bg-future);
+  --wiz-green-txt: var(--future);
+  --wiz-blue:      var(--imperf);
+  --wiz-blue-bg:   var(--bg-imperf);
+  --wiz-blue-txt:  var(--imperf);
+  --wiz-orange:    var(--present);
+  --wiz-orange-bg: var(--bg-present);
+  --wiz-orange-txt:var(--present);
+  --wiz-purple:    var(--cond);
+  --wiz-purple-bg: var(--bg-cond);
+  --wiz-purple-txt:var(--cond);
+  --wiz-gray:      var(--ps);
+  --wiz-gray-bg:   var(--bg-ps);
+  --wiz-gray-txt:  var(--dim);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body { height: 100%; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'IBM Plex Sans', 'Noto Sans', sans-serif;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.ipa {
+  font-family: 'Noto Sans Mono', 'Noto Sans', monospace;
+}
+
+.v  { color: var(--ph-vowel);  }
+.nv { color: var(--ph-nasal);  }
+.c, .z { color: var(--ph-cons);   }
+.r  { color: var(--ph-rhotic); }
+.g  { color: var(--ph-glide);  }
+.br { color: var(--muted); }
+
+.c-present { color: var(--present); }
+.c-imperf  { color: var(--imperf);  }
+.c-future  { color: var(--future);  }
+.c-cond    { color: var(--cond);    }
+.c-subj    { color: var(--subj);    }
+.c-ps      { color: var(--ps);      }
+.c-stem    { color: var(--muted);   }
+.c-bright  { color: var(--bright);  }
+
+.say {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--surface2);
+  color: var(--dim);
+  cursor: pointer;
+  font-size: 0.7rem;
+  margin-left: 0.4rem;
+  vertical-align: middle;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+  flex-shrink: 0;
+}
+.say:hover { background: var(--border); color: var(--bright); }
+.say.playing { color: var(--future); border-color: var(--future); }
+
+code {
+  font-family: 'Noto Sans Mono', monospace;
+  font-size: 0.85em;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  padding: 1px 5px;
+  border-radius: 3px;
+  color: var(--bright);
+}
+
+a { color: inherit; }
+
+/* ── generic section chrome, reused across tools ── */
+.tool-main { max-width: 960px; margin: 0 auto; padding: 2rem 1.5rem 6rem; }
+
+.tool-header {
+  padding: 2.2rem 0 1.5rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 2rem;
+}
+.tool-header .eyebrow {
+  font-family: 'Noto Sans Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.5rem;
+}
+.tool-header h1 {
+  font-size: 1.9rem;
+  font-weight: 600;
+  color: var(--bright);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+.tool-header h1 em { font-style: italic; font-weight: 400; color: var(--future); }
+.tool-header .intro {
+  margin-top: 0.8rem;
+  font-size: 0.9rem;
+  color: var(--dim);
+  max-width: 64ch;
+  line-height: 1.65;
+}
+
+.sh {
+  display: flex; align-items: baseline; gap: 1rem;
+  margin-bottom: 1.2rem; padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border);
+}
+.sh-marker {
+  font-family: 'Noto Sans Mono', monospace;
+  font-size: 0.68rem; color: var(--muted);
+  letter-spacing: 0.1em; text-transform: uppercase; flex-shrink: 0;
+}
+.sh h2 { font-size: 1.15rem; font-weight: 600; color: var(--bright); }
+
+p.prose {
+  font-size: 0.9rem; color: var(--dim);
+  max-width: 70ch; margin-bottom: 1rem; line-height: 1.7;
+}
+p.prose strong { color: var(--text); font-weight: 600; }
+p.prose em { font-style: italic; color: var(--text); }
+
+.callout {
+  border-left: 3px solid var(--border);
+  padding: 0.75rem 1.1rem;
+  border-radius: 0 4px 4px 0;
+  font-size: 0.87rem; color: var(--dim);
+  margin: 1.1rem 0; line-height: 1.65;
+}
+.callout strong { color: var(--text); }
+.callout.neutral { border-color: var(--border);  background: var(--surface);    }
+
+::selection { background: var(--future); color: #0f1117; }
+
+[hidden] { display: none !important; }
+
+@media (max-width: 620px) {
+  .tool-header h1 { font-size: 1.5rem; }
+}
