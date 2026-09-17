@@ -41,7 +41,8 @@
     { id: 'adjectifs', labelKey: 'tab_adjectifs', module: APP.tools.adjectifs, hasClear: true },
     { id: 'noms', labelKey: 'tab_noms', module: APP.tools.noms, hasClear: true },
     { id: 'conjugations', labelKey: 'tab_conjugations', module: APP.tools.conjugations, hasClear: false },
-    { id: 'passe-compose', labelKey: 'tab_passe_compose', module: APP.tools.passeCompose, hasClear: true }
+    { id: 'passe-compose', labelKey: 'tab_passe_compose', module: APP.tools.passeCompose, hasClear: true },
+    { id: 'analyzer', labelKey: 'tab_analyzer', module: APP.tools.analyzer, hasClear: true }
   ];
 
   var activeId = APP.state.getActiveTool(TOOLS[0].id);

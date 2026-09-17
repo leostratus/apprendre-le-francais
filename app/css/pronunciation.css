@@ -195,6 +195,59 @@ tr.stable td { background: rgba(79,142,245,0.04); }
 }
 .conj-verblist td:first-child { font-style: italic; color: var(--text); }
 
+/* ── sentence analyzer ── */
+.analyzer-input-wrap { margin: 1.2rem 0 0.8rem; }
+.analyzer-input {
+  width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--bright);
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 1rem;
+  padding: 0.9rem 1.1rem;
+  resize: vertical;
+  line-height: 1.6;
+}
+.analyzer-input:focus { outline: none; border-color: var(--dim); }
+.analyzer-input::placeholder { color: var(--muted); }
+
+.analyzer-actions { display: flex; gap: 0.6rem; margin-bottom: 1.6rem; }
+.analyzer-actions .nav-btn { text-decoration: none; display: inline-flex; align-items: center; }
+.analyzer-actions .nav-btn.is-disabled { opacity: 0.4; pointer-events: none; }
+
+.analyzer-tokens {
+  display: flex; flex-wrap: wrap; align-items: flex-start; gap: 0.5rem 0.3rem;
+  padding: 1.2rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  line-height: 1.4;
+}
+.analyzer-punct { color: var(--dim); align-self: center; }
+
+.token-card {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.5rem 0.7rem;
+  min-width: 64px;
+  text-align: center;
+}
+.token-word { font-weight: 600; color: var(--bright); font-size: 0.95rem; }
+.token-word .say { width: 16px; height: 16px; font-size: 0.55rem; margin-left: 0.25rem; }
+.token-pos {
+  font-family: 'Noto Sans Mono', monospace; font-size: 0.62rem;
+  text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted);
+  margin: 0.2rem 0;
+}
+.token-ipa { font-family: 'Noto Sans Mono', monospace; font-size: 0.85rem; }
+
+.analyzer-legend { display: flex; flex-wrap: wrap; gap: 0.5rem 1.2rem; margin-bottom: 2rem; }
+.analyzer-legend-item { font-size: 0.8rem; color: var(--dim); }
+.analyzer-legend-item code { margin-right: 0.3rem; }
+
 /* ── static (non-interactive) decision flowchart ── */
 .flow {
   display: flex; flex-direction: column; align-items: center;
