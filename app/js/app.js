@@ -36,12 +36,12 @@
   }
 
   var TOOLS = [
-    { id: 'pronunciation', labelKey: 'tab_pronunciation', tone: '--ph-vowel', module: APP.tools.pronunciation, hasClear: false },
-    { id: 'sons', labelKey: 'tab_sons', tone: '--ph-glide', module: APP.tools.sons, hasClear: false },
-    { id: 'adverbes', labelKey: 'tab_adverbes', tone: '--imperf', module: APP.tools.adverbes, hasClear: true },
-    { id: 'adjectifs', labelKey: 'tab_adjectifs', tone: '--cond', module: APP.tools.adjectifs, hasClear: true },
-    { id: 'noms', labelKey: 'tab_noms', tone: '--subj', module: APP.tools.noms, hasClear: true },
-    { id: 'passe-compose', labelKey: 'tab_passe_compose', tone: '--present', module: APP.tools.passeCompose, hasClear: true }
+    { id: 'pronunciation', labelKey: 'tab_pronunciation', module: APP.tools.pronunciation, hasClear: false },
+    { id: 'sons', labelKey: 'tab_sons', module: APP.tools.sons, hasClear: false },
+    { id: 'adverbes', labelKey: 'tab_adverbes', module: APP.tools.adverbes, hasClear: true },
+    { id: 'adjectifs', labelKey: 'tab_adjectifs', module: APP.tools.adjectifs, hasClear: true },
+    { id: 'noms', labelKey: 'tab_noms', module: APP.tools.noms, hasClear: true },
+    { id: 'passe-compose', labelKey: 'tab_passe_compose', module: APP.tools.passeCompose, hasClear: true }
   ];
 
   var activeId = APP.state.getActiveTool(TOOLS[0].id);
@@ -74,7 +74,7 @@
       b.type = 'button';
       b.setAttribute('role', 'tab');
       b.setAttribute('aria-selected', String(t.id === activeId));
-      b.innerHTML = '<span class="dot" style="background:var(' + t.tone + ')"></span>' + i18n.s(t.labelKey);
+      b.textContent = i18n.s(t.labelKey);
       b.addEventListener('click', function () { selectTool(t.id); });
       tabsEl.appendChild(b);
       tabButtons[t.id] = b;

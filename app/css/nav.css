@@ -72,9 +72,9 @@
 }
 
 .nav-btn.reset-all {
-  color: var(--present);
+  color: var(--danger);
   border-color: rgba(224,104,64,0.35);
-  background: var(--bg-present);
+  background: var(--danger-bg);
 }
 .nav-btn.reset-all:hover {
   background: rgba(224,104,64,0.2);
