@@ -52,11 +52,16 @@ APP.dataHelpers = (function () {
   var RHOTIC = 'ʁ';
   var TILDE = '̃';
 
+  // IPA punctuation that carries no phoneme color of its own — stress marks,
+  // length marks, syllable/word-boundary separators (espeak-ng emits these;
+  // the site's own hand-authored IPA doesn't, but this keeps both safe)
+  var NEUTRAL = ' .\'’ˈˌː-‿|';
+
   function ipa(str) {
     var out = '';
     for (var i = 0; i < str.length; i++) {
       var ch = str[i];
-      if (ch === ' ' || ch === '.' || ch === '’' || ch === '\'') { out += ch; continue; }
+      if (NEUTRAL.indexOf(ch) !== -1) { out += ch; continue; }
       var next = str[i + 1];
       if (NASAL_BASE.indexOf(ch) !== -1 && next === TILDE) {
         out += '<span class="nv">' + ch + next + '</span>';

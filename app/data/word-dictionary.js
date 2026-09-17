@@ -75,6 +75,12 @@ APP.data = APP.data || {};
     ['temps', 'noun', 'tɑ̃'], ['femme', 'noun', 'fam'], ['exemple', 'noun', 'ɛgzɑ̃pl'],
     ['monsieur', 'noun', 'məsjø'], ['femmes', 'noun', 'fam'],
 
+    // common -ais words that would otherwise collide with the imparfait
+    // suffix heuristic (see pos-tagger.js) if left unlisted
+    ['anglais', 'adj', 'ɑ̃glɛ'], ['anglaise', 'adj', 'ɑ̃glɛz'],
+    ['portugais', 'adj', 'pɔʁtygɛ'], ['japonais', 'adj', 'ʒapɔnɛ'], ['irlandais', 'adj', 'iʁlɑ̃dɛ'],
+    ['hollandais', 'adj', 'ɔlɑ̃dɛ'], ['palais', 'noun', 'palɛ'], ['jamais', 'adv', 'ʒamɛ'],
+
     // small closed classes: numbers, interjections
     ['zéro', 'num', 'zeʁo'], ['un', 'num', 'œ̃'], ['deux', 'num', 'dø'], ['trois', 'num', 'tʁwa'],
     ['quatre', 'num', 'katʁ'], ['cinq', 'num', 'sɛ̃k'], ['six', 'num', 'sis'], ['sept', 'num', 'sɛt'],
@@ -144,6 +150,36 @@ APP.data = APP.data || {};
     'aider', 'apporter', 'acheter', 'préparer', 'utiliser', 'expliquer', 'montrer', 'marcher',
     'chanter', 'danser', 'dessiner', 'nager', 'voyager', 'rêver', 'oublier', 'gagner', 'perdre'
   ].forEach(function (v) { if (!POS[v]) POS[v] = 'verb'; });
+
+  // Présent-tense forms for common irregular-family verbs whose infinitive
+  // was mined above (via their family's verbList) but whose actual
+  // conjugated forms weren't — those only exist for each family's one model
+  // verb. This is the case the pos-tagger heuristics can't reach: a bare
+  // present stem (dort, sers, écrit...) carries no distinguishing suffix.
+  // [je, tu, il, nous, vous, ils]
+  var PRESENT_FORMS = {
+    dormir: [['dɔʁ', 'dors'], ['dɔʁ', 'dors'], ['dɔʁ', 'dort'], ['dɔʁmɔ̃', 'dormons'], ['dɔʁme', 'dormez'], ['dɔʁm', 'dorment']],
+    sortir: [['sɔʁ', 'sors'], ['sɔʁ', 'sors'], ['sɔʁ', 'sort'], ['sɔʁtɔ̃', 'sortons'], ['sɔʁte', 'sortez'], ['sɔʁt', 'sortent']],
+    sentir: [['sɑ̃', 'sens'], ['sɑ̃', 'sens'], ['sɑ̃', 'sent'], ['sɑ̃tɔ̃', 'sentons'], ['sɑ̃te', 'sentez'], ['sɑ̃t', 'sentent']],
+    servir: [['sɛʁ', 'sers'], ['sɛʁ', 'sers'], ['sɛʁ', 'sert'], ['sɛʁvɔ̃', 'servons'], ['sɛʁve', 'servez'], ['sɛʁv', 'servent']],
+    mentir: [['mɑ̃', 'mens'], ['mɑ̃', 'mens'], ['mɑ̃', 'ment'], ['mɑ̃tɔ̃', 'mentons'], ['mɑ̃te', 'mentez'], ['mɑ̃t', 'mentent']],
+    écrire: [['ekʁi', 'écris'], ['ekʁi', 'écris'], ['ekʁi', 'écrit'], ['ekʁivɔ̃', 'écrivons'], ['ekʁive', 'écrivez'], ['ekʁiv', 'écrivent']],
+    lire: [['li', 'lis'], ['li', 'lis'], ['li', 'lit'], ['lizɔ̃', 'lisons'], ['lize', 'lisez'], ['liz', 'lisent']],
+    dire: [['di', 'dis'], ['di', 'dis'], ['di', 'dit'], ['dizɔ̃', 'disons'], ['dit', 'dites'], ['diz', 'disent']],
+    vivre: [['vi', 'vis'], ['vi', 'vis'], ['vi', 'vit'], ['vivɔ̃', 'vivons'], ['vive', 'vivez'], ['viv', 'vivent']],
+    suivre: [['sɥi', 'suis'], ['sɥi', 'suis'], ['sɥi', 'suit'], ['sɥivɔ̃', 'suivons'], ['sɥive', 'suivez'], ['sɥiv', 'suivent']],
+    offrir: [['ɔfʁ', 'offre'], ['ɔfʁ', 'offres'], ['ɔfʁ', 'offre'], ['ɔfʁɔ̃', 'offrons'], ['ɔfʁe', 'offrez'], ['ɔfʁ', 'offrent']],
+    couvrir: [['kuvʁ', 'couvre'], ['kuvʁ', 'couvres'], ['kuvʁ', 'couvre'], ['kuvʁɔ̃', 'couvrons'], ['kuvʁe', 'couvrez'], ['kuvʁ', 'couvrent']],
+    découvrir: [['dekuvʁ', 'découvre'], ['dekuvʁ', 'découvres'], ['dekuvʁ', 'découvre'], ['dekuvʁɔ̃', 'découvrons'], ['dekuvʁe', 'découvrez'], ['dekuvʁ', 'découvrent']],
+    souffrir: [['sufʁ', 'souffre'], ['sufʁ', 'souffres'], ['sufʁ', 'souffre'], ['sufʁɔ̃', 'souffrons'], ['sufʁe', 'souffrez'], ['sufʁ', 'souffrent']]
+  };
+  Object.keys(PRESENT_FORMS).forEach(function (infinitive) {
+    PRESENT_FORMS[infinitive].forEach(function (pair) {
+      var key = pair[1].toLowerCase();
+      IPA[key] = pair[0];
+      POS[key] = 'verb';
+    });
+  });
 
   APP.data.wordIPA = IPA;
   APP.data.wordPOS = POS;
