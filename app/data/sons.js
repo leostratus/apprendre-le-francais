@@ -145,7 +145,6 @@ APP.data.sons = [
   { ipa: '/œ̃/', type: 'nasal', items: [
     { spelling: 'un', example: 'un' },
     { spelling: 'um', example: 'parfum' },
-    { spelling: 'un', example: 'aucun' },
     { spelling: 'und', example: 'lundi' },
     { spelling: 'eun', example: 'à jeun' },
   ] },
