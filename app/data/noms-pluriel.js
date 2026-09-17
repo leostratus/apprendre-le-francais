@@ -81,7 +81,7 @@ APP.data = APP.data || {};
           {
             id: 'oui', tone: 'gray', label: { en: 'Yes', fr: 'Oui' }, next: 'end',
             result: {
-              title: { en: 'Irregular plurals — memorize these', fr: 'Pluriels irréguliers — à mémoriser' }, tone: 'gray',
+              title: { en: 'Irregular plurals to memorize', fr: 'Pluriels irréguliers à mémoriser' }, tone: 'gray',
               html: T([Sing, Plur], [
                 [w('un œil'), w('des yeux')], [w('le ciel'), w('les cieux')], [w('monsieur'), w('messieurs')],
                 [w('madame'), w('mesdames')], [w('mademoiselle'), w('mesdemoiselles')]

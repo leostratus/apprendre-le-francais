@@ -50,7 +50,7 @@ APP.data = APP.data || {};
           {
             id: 'oui', tone: 'purple', label: { en: 'Yes', fr: 'Oui' }, next: 'end_formation',
             result: {
-              title: { en: 'Irregular feminine forms — memorize these', fr: 'Féminins irréguliers — à mémoriser' },
+              title: { en: 'Irregular feminine forms to memorize', fr: 'Féminins irréguliers à mémoriser' },
               tone: 'purple',
               html: T([Masc, Fem], [
                 ['beau (bel)', 'belle'], ['nouveau (nouvel)', 'nouvelle'], ['vieux (vieil)', 'vieille'],
@@ -108,7 +108,7 @@ APP.data = APP.data || {};
           {
             id: 'oui', tone: 'purple', label: { en: 'Yes', fr: 'Oui' }, next: 'end_formation',
             result: {
-              title: { en: '-c → -che or -que (lexical — memorize each one)', fr: '-c → -che ou -que (lexical — à mémoriser au cas par cas)' },
+              title: { en: '-c → -che or -que (lexical, memorize each one)', fr: '-c → -che ou -que (lexical, à mémoriser au cas par cas)' },
               tone: 'purple',
               html: T([Masc, Fem], [['blanc', 'blanche'], ['sec', 'sèche'], ['franc', 'franche'], ['public', 'publique'], ['turc', 'turque'], ['grec', 'grecque']])
             }
@@ -170,7 +170,7 @@ APP.data = APP.data || {};
             result: {
               title: { en: '-eau → -eaux', fr: '-eau → -eaux' }, tone: 'orange',
               html: T([Sing, Plur], [['beau', 'beaux'], ['nouveau', 'nouveaux'], ['jumeau', 'jumeaux']]),
-              note: { en: 'Exception: bleu is regular — bleu → bleus (add -s, not -x).', fr: 'Exception : bleu est régulier — bleu → bleus (ajouter -s, pas -x).' }
+              note: { en: 'Exception: bleu is regular, bleu → bleus (add -s, not -x).', fr: 'Exception : bleu est régulier, bleu → bleus (ajouter -s, pas -x).' }
             }
           },
           { id: 'non', tone: 'blue', label: { en: 'No', fr: 'Non' }, next: 'q_plur_al' }

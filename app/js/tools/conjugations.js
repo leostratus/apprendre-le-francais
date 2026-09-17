@@ -56,7 +56,7 @@ APP.tools.conjugations = (function () {
     var tbody = el('tbody');
     list.forEach(function (v) {
       var tr = el('tr');
-      tr.innerHTML = '<td>' + v.infinitive + '</td><td>' + H.say('<code>' + v.participle + '</code>', v.infinitive + ' — ' + v.participle) + '</td><td>' + v.meaning + '</td>';
+      tr.innerHTML = '<td>' + v.infinitive + '</td><td>' + H.say('<code>' + v.participle + '</code>', v.infinitive + ', ' + v.participle) + '</td><td>' + v.meaning + '</td>';
       tbody.appendChild(tr);
     });
     table.appendChild(tbody);

@@ -26,7 +26,7 @@ APP.tools.passeCompose = (function () {
     header.innerHTML =
       '<div class="eyebrow">French · Grammar</div>' +
       '<h1>Le <em>passé composé</em></h1>' +
-      '<p class="intro">' + i18n.t({ en: 'Walk through auxiliary choice, agreement, negation, and question form — one decision at a time.', fr: 'Parcourez le choix de l’auxiliaire, l’accord, la négation et la forme interrogative — une décision à la fois.' }) + '</p>';
+      '<p class="intro">' + i18n.t({ en: 'Walk through auxiliary choice, agreement, negation, and question form, one decision at a time.', fr: 'Parcourez le choix de l’auxiliaire, l’accord, la négation et la forme interrogative, une décision à la fois.' }) + '</p>';
     root.appendChild(header);
 
     var wrap = el('div');

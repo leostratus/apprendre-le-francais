@@ -36,7 +36,7 @@ APP.data = APP.data || {};
                 ['mieux', 'better (irregular, from meilleur)'], ['vite', 'fast (irregular, from rapide)'],
                 ['peu', 'little (irregular, from petit)']
               ].map(function (r) { return ['<code>' + r[0] + '</code>', r[1]]; })),
-              note: { en: 'bien, mal, mieux, vite, peu are irregular — their base adjective follows no formation rule.', fr: 'bien, mal, mieux, vite, peu sont irréguliers — leur adjectif de base ne suit aucune règle de formation.' }
+              note: { en: 'bien, mal, mieux, vite, peu are irregular. Their base adjective follows no formation rule.', fr: 'bien, mal, mieux, vite, peu sont irréguliers. Leur adjectif de base ne suit aucune règle de formation.' }
             }
           },
           {
@@ -123,7 +123,7 @@ APP.data = APP.data || {};
                 ['doux', 'douce', '<code>doucement</code>'], ['faux', 'fausse', '<code>faussement</code>'],
                 ['gentil', 'gentille', '<code>gentiment</code>']
               ]),
-              note: { en: 'gentiment is doubly irregular — it drops one l instead of keeping gentille whole.', fr: 'gentiment est doublement irrégulier — il perd un l au lieu de garder gentille tel quel.' }
+              note: { en: 'gentiment is doubly irregular: it drops one l instead of keeping gentille whole.', fr: 'gentiment est doublement irrégulier : il perd un l au lieu de garder gentille tel quel.' }
             }
           },
           { id: 'non', tone: 'blue', label: { en: 'No', fr: 'Non' }, next: 'q_fem_f' }
@@ -220,13 +220,13 @@ APP.data = APP.data || {};
   ];
 
   APP.data.adverbesFormationReference = {
-    title: { en: 'Formation rules — summary', fr: 'Récapitulatif : règles de formation' },
+    title: { en: 'Formation rules: summary', fr: 'Récapitulatif : règles de formation' },
     table: T(
       [{ en: 'Ending of the masc. adjective', fr: 'Terminaison de l’adjectif masc.' }, { en: 'Rule', fr: 'Règle' }, Exemple],
       ruleRows.map(function (r) { return [{ en: H.tr(r[0], 'en'), fr: H.tr(r[0], 'fr') }, { en: H.tr(r[1], 'en'), fr: H.tr(r[1], 'fr') }, r[2]]; })
     ),
     irregulars: {
-      title: { en: 'Irregular adverbs — memorize these', fr: 'Adverbes irréguliers — à mémoriser' },
+      title: { en: 'Irregular adverbs to memorize', fr: 'Adverbes irréguliers à mémoriser' },
       table: T([{ en: 'Base adjective', fr: 'Adjectif de base' }, { en: 'Irregular adverb', fr: 'Adverbe irrégulier' }, Sens], [
         ['bon', '<code>bien</code>', 'well'], ['mauvais', '<code>mal</code>', 'badly'], ['meilleur', '<code>mieux</code>', 'better'],
         ['petit', '<code>peu</code>', 'little / not much'], ['rapide', '<code>vite</code>', 'fast']

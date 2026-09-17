@@ -313,7 +313,7 @@ APP.data = APP.data || {};
       )
     },
     isolated: {
-      title: { en: 'Isolated forms — memorize these', fr: 'Formes isolées — à mémoriser' },
+      title: { en: 'Isolated forms to memorize', fr: 'Formes isolées à mémoriser' },
       table: T([Infinitif, Participe], isolatedRows)
     }
   };
