@@ -212,9 +212,6 @@ tr.stable td { background: rgba(79,142,245,0.04); }
 .analyzer-input:focus { outline: none; border-color: var(--dim); }
 .analyzer-input::placeholder { color: var(--muted); }
 
-.analyzer-actions { display: flex; gap: 0.6rem; margin-bottom: 1.6rem; }
-.analyzer-actions .nav-btn { text-decoration: none; display: inline-flex; align-items: center; }
-.analyzer-actions .nav-btn.is-disabled { opacity: 0.4; pointer-events: none; }
 
 .analyzer-tokens {
   display: flex; flex-wrap: wrap; align-items: flex-start; gap: 0.5rem 0.3rem;
@@ -243,10 +240,45 @@ tr.stable td { background: rgba(79,142,245,0.04); }
   margin: 0.2rem 0;
 }
 .token-ipa { font-family: 'Noto Sans Mono', monospace; font-size: 0.85rem; }
+.token-upgraded { border-color: var(--accent); }
 
 .analyzer-legend { display: flex; flex-wrap: wrap; gap: 0.5rem 1.2rem; margin-bottom: 2rem; }
 .analyzer-legend-item { font-size: 0.8rem; color: var(--dim); }
 .analyzer-legend-item code { margin-right: 0.3rem; }
+
+.translate-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+  margin-bottom: 2rem;
+}
+.translate-panel {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
+  padding: 1rem 1.1rem;
+}
+.translate-head {
+  display: flex; align-items: center; justify-content: space-between;
+  font-weight: 600; font-size: 0.85rem; color: var(--bright); margin-bottom: 0.6rem;
+}
+.translate-open {
+  font-size: 0.72rem; color: var(--muted); text-decoration: none;
+  font-family: 'Noto Sans Mono', monospace;
+}
+.translate-open:hover { color: var(--bright); }
+.translate-open.is-disabled { pointer-events: none; opacity: 0.4; }
+.translate-body { font-size: 0.92rem; color: var(--text); line-height: 1.6; min-height: 1.6rem; }
+.translate-muted { color: var(--muted); font-style: italic; font-size: 0.85rem; }
+.translate-error .translate-body { color: var(--dim); }
+.translate-key-row { margin-top: 0.8rem; }
+.translate-key-input {
+  width: 100%; background: var(--surface2); border: 1px solid var(--border);
+  border-radius: 6px; color: var(--bright); font-size: 0.82rem;
+  padding: 0.45rem 0.6rem; font-family: 'Noto Sans Mono', monospace;
+}
+.translate-key-input:focus { outline: none; border-color: var(--dim); }
+.translate-key-note { font-size: 0.68rem; color: var(--muted); margin-top: 0.4rem; line-height: 1.5; }
+
+@media (max-width: 620px) {
+  .translate-grid { grid-template-columns: 1fr; }
+}
 
 /* ── static (non-interactive) decision flowchart ── */
 .flow {
