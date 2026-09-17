@@ -36,7 +36,6 @@
   }
 
   var TOOLS = [
-    { id: 'pronunciation', labelKey: 'tab_pronunciation', module: APP.tools.pronunciation, hasClear: false },
     { id: 'sons', labelKey: 'tab_sons', module: APP.tools.sons, hasClear: false },
     { id: 'adverbes', labelKey: 'tab_adverbes', module: APP.tools.adverbes, hasClear: true },
     { id: 'adjectifs', labelKey: 'tab_adjectifs', module: APP.tools.adjectifs, hasClear: true },
