@@ -152,7 +152,26 @@ tr.stable td { background: rgba(79,142,245,0.04); }
   background: var(--surface2);
   border-bottom: 1px solid var(--border);
 }
-.son-ipa { font-size: 1.1rem; font-weight: 600; }
+.son-ipa { font-size: 1.1rem; font-weight: 600; display: block; }
+.son-sounds-like {
+  font-size: 0.78rem;
+  color: var(--dim);
+  font-style: italic;
+  margin-top: 0.3rem;
+  line-height: 1.5;
+  font-family: 'IBM Plex Sans', sans-serif;
+}
+.son-hero {
+  padding: 0.7rem 0.9rem;
+  border-bottom: 1px solid var(--border);
+  background: rgba(255,255,255,0.015);
+}
+.son-hero-word {
+  font-family: 'Noto Sans Mono', monospace;
+  font-size: 1.4rem;
+  color: var(--bright);
+  letter-spacing: 0.01em;
+}
 .son-table { border: none; margin-top: 0; }
 .son-table th, .son-table td { border-left: none; border-right: none; }
 .son-table tr:first-child th { border-top: none; }

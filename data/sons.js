@@ -4,8 +4,12 @@ APP.data = APP.data || {};
 // Base: user-provided orthography→phoneme chart (Pronounciation.xlsx),
 // grouped by phoneme, colored by phoneme type, and extended with a few
 // commonly-taught spellings the original chart hadn't gotten to yet.
+//
+// soundsLike: an English-ear analogy for the sound (invariant — it's a
+// comparison to English words, like the pronunciation tool's own "sounds
+// like" column, so it stays the same regardless of UI language).
 APP.data.sons = [
-  { ipa: '/i/', type: 'vowel', items: [
+  { ipa: '/i/', type: 'vowel', soundsLike: '"ee" in "see", but tighter and tenser', items: [
     { spelling: 'i', example: 'lit' },
     { spelling: 'î', example: 'île' },
     { spelling: 'ï', example: 'maïs' },
@@ -15,7 +19,7 @@ APP.data.sons = [
     { spelling: 'it', example: 'gît' },
     { spelling: 'ix', example: 'dix' },
   ] },
-  { ipa: '/e/', type: 'vowel', items: [
+  { ipa: '/e/', type: 'vowel', soundsLike: '"ay" in "say" — tense, closed, no diphthong glide', items: [
     { spelling: 'é', example: 'été' },
     { spelling: 'er', example: 'parler' },
     { spelling: 'ez', example: 'nez' },
@@ -27,7 +31,7 @@ APP.data.sons = [
     { spelling: 'ed', example: 'pied' },
     { spelling: 'æ', example: 'ex æquo' },
   ] },
-  { ipa: '/ɛ/', type: 'vowel', items: [
+  { ipa: '/ɛ/', type: 'vowel', soundsLike: '"e" in "bet" — open, mouth wider than /e/', items: [
     { spelling: 'è', example: 'mère' },
     { spelling: 'ê', example: 'fête' },
     { spelling: 'ai', example: 'faire' },
@@ -38,23 +42,23 @@ APP.data.sons = [
     { spelling: 'es', example: 'peste' },
     { spelling: 'ë', example: 'Noël' },
   ] },
-  { ipa: '/a/', type: 'vowel', items: [
+  { ipa: '/a/', type: 'vowel', soundsLike: 'open front "ah", like "a" in "cat" said further forward', items: [
     { spelling: 'a', example: 'ami' },
     { spelling: 'à', example: 'là' },
     { spelling: 'â', example: 'pâte' },
     { spelling: 'oi', example: 'bois (partie /a/ archaïque)' },
   ] },
-  { ipa: '/ɑ/', type: 'vowel', items: [
+  { ipa: '/ɑ/', type: 'vowel', soundsLike: 'darker, further-back "ah" — many speakers today just use /a/ instead', items: [
     { spelling: 'â', example: 'pâte' },
     { spelling: 'as', example: 'bas' },
   ] },
-  { ipa: '/ɔ/', type: 'vowel', items: [
+  { ipa: '/ɔ/', type: 'vowel', soundsLike: '"o" in British "hot" — open', items: [
     { spelling: 'o', example: 'bol' },
     { spelling: 'au', example: 'Paul*' },
     { spelling: 'oh', example: 'oh' },
     { spelling: 'or', example: 'or' },
   ] },
-  { ipa: '/o/', type: 'vowel', items: [
+  { ipa: '/o/', type: 'vowel', soundsLike: '"o" in "go", but pure — no glide into "w"', items: [
     { spelling: 'o', example: 'mot' },
     { spelling: 'au', example: 'chaud' },
     { spelling: 'eau', example: 'beau' },
@@ -64,36 +68,36 @@ APP.data.sons = [
     { spelling: 'aux', example: 'chevaux' },
     { spelling: 'aud', example: 'chaud' },
   ] },
-  { ipa: '/u/', type: 'vowel', items: [
+  { ipa: '/u/', type: 'vowel', soundsLike: '"oo" in "boot"', items: [
     { spelling: 'ou', example: 'fou' },
     { spelling: 'où', example: 'où' },
     { spelling: 'oû', example: 'voûte' },
   ] },
-  { ipa: '/y/', type: 'vowel', items: [
+  { ipa: '/y/', type: 'vowel', soundsLike: 'no English equivalent — say "ee" with rounded, pushed-forward lips', items: [
     { spelling: 'u', example: 'tu' },
     { spelling: 'û', example: 'dû' },
     { spelling: 'ut', example: 'but' },
     { spelling: 'us', example: 'reçus' },
   ] },
-  { ipa: '/ø/', type: 'vowel', items: [
+  { ipa: '/ø/', type: 'vowel', soundsLike: 'no English equivalent — say "ay" with rounded lips (like German ö)', items: [
     { spelling: 'eu', example: 'deux' },
     { spelling: 'œu', example: 'nœud' },
     { spelling: 'eux', example: 'feux' },
     { spelling: 'œux', example: 'vœux' },
   ] },
-  { ipa: '/œ/', type: 'vowel', items: [
+  { ipa: '/œ/', type: 'vowel', soundsLike: 'no English equivalent — say "e" in "bet" with rounded lips', items: [
     { spelling: 'eu', example: 'fleur' },
     { spelling: 'œu', example: 'sœur' },
     { spelling: 'euil', example: 'feuil' },
     { spelling: 'ueil', example: 'orgueil' },
     { spelling: 'œil', example: 'œil' },
   ] },
-  { ipa: '/ə/', type: 'vowel', items: [
+  { ipa: '/ə/', type: 'vowel', soundsLike: '"a" in "about" — the neutral, weak schwa', items: [
     { spelling: 'e', example: 'le' },
     { spelling: 'es', example: 'fenêtres' },
     { spelling: 'ai', example: 'nous faisons' },
   ] },
-  { ipa: '/ɑ̃/', type: 'nasal', items: [
+  { ipa: '/ɑ̃/', type: 'nasal', soundsLike: 'nasalized "ah" — push the air through your nose, no English equivalent', items: [
     { spelling: 'an', example: 'sans' },
     { spelling: 'am', example: 'chambre' },
     { spelling: 'en', example: 'temps' },
@@ -111,7 +115,7 @@ APP.data.sons = [
     { spelling: 'emb', example: 'décembre' },
     { spelling: 'ean', example: 'Jean' },
   ] },
-  { ipa: '/ɛ̃/', type: 'nasal', items: [
+  { ipa: '/ɛ̃/', type: 'nasal', soundsLike: 'nasalized "a" as in "cat" — no English equivalent', items: [
     { spelling: 'in', example: 'vin' },
     { spelling: 'im', example: 'simple' },
     { spelling: 'ain', example: 'main' },
@@ -131,7 +135,7 @@ APP.data.sons = [
     { spelling: 'eint', example: 'atteint' },
     { spelling: 'en', example: 'examen (après i/é)' },
   ] },
-  { ipa: '/ɔ̃/', type: 'nasal', items: [
+  { ipa: '/ɔ̃/', type: 'nasal', soundsLike: 'nasalized "o" — air through the nose, no English equivalent', items: [
     { spelling: 'on', example: 'bon' },
     { spelling: 'om', example: 'tomber' },
     { spelling: 'ong', example: 'long' },
@@ -142,13 +146,13 @@ APP.data.sons = [
     { spelling: 'omp', example: 'pompe' },
     { spelling: 'omb', example: 'tombe' },
   ] },
-  { ipa: '/œ̃/', type: 'nasal', items: [
+  { ipa: '/œ̃/', type: 'nasal', soundsLike: 'nasalized "u" as in "fun" — rare in modern French, often merged into /ɛ̃/', items: [
     { spelling: 'un', example: 'un' },
     { spelling: 'um', example: 'parfum' },
     { spelling: 'und', example: 'lundi' },
     { spelling: 'eun', example: 'à jeun' },
   ] },
-  { ipa: '/j/', type: 'glide', items: [
+  { ipa: '/j/', type: 'glide', soundsLike: '"y" in "yes" — brief, glides straight into the next vowel', items: [
     { spelling: 'ia', example: 'viande' },
     { spelling: 'ian', example: 'triangle' },
     { spelling: 'ie', example: 'pied' },
@@ -163,12 +167,12 @@ APP.data.sons = [
     { spelling: 'ill', example: 'fille' },
     { spelling: 'il', example: 'travail' },
   ] },
-  { ipa: '/ɥ/', type: 'glide', items: [
+  { ipa: '/ɥ/', type: 'glide', soundsLike: 'no English equivalent — say "y" with tightly rounded lips, very brief', items: [
     { spelling: 'ui', example: 'huit' },
     { spelling: 'ué', example: 'tuer' },
     { spelling: 'uie', example: 'huile' },
   ] },
-  { ipa: '/w/', type: 'glide', items: [
+  { ipa: '/w/', type: 'glide', soundsLike: '"w" in "west"', items: [
     { spelling: 'oi', example: 'moi' },
     { spelling: 'oin', example: 'coin' },
     { spelling: 'oy', example: 'noyau' },
@@ -176,25 +180,25 @@ APP.data.sons = [
     { spelling: 'oue', example: 'ouest' },
     { spelling: 'w', example: 'wagon' },
   ] },
-  { ipa: '/p/', type: 'cons', items: [
+  { ipa: '/p/', type: 'cons', soundsLike: '"p" in "spy" — unaspirated, no puff of air like English word-initial "p"', items: [
     { spelling: 'p', example: 'père' },
     { spelling: 'pp', example: 'appeler' },
     { spelling: 'pt', example: 'compter' },
   ] },
-  { ipa: '/b/', type: 'cons', items: [
+  { ipa: '/b/', type: 'cons', soundsLike: '"b" in "bon" — like English "b"', items: [
     { spelling: 'b', example: 'bon' },
     { spelling: 'bb', example: 'abbé' },
   ] },
-  { ipa: '/d/', type: 'cons', items: [
+  { ipa: '/d/', type: 'cons', soundsLike: '"d" in "dos" — tongue touches the teeth, not the ridge behind them', items: [
     { spelling: 'd', example: 'dos' },
     { spelling: 'dd', example: 'addition' },
   ] },
-  { ipa: '/t/', type: 'cons', items: [
+  { ipa: '/t/', type: 'cons', soundsLike: '"t" in "sty" — unaspirated, tongue at the teeth', items: [
     { spelling: 't', example: 'table' },
     { spelling: 'tt', example: 'battre' },
     { spelling: 'th', example: 'théâtre' },
   ] },
-  { ipa: '/k/', type: 'cons', items: [
+  { ipa: '/k/', type: 'cons', soundsLike: '"k" in "sky" — unaspirated, no puff of air', items: [
     { spelling: 'ca', example: 'café' },
     { spelling: 'co', example: 'colère' },
     { spelling: 'cu', example: 'culture' },
@@ -206,7 +210,7 @@ APP.data.sons = [
     { spelling: 'cq', example: 'acquis' },
     { spelling: 'que', example: 'chaque' },
   ] },
-  { ipa: '/g/', type: 'cons', items: [
+  { ipa: '/g/', type: 'cons', soundsLike: '"g" in "go" — always hard, never soft', items: [
     { spelling: 'ga', example: 'gare' },
     { spelling: 'go', example: 'gomme' },
     { spelling: 'gu', example: 'figure' },
@@ -214,16 +218,16 @@ APP.data.sons = [
     { spelling: 'gui', example: 'guitare' },
     { spelling: 'gh', example: 'spaghetti' },
   ] },
-  { ipa: '/f/', type: 'cons', items: [
+  { ipa: '/f/', type: 'cons', soundsLike: '"f" in "femme" — like English "f"', items: [
     { spelling: 'f', example: 'femme' },
     { spelling: 'ff', example: 'affiche' },
     { spelling: 'ph', example: 'photo' },
   ] },
-  { ipa: '/v/', type: 'cons', items: [
+  { ipa: '/v/', type: 'cons', soundsLike: '"v" in "ville" — like English "v"', items: [
     { spelling: 'v', example: 'ville' },
     { spelling: 'w', example: 'watt' },
   ] },
-  { ipa: '/s/', type: 'cons', items: [
+  { ipa: '/s/', type: 'cons', soundsLike: '"s" in "sac" — like English "s"', items: [
     { spelling: 's', example: 'sac' },
     { spelling: 'ss', example: 'poisson' },
     { spelling: 'ce', example: 'ceci' },
@@ -238,18 +242,18 @@ APP.data.sons = [
     { spelling: 'tio', example: 'national' },
     { spelling: 'x', example: 'six' },
   ] },
-  { ipa: '/z/', type: 'cons', items: [
+  { ipa: '/z/', type: 'cons', soundsLike: '"z" in "zero" — like English "z"', items: [
     { spelling: 'z', example: 'zéro' },
     { spelling: 's', example: 'maison' },
     { spelling: 'x', example: 'deuxième' },
     { spelling: 'zz', example: 'pizza' },
   ] },
-  { ipa: '/ʃ/', type: 'cons', items: [
+  { ipa: '/ʃ/', type: 'cons', soundsLike: '"sh" in "shoe"', items: [
     { spelling: 'ch', example: 'chat' },
     { spelling: 'sch', example: 'schéma' },
     { spelling: 'sh', example: 'shampooing' },
   ] },
-  { ipa: '/ʒ/', type: 'cons', items: [
+  { ipa: '/ʒ/', type: 'cons', soundsLike: '"s" in "measure" or "vision"', items: [
     { spelling: 'j', example: 'jardin' },
     { spelling: 'ge', example: 'geôle' },
     { spelling: 'gi', example: 'girafe' },
@@ -257,83 +261,83 @@ APP.data.sons = [
     { spelling: 'gea', example: 'mangea' },
     { spelling: 'geo', example: 'geôlier' },
   ] },
-  { ipa: '/m/', type: 'cons', items: [
+  { ipa: '/m/', type: 'cons', soundsLike: '"m" in "mère" — like English "m"', items: [
     { spelling: 'm', example: 'mère' },
     { spelling: 'mm', example: 'comme' },
   ] },
-  { ipa: '/n/', type: 'cons', items: [
+  { ipa: '/n/', type: 'cons', soundsLike: '"n" in "note" — like English "n"', items: [
     { spelling: 'n', example: 'note' },
     { spelling: 'nn', example: 'année' },
     { spelling: 'mn', example: 'automne' },
   ] },
-  { ipa: '/ɲ/', type: 'cons', items: [
+  { ipa: '/ɲ/', type: 'cons', soundsLike: '"ny" in "canyon" (like Spanish ñ)', items: [
     { spelling: 'gn', example: 'montagne' },
   ] },
-  { ipa: '/ŋ/', type: 'cons', items: [
+  { ipa: '/ŋ/', type: 'cons', soundsLike: '"ng" in "camping" — borrowed sound, mostly in English loanwords', items: [
     { spelling: 'ng', example: 'camping' },
     { spelling: 'nk', example: 'parking' },
   ] },
-  { ipa: '/l/', type: 'cons', items: [
+  { ipa: '/l/', type: 'cons', soundsLike: '"l" in "livre" — lighter and clearer than English "l", tongue at the teeth', items: [
     { spelling: 'l', example: 'livre' },
     { spelling: 'll', example: 'belle' },
   ] },
-  { ipa: '/ʁ/', type: 'rhotic', items: [
+  { ipa: '/ʁ/', type: 'rhotic', soundsLike: 'no English equivalent — a soft gargle at the back of the throat, never rolled', items: [
     { spelling: 'r', example: 'rue' },
     { spelling: 'rr', example: 'terre' },
     { spelling: 'rh', example: 'rhume' },
   ] },
-  { ipa: '/ks/', type: 'cons', items: [
+  { ipa: '/ks/', type: 'cons', soundsLike: '"x" in "box"', items: [
     { spelling: 'x', example: 'taxe' },
     { spelling: 'cc', example: 'accident' },
     { spelling: 'xc', example: 'excellent' },
   ] },
-  { ipa: '/gz/', type: 'cons', items: [
+  { ipa: '/gz/', type: 'cons', soundsLike: '"x" in "exam"', items: [
     { spelling: 'x', example: 'examen' },
   ] },
-  { ipa: '/sj/', type: 'cons', items: [
+  { ipa: '/sj/', type: 'cons', soundsLike: '"sy" as in "yes, you" run together', items: [
     { spelling: 'tia', example: 'patience' },
     { spelling: 'tie', example: 'initier' },
     { spelling: 'tio', example: 'nation' },
     { spelling: 'tion', example: 'action' },
   ] },
-  { ipa: '/aj/', type: 'glide', items: [
+  { ipa: '/aj/', type: 'glide', soundsLike: '"y" in "sky" — open /a/ that glides quickly into a "y"', items: [
     { spelling: 'ail', example: 'travail' },
     { spelling: 'aille', example: 'bataille' },
     { spelling: 'ay', example: 'payant' },
   ] },
-  { ipa: '/ɛj/', type: 'glide', items: [
+  { ipa: '/ɛj/', type: 'glide', soundsLike: 'like "ay" in "eye", but starting from an open /ɛ/', items: [
     { spelling: 'eil', example: 'réveil' },
     { spelling: 'eille', example: 'abeille' },
   ] },
-  { ipa: '/œj/', type: 'glide', items: [
+  { ipa: '/œj/', type: 'glide', soundsLike: 'no English equivalent — rounded /œ/ with a quick "y" glide', items: [
     { spelling: 'euil', example: 'accueil' },
     { spelling: 'euille', example: 'feuille' },
   ] },
-  { ipa: '/uj/', type: 'glide', items: [
+  { ipa: '/uj/', type: 'glide', soundsLike: '"ooey" as in "gooey"', items: [
     { spelling: 'ouil', example: 'grenouille' },
     { spelling: 'ouille', example: 'bouille' },
   ] },
-  { ipa: '/jø/', type: 'glide', items: [
+  { ipa: '/jø/', type: 'glide', soundsLike: 'no English equivalent — "y" glide into the rounded /ø/', items: [
     { spelling: 'ieu', example: 'lieu' },
     { spelling: 'ieux', example: 'mieux' },
   ] },
-  { ipa: '/wa/', type: 'glide', items: [
+  { ipa: '/wa/', type: 'glide', soundsLike: '"wa" in "watt"', items: [
     { spelling: 'oi', example: 'trois' },
     { spelling: 'oê', example: 'poêle' },
   ] },
-  { ipa: '/wɛ̃/', type: 'glide', items: [
+  { ipa: '/wɛ̃/', type: 'glide', soundsLike: 'nasalized "wa" — "w" plus the nasal /ɛ̃/', items: [
     { spelling: 'oin', example: 'loin' },
   ] },
-  { ipa: '/jɛ̃/', type: 'glide', items: [
+  { ipa: '/jɛ̃/', type: 'glide', soundsLike: '"y" glide into the nasal /ɛ̃/, like a nasalized "yang"', items: [
     { spelling: 'ien', example: 'chien' },
   ] },
-  { ipa: '/jɔ̃/', type: 'glide', items: [
+  { ipa: '/jɔ̃/', type: 'glide', soundsLike: '"y" glide into the nasal /ɔ̃/', items: [
     { spelling: 'ion', example: 'avion' },
   ] },
-  { ipa: '/jɑ̃/', type: 'glide', items: [
+  { ipa: '/jɑ̃/', type: 'glide', soundsLike: '"y" glide into the nasal /ɑ̃/', items: [
     { spelling: 'ian', example: 'viande' },
   ] },
-  { ipa: '/je/', type: 'glide', items: [
+  { ipa: '/je/', type: 'glide', soundsLike: '"ye" in "yes", but with the closed /e/', items: [
     { spelling: 'ier', example: 'premier' },
     { spelling: 'iez', example: 'papier' },
   ] },
