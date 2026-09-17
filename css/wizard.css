@@ -39,7 +39,7 @@
   text-align: left;
   background: var(--surface2);
   border: 1px solid var(--border);
-  border-left: 3px solid var(--tone, var(--muted));
+  border-left: 3px solid var(--muted);
   border-radius: 6px;
   padding: 0.55rem 0.7rem;
   margin-bottom: 0.5rem;
@@ -48,7 +48,7 @@
   color: var(--text);
   transition: background 0.15s, border-color 0.15s;
 }
-.ws-step:hover { background: var(--surface3); border-color: var(--tone, var(--border)); }
+.ws-step:hover { background: var(--surface3); border-color: var(--dim); }
 .ws-step:last-child { margin-bottom: 0; }
 
 .ws-step .ws-q {
@@ -60,7 +60,7 @@
 .ws-step .ws-a {
   font-size: 0.82rem;
   font-weight: 500;
-  color: var(--tone, var(--bright));
+  color: var(--bright);
 }
 .ws-step .ws-redo {
   float: right;
@@ -109,7 +109,7 @@
   appearance: none;
   background: var(--surface2);
   border: 1px solid var(--border);
-  border-left: 3px solid var(--tone, var(--muted));
+  border-left: 3px solid var(--muted);
   color: var(--bright);
   font-family: inherit;
   font-size: 0.9rem;
@@ -136,7 +136,7 @@
 .wr-card {
   background: var(--surface);
   border: 1px solid var(--border);
-  border-left: 3px solid var(--tone, var(--muted));
+  border-left: 3px solid var(--muted);
   border-radius: 8px;
   padding: 1.1rem 1.4rem;
   margin-bottom: 1.2rem;
@@ -144,7 +144,7 @@
 .wr-card .wr-title {
   font-weight: 600;
   font-size: 0.95rem;
-  color: var(--tone, var(--bright));
+  color: var(--bright);
   margin-bottom: 0.6rem;
 }
 .wr-card .wr-note {
@@ -158,14 +158,14 @@
 
 .wr-end {
   display: flex; align-items: center; gap: 0.9rem;
-  background: var(--bg-future);
+  background: var(--accent-bg);
   border: 1px solid rgba(62,194,138,0.35);
   border-radius: 8px;
   padding: 1.2rem 1.5rem;
   margin-bottom: 1.2rem;
 }
 .wr-end .wr-end-check {
-  font-size: 1.4rem; color: var(--future);
+  font-size: 1.4rem; color: var(--accent);
 }
 .wr-end .wr-end-title {
   font-weight: 600; font-size: 1rem; color: var(--bright);
@@ -211,8 +211,8 @@
   padding: 1px 7px;
   border-radius: 10px;
   margin-right: 4px;
-  background: var(--bg-subj);
-  color: var(--subj);
+  background: var(--highlight-bg);
+  color: var(--highlight);
   font-family: 'Noto Sans Mono', monospace;
   text-transform: uppercase;
   letter-spacing: 0.04em;

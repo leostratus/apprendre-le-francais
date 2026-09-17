@@ -1,6 +1,6 @@
 // Generic renderer for a graph-shaped decision wizard.
 // graph = { start: 'nodeId', nodes: { id: { type: 'question'|'end', ... } } }
-// question node: { text, note?, options: [{ id, label, tone?, next, result?: {title?, tone?, html, note?} }] }
+// question node: { text, note?, options: [{ id, label, next, result?: {title?, html, note?} }] }
 // end node:      { title, html? }
 window.APP = window.APP || {};
 
@@ -10,10 +10,6 @@ APP.WizardEngine = function (opts) {
   var container = opts.container;
   var doneKey = opts.doneKey; // i18n key for the generic "done" banner override, optional
   var i18n = APP.i18n;
-
-  function toneVar(tone) {
-    return tone ? 'var(--wiz-' + tone + ')' : null;
-  }
 
   // Replay the persisted option-id path against the graph, starting from graph.start.
   // Stops (and truncates) at the first id that no longer resolves — defends against
@@ -61,8 +57,6 @@ APP.WizardEngine = function (opts) {
     state.steps.forEach(function (step, idx) {
       var btn = el('button', 'ws-step');
       btn.type = 'button';
-      var tone = toneVar(step.option.tone);
-      if (tone) btn.style.setProperty('--tone', tone);
       btn.appendChild(el('div', 'ws-q', i18n.t(step.node.text)));
       var aRow = el('div', 'ws-a');
       aRow.innerHTML = i18n.t(step.option.label) + '<span class="ws-redo">' + i18n.s('wizard_redo') + '</span>';
@@ -83,8 +77,6 @@ APP.WizardEngine = function (opts) {
     if (!option.result) return null;
     var r = option.result;
     var card = el('div', 'wr-card');
-    var tone = toneVar(r.tone || option.tone);
-    if (tone) card.style.setProperty('--tone', tone);
     if (r.muted) card.classList.add('muted');
     if (r.title) card.appendChild(el('div', 'wr-title', i18n.t(r.title)));
     if (r.html) card.appendChild(el('div', '', i18n.t(r.html)));
@@ -102,8 +94,6 @@ APP.WizardEngine = function (opts) {
     node.options.forEach(function (opt) {
       var b = el('button', 'wq-opt');
       b.type = 'button';
-      var tone = toneVar(opt.tone);
-      if (tone) b.style.setProperty('--tone', tone);
       var labelHtml = '<span class="wq-opt-label">' + i18n.t(opt.label) + '</span>';
       if (opt.sub) labelHtml += '<span class="wq-opt-sub">' + i18n.t(opt.sub) + '</span>';
       b.innerHTML = labelHtml;
@@ -149,8 +139,8 @@ APP.WizardEngine = function (opts) {
 
     var panel = el('div', 'wizard-panel');
 
-    // Show result cards for every step taken so far (most recent first is not
-    // necessary — chronological reads naturally as "what happened along the way").
+    // Show result cards for every step taken so far, in order — chronological
+    // reads naturally as "what happened along the way".
     state.steps.forEach(function (step) {
       var card = renderResultCard(step.option);
       if (card) panel.appendChild(card);
