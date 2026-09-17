@@ -150,6 +150,51 @@ tr.stable td { background: rgba(79,142,245,0.04); }
 .son-table th, .son-table td { border-left: none; border-right: none; }
 .son-table tr:first-child th { border-top: none; }
 
+/* ── conjugation paradigm tables ── */
+.conj-model-line {
+  display: flex; align-items: baseline; gap: 0.6rem;
+  margin: 1.2rem 0 0.6rem;
+}
+.conj-model-verb {
+  font-family: 'Noto Sans Mono', monospace; font-weight: 600; font-size: 1.05rem;
+  color: var(--bright); font-style: italic;
+}
+.conj-model-meaning { font-size: 0.82rem; color: var(--dim); }
+
+.conj-table-wrap { overflow-x: auto; margin-bottom: 1rem; }
+.conj-table {
+  border-collapse: collapse; width: 100%;
+  min-width: 560px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  table-layout: fixed;
+}
+.conj-table th {
+  font-family: 'Noto Sans Mono', monospace;
+  font-size: 0.63rem; text-transform: uppercase; letter-spacing: 0.06em;
+  color: var(--muted); padding: 0.4rem 0.5rem; text-align: left;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,0.02);
+}
+.conj-pron-col { width: 13%; font-family: 'Noto Sans Mono', monospace; font-size: 0.78rem; color: var(--dim); }
+.conj-cell {
+  padding: 0.4rem 0.5rem;
+  border: 1px solid var(--border);
+  vertical-align: top;
+}
+.conj-cell .ipa { font-size: 0.92rem; display: block; }
+.conj-spell {
+  display: block; font-size: 0.72rem; color: var(--muted); margin-top: 0.15rem;
+}
+.conj-spell .say { width: 16px; height: 16px; font-size: 0.55rem; margin-left: 0.3rem; }
+
+.conj-verblist-title {
+  font-family: 'Noto Sans Mono', monospace;
+  font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--muted); margin: 1rem 0 0.4rem;
+}
+.conj-verblist td:first-child { font-style: italic; color: var(--text); }
+
 /* ── static (non-interactive) decision flowchart ── */
 .flow {
   display: flex; flex-direction: column; align-items: center;

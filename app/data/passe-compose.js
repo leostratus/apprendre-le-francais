@@ -10,9 +10,6 @@ APP.data = APP.data || {};
   var Exemple = { en: 'Example', fr: 'Exemple' };
   var Terminaison = { en: 'Ending', fr: 'Terminaison' };
 
-  // strip <code>/<em> tags to get plain text for a TTS phrase
-  function plain(html) { return html.replace(/<[^>]+>/g, ''); }
-
   var etreConj = T([Sujet, { en: 'Être', fr: 'Être' }], [
     ['je', say('<code>suis</code>', 'je suis')], ['tu', say('<code>es</code>', 'tu es')],
     ['il / elle / on', say('<code>est</code>', 'il est')], ['nous', say('<code>sommes</code>', 'nous sommes')],
@@ -83,9 +80,35 @@ APP.data = APP.data || {};
     ['-re', '<code>-u</code>', say('vendu', 'il a vendu')]
   ]);
 
+  var agreementSubject = T([{ en: 'Subject', fr: 'Sujet' }, Terminaison, Exemple], [
+    [{ en: 'masc. sing.', fr: 'masc. sing.' }, { en: '(none)', fr: '(rien)' }, say('il est parti', 'il est parti')],
+    [{ en: 'fem. sing.', fr: 'fém. sing.' }, '<code>+e</code>', say('elle est partie', 'elle est partie')],
+    [{ en: 'masc. pl.', fr: 'masc. pl.' }, '<code>+s</code>', say('ils sont partis', 'ils sont partis')],
+    [{ en: 'fem. pl.', fr: 'fém. pl.' }, '<code>+es</code>', say('elles sont parties', 'elles sont parties')]
+  ]);
+
   APP.data.passeCompose = {
-    start: 'q_root',
+    start: 'q_reflexive',
     nodes: {
+      q_reflexive: {
+        type: 'question',
+        text: { en: 'Is the verb reflexive (pronominal)?', fr: 'Le verbe est-il pronominal (réfléchi) ?' },
+        note: { en: 'se laver, se lever, s’appeler… A reflexive verb always takes être, regardless of the question below.', fr: 'se laver, se lever, s’appeler… Un verbe pronominal prend toujours être, quelle que soit la réponse à la question ci-dessous.' },
+        options: [
+          {
+            id: 'oui',
+            label: { en: 'Yes → always être', fr: 'Oui → toujours être' },
+            next: 'q_irr_etre_refl',
+            result: {
+              title: { en: 'Conjugate être (present) + the reflexive pronoun', fr: 'Conjuguer être (présent) + le pronom réfléchi' },
+              html: C(etreConj, pronomReflechi),
+              note: { en: 'e.g. je me suis lavé', fr: 'ex. je me suis lavé' }
+            }
+          },
+          { id: 'non', label: { en: 'No', fr: 'Non' }, next: 'q_root' }
+        ]
+      },
+
       q_root: {
         type: 'question',
         text: { en: 'Does the verb express movement or a change of state?', fr: 'Le verbe exprime un mouvement ou un changement d’état ?' },
@@ -95,51 +118,50 @@ APP.data = APP.data || {};
         },
         options: [
           {
-            id: 'oui', tone: 'green',
+            id: 'oui',
             label: { en: 'Yes → être', fr: 'Oui → être' },
-            next: 'q_pronominal',
-            result: { title: { en: 'Conjugate être (present)', fr: 'Conjuguer être (présent)' }, tone: 'green', html: etreConj }
+            next: 'q_irr_etre_move',
+            result: { title: { en: 'Conjugate être (present)', fr: 'Conjuguer être (présent)' }, html: etreConj }
           },
           {
-            id: 'non', tone: 'blue',
+            id: 'non',
             label: { en: 'No → avoir', fr: 'Non → avoir' },
             next: 'q_irr_avoir',
-            result: { title: { en: 'Conjugate avoir (present)', fr: 'Conjuguer avoir (présent)' }, tone: 'blue', html: avoirConj }
+            result: { title: { en: 'Conjugate avoir (present)', fr: 'Conjuguer avoir (présent)' }, html: avoirConj }
           }
         ]
       },
 
-      q_pronominal: {
-        type: 'question',
-        text: { en: 'Is the verb pronominal (reflexive)?', fr: 'Le verbe est-il pronominal (réfléchi) ?' },
-        note: { en: 'se laver, se lever, s’appeler…', fr: 'se laver, se lever, s’appeler…' },
-        options: [
-          {
-            id: 'oui', tone: 'green', label: { en: 'Yes', fr: 'Oui' }, next: 'q_irr_etre',
-            result: {
-              title: { en: 'Add the reflexive pronoun before être', fr: 'Ajouter le pronom réfléchi avant être' },
-              tone: 'green', html: pronomReflechi,
-              note: { en: 'e.g. je me suis lavé', fr: 'ex. je me suis lavé' }
-            }
-          },
-          {
-            id: 'non', tone: 'blue', label: { en: 'No', fr: 'Non' }, next: 'q_irr_etre',
-            result: { muted: true, tone: 'green', html: { en: 'No reflexive pronoun', fr: 'Pas de pronom réfléchi' } }
-          }
-        ]
-      },
-
-      q_irr_etre: {
+      // reflexive verbs: irregular-participle check feeds into the COD-after-verb
+      // agreement question (agreement is conditional here)
+      q_irr_etre_refl: {
         type: 'question',
         text: { en: 'Is the past participle irregular?', fr: 'Le participe passé est-il irrégulier ?' },
         options: [
           {
-            id: 'oui', tone: 'green', label: { en: 'Yes → use the irregular form', fr: 'Oui → utiliser la forme irrégulière' }, next: 'q_cod_apres',
-            result: { title: { en: 'Common irregular participles (with être)', fr: 'Participes irréguliers courants (avec être)' }, tone: 'green', html: irregEtre }
+            id: 'oui', label: { en: 'Yes → use the irregular form', fr: 'Oui → utiliser la forme irrégulière' }, next: 'q_cod_apres',
+            result: { title: { en: 'Common irregular participles (with être)', fr: 'Participes irréguliers courants (avec être)' }, html: irregEtre }
           },
           {
-            id: 'non', tone: 'blue', label: { en: 'No → regular rules', fr: 'Non → règles régulières' }, next: 'q_cod_apres',
-            result: { title: { en: 'Regular endings', fr: 'Terminaisons régulières' }, tone: 'blue', html: regEtre }
+            id: 'non', label: { en: 'No → regular rules', fr: 'Non → règles régulières' }, next: 'q_cod_apres',
+            result: { title: { en: 'Regular endings', fr: 'Terminaisons régulières' }, html: regEtre }
+          }
+        ]
+      },
+
+      // non-reflexive être (movement) verbs: agreement with the subject is
+      // unconditional, so it rides along with the participle answer
+      q_irr_etre_move: {
+        type: 'question',
+        text: { en: 'Is the past participle irregular?', fr: 'Le participe passé est-il irrégulier ?' },
+        options: [
+          {
+            id: 'oui', label: { en: 'Yes → use the irregular form', fr: 'Oui → utiliser la forme irrégulière' }, next: 'q_negation',
+            result: { title: { en: 'Common irregular participles (with être)', fr: 'Participes irréguliers courants (avec être)' }, html: C(irregEtre, '<div style="margin-top:0.8rem;"></div>', agreementSubject) }
+          },
+          {
+            id: 'non', label: { en: 'No → regular rules', fr: 'Non → règles régulières' }, next: 'q_negation',
+            result: { title: { en: 'Regular endings, then agreement with the subject', fr: 'Terminaisons régulières, puis accord avec le sujet' }, html: C(regEtre, '<div style="margin-top:0.8rem;"></div>', agreementSubject) }
           }
         ]
       },
@@ -150,21 +172,12 @@ APP.data = APP.data || {};
         note: { en: 'e.g. elle s’est lavé les mains (les mains = direct object)', fr: 'ex. elle s’est lavé les mains (les mains = COD)' },
         options: [
           {
-            id: 'oui', tone: 'green', label: { en: 'Yes → no agreement', fr: 'Oui → pas d’accord' }, next: 'q_negation',
-            result: { muted: true, tone: 'green', html: { en: say('Invariable participle<br>', 'Elle s’est lavé les mains.') + '<em>Elle s’est lavé les mains.</em>', fr: say('Participe invariable<br>', 'Elle s’est lavé les mains.') + '<em>Elle s’est lavé les mains.</em>' } }
+            id: 'oui', label: { en: 'Yes → no agreement', fr: 'Oui → pas d’accord' }, next: 'q_negation',
+            result: { muted: true, html: { en: say('Invariable participle<br>', 'Elle s’est lavé les mains.') + '<em>Elle s’est lavé les mains.</em>', fr: say('Participe invariable<br>', 'Elle s’est lavé les mains.') + '<em>Elle s’est lavé les mains.</em>' } }
           },
           {
-            id: 'non', tone: 'blue', label: { en: 'No → agreement required', fr: 'Non → accord requis' }, next: 'q_negation',
-            result: {
-              title: { en: 'Agreement with the subject', fr: 'Accord avec le sujet' },
-              tone: 'green',
-              html: T([{ en: 'Subject', fr: 'Sujet' }, Terminaison, Exemple], [
-                [{ en: 'masc. sing.', fr: 'masc. sing.' }, { en: '(none)', fr: '(rien)' }, say('il est parti', 'il est parti')],
-                [{ en: 'fem. sing.', fr: 'fém. sing.' }, '<code>+e</code>', say('elle est partie', 'elle est partie')],
-                [{ en: 'masc. pl.', fr: 'masc. pl.' }, '<code>+s</code>', say('ils sont partis', 'ils sont partis')],
-                [{ en: 'fem. pl.', fr: 'fém. pl.' }, '<code>+es</code>', say('elles sont parties', 'elles sont parties')]
-              ])
-            }
+            id: 'non', label: { en: 'No → agreement required', fr: 'Non → accord requis' }, next: 'q_negation',
+            result: { title: { en: 'Agreement with the subject', fr: 'Accord avec le sujet' }, html: agreementSubject }
           }
         ]
       },
@@ -174,12 +187,12 @@ APP.data = APP.data || {};
         text: { en: 'Is the past participle irregular?', fr: 'Le participe passé est-il irrégulier ?' },
         options: [
           {
-            id: 'oui', tone: 'blue', label: { en: 'Yes → use the irregular form', fr: 'Oui → utiliser la forme irrégulière' }, next: 'q_cod_precede',
-            result: { title: { en: 'Irregular participles (with avoir)', fr: 'Participes irréguliers (avec avoir)' }, tone: 'blue', html: irregAvoir }
+            id: 'oui', label: { en: 'Yes → use the irregular form', fr: 'Oui → utiliser la forme irrégulière' }, next: 'q_cod_precede',
+            result: { title: { en: 'Irregular participles (with avoir)', fr: 'Participes irréguliers (avec avoir)' }, html: irregAvoir }
           },
           {
-            id: 'non', tone: 'blue', label: { en: 'No → regular rules', fr: 'Non → règles régulières' }, next: 'q_cod_precede',
-            result: { title: { en: 'Regular endings', fr: 'Terminaisons régulières' }, tone: 'blue', html: regAvoir }
+            id: 'non', label: { en: 'No → regular rules', fr: 'Non → règles régulières' }, next: 'q_cod_precede',
+            result: { title: { en: 'Regular endings', fr: 'Terminaisons régulières' }, html: regAvoir }
           }
         ]
       },
@@ -190,10 +203,9 @@ APP.data = APP.data || {};
         note: { en: 'pronoun: je l’ai vue · relative clause: la fille que j’ai vue', fr: 'pronom : je l’ai vue · relative : la fille que j’ai vue' },
         options: [
           {
-            id: 'oui', tone: 'blue', label: { en: 'Yes → agreement required', fr: 'Oui → accord requis' }, next: 'q_negation',
+            id: 'oui', label: { en: 'Yes → agreement required', fr: 'Oui → accord requis' }, next: 'q_negation',
             result: {
               title: { en: 'Agreement with the preceding direct object', fr: 'Accord avec le COD qui précède' },
-              tone: 'blue',
               html: T([{ en: 'Direct object', fr: 'COD' }, Terminaison, Exemple], [
                 [{ en: 'masc. sing.', fr: 'masc. sing.' }, { en: '(none)', fr: '(rien)' }, say('je l’ai vu', 'je l’ai vu')],
                 [{ en: 'fem. sing.', fr: 'fém. sing.' }, '<code>+e</code>', say('je l’ai vue', 'je l’ai vue')],
@@ -203,8 +215,8 @@ APP.data = APP.data || {};
             }
           },
           {
-            id: 'non', tone: 'blue', label: { en: 'No', fr: 'Non' }, next: 'q_negation',
-            result: { muted: true, tone: 'blue', html: { en: 'Invariable participle<br>' + say('<em>J’ai mangé.</em>', 'J’ai mangé.'), fr: 'Participe invariable<br>' + say('<em>J’ai mangé.</em>', 'J’ai mangé.') } }
+            id: 'non', label: { en: 'No', fr: 'Non' }, next: 'q_negation',
+            result: { muted: true, html: { en: 'Invariable participle<br>' + say('<em>J’ai mangé.</em>', 'J’ai mangé.'), fr: 'Participe invariable<br>' + say('<em>J’ai mangé.</em>', 'J’ai mangé.') } }
           }
         ]
       },
@@ -214,10 +226,9 @@ APP.data = APP.data || {};
         text: { en: 'Is there a negation?', fr: 'Y a-t-il une négation ?' },
         options: [
           {
-            id: 'oui', tone: 'gray', label: { en: 'Yes', fr: 'Oui' }, next: 'q_question',
+            id: 'oui', label: { en: 'Yes', fr: 'Oui' }, next: 'q_question',
             result: {
               title: { en: 'Wrap the auxiliary with ne…pas', fr: 'Encadrer l’auxiliaire de ne…pas' },
-              tone: 'gray',
               html: T([{ en: 'Auxiliary', fr: 'Auxiliaire' }, Exemple], [
                 ['avoir', say('<em>je n’ai pas mangé</em>', 'je n’ai pas mangé')],
                 ['être', say('<em>elle n’est pas venue</em>', 'elle n’est pas venue')]
@@ -225,7 +236,7 @@ APP.data = APP.data || {};
               note: { en: 'In casual spoken French, ne is often dropped: j’ai pas mangé.', fr: 'À l’oral familier, le ne disparaît souvent : j’ai pas mangé.' }
             }
           },
-          { id: 'non', tone: 'gray', label: { en: 'No', fr: 'Non' }, next: 'q_question', result: { muted: true, tone: 'gray', html: { en: 'Nothing to change', fr: 'Rien à changer' } } }
+          { id: 'non', label: { en: 'No', fr: 'Non' }, next: 'q_question', result: { muted: true, html: { en: 'Nothing to change', fr: 'Rien à changer' } } }
         ]
       },
 
@@ -233,8 +244,8 @@ APP.data = APP.data || {};
         type: 'question',
         text: { en: 'Is it a question?', fr: 'Est-ce une question ?' },
         options: [
-          { id: 'oui', tone: 'gray', label: { en: 'Yes', fr: 'Oui' }, next: 'q_tu_vous' },
-          { id: 'non', tone: 'gray', label: { en: 'No', fr: 'Non' }, next: 'end', result: { muted: true, tone: 'gray', html: { en: 'Nothing to change', fr: 'Rien à changer' } } }
+          { id: 'oui', label: { en: 'Yes', fr: 'Oui' }, next: 'q_tu_vous' },
+          { id: 'non', label: { en: 'No', fr: 'Non' }, next: 'end', result: { muted: true, html: { en: 'Nothing to change', fr: 'Rien à changer' } } }
         ]
       },
 
@@ -243,29 +254,25 @@ APP.data = APP.data || {};
         text: { en: 'Are you using tu or vous with the other person?', fr: 'Tutoies-tu ou vouvoyez-vous l’interlocuteur·trice ?' },
         options: [
           {
-            id: 'tu', tone: 'green', label: { en: 'Tu (informal)', fr: 'Tu (tutoiement)' }, next: 'end',
+            id: 'tu', label: { en: 'Tu (informal)', fr: 'Tu (tutoiement)' }, next: 'end',
             result: {
               title: { en: 'Question form', fr: 'Forme de question' },
-              tone: 'green',
               html: T([{ en: 'Form', fr: 'Forme' }, Exemple, { en: 'Register', fr: 'Registre' }], [
                 [{ en: 'Inversion', fr: 'Inversion' }, say('<em>As-tu mangé ?</em>', 'As-tu mangé ?'), { en: 'formal', fr: 'soutenu' }],
                 ['<code>Est-ce que</code>', say('<em>Est-ce que tu as mangé ?</em>', 'Est-ce que tu as mangé ?'), { en: 'neutral', fr: 'neutre' }],
-                [{ en: 'Intonation', fr: 'Intonation' }, say('<em>Tu as mangé ?</em>', 'Tu as mangé ?'), { en: 'casual ★', fr: 'familier ★' }]
-              ]),
-              note: { en: '★ The most common form in speech.', fr: '★ Le plus courant à l’oral.' }
+                [{ en: 'Intonation', fr: 'Intonation' }, say('<em>Tu as mangé ?</em>', 'Tu as mangé ?'), { en: 'casual (most common in speech)', fr: 'familier (le plus courant à l’oral)' }]
+              ])
             }
           },
           {
-            id: 'vous', tone: 'purple', label: { en: 'Vous (formal)', fr: 'Vous (vouvoiement)' }, next: 'end',
+            id: 'vous', label: { en: 'Vous (formal)', fr: 'Vous (vouvoiement)' }, next: 'end',
             result: {
               title: { en: 'Question form', fr: 'Forme de question' },
-              tone: 'purple',
               html: T([{ en: 'Form', fr: 'Forme' }, Exemple, { en: 'Register', fr: 'Registre' }], [
-                [{ en: 'Inversion ★', fr: 'Inversion ★' }, say('<em>Avez-vous mangé ?</em>', 'Avez-vous mangé ?'), { en: 'formal — recommended', fr: 'soutenu — recommandé' }],
+                [{ en: 'Inversion (recommended)', fr: 'Inversion (recommandée)' }, say('<em>Avez-vous mangé ?</em>', 'Avez-vous mangé ?'), { en: 'formal', fr: 'soutenu' }],
                 ['<code>Est-ce que</code>', say('<em>Est-ce que vous avez mangé ?</em>', 'Est-ce que vous avez mangé ?'), { en: 'neutral', fr: 'neutre' }],
-                [{ en: 'Intonation', fr: 'Intonation' }, say('<em>Vous avez mangé ?</em>', 'Vous avez mangé ?'), { en: 'casual — avoid', fr: 'familier — à éviter' }]
-              ]),
-              note: { en: '★ Inversion is strongly recommended with vous.', fr: '★ L’inversion est fortement recommandée avec le vouvoiement.' }
+                [{ en: 'Intonation', fr: 'Intonation' }, say('<em>Vous avez mangé ?</em>', 'Vous avez mangé ?'), { en: 'avoid with vous', fr: 'à éviter avec le vouvoiement' }]
+              ])
             }
           }
         ]
