@@ -44,6 +44,7 @@ APP.tools.passeCompose = (function () {
 
     engine.render();
     APP.speech.wireSpeakers(root);
+    APP.phonemeColor.apply(root);
   }
 
   function renderAll() { if (engine) engine.render(); }

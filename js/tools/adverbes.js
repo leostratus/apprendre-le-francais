@@ -62,6 +62,7 @@ APP.tools.adverbes = (function () {
 
     engines.forEach(function (e) { e.render(); });
     APP.speech.wireSpeakers(root);
+    APP.phonemeColor.apply(root);
   }
 
   function renderAll() { engines.forEach(function (e) { e.render(); }); }

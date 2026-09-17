@@ -340,6 +340,7 @@ APP.tools.pronunciation = (function () {
   function mount(root) {
     root.innerHTML = render(i18n.getLang());
     APP.speech.wireSpeakers(root);
+    APP.phonemeColor.apply(root);
     mounted = true;
   }
 

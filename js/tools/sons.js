@@ -72,6 +72,7 @@ APP.tools.sons = (function () {
     });
 
     APP.speech.wireSpeakers(root);
+    APP.phonemeColor.apply(root);
   }
 
   function renderAll() {}

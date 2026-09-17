@@ -43,5 +43,34 @@ APP.dataHelpers = (function () {
     return label + ' <button class="say" data-say="' + phrase.replace(/"/g, '&quot;') + '" title="hear it">▶</button>';
   }
 
-  return { tr: tr, table: table, combine: combine, say: say };
+  // ipa(str) — auto color-codes a raw IPA string, character by character, into
+  // the site's five phoneme-type spans (v/nv/c/r/g). Nasal vowels are written
+  // as base+combining tilde (e.g. 'ɔ' + '̃') and merged into one nv span.
+  var NASAL_BASE = 'ɔɑɛœ';
+  var ORAL_VOWEL = 'aeɛiouyøœə';
+  var GLIDE = 'jwɥ';
+  var RHOTIC = 'ʁ';
+  var TILDE = '̃';
+
+  function ipa(str) {
+    var out = '';
+    for (var i = 0; i < str.length; i++) {
+      var ch = str[i];
+      if (ch === ' ' || ch === '.' || ch === '’' || ch === '\'') { out += ch; continue; }
+      var next = str[i + 1];
+      if (NASAL_BASE.indexOf(ch) !== -1 && next === TILDE) {
+        out += '<span class="nv">' + ch + next + '</span>';
+        i++;
+        continue;
+      }
+      var cls = RHOTIC.indexOf(ch) !== -1 ? 'r'
+        : GLIDE.indexOf(ch) !== -1 ? 'g'
+        : ORAL_VOWEL.indexOf(ch) !== -1 ? 'v'
+        : 'c';
+      out += '<span class="' + cls + '">' + ch + '</span>';
+    }
+    return '<span class="ipa">' + out + '</span>';
+  }
+
+  return { tr: tr, table: table, combine: combine, say: say, ipa: ipa };
 })();

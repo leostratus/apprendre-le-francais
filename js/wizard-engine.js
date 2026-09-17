@@ -159,6 +159,7 @@ APP.WizardEngine = function (opts) {
     wrap.appendChild(panel);
     container.appendChild(wrap);
     APP.speech.wireSpeakers(container);
+    APP.phonemeColor.apply(container);
   }
 
   return { render: render, clear: function () { APP.state.clearPath(wizardId); render(); } };
