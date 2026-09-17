@@ -270,8 +270,154 @@ APP.data = APP.data || {};
         ['apercevoir', 'aperçu', 'to notice'], ['s’apercevoir', 'aperçu', 'to realize'], ['concevoir', 'conçu', 'to conceive'],
         ['décevoir', 'déçu', 'to disappoint'], ['percevoir', 'perçu', 'to perceive']
       ])
+    },
+    {
+      id: 'enir',
+      title: { en: 'Verbs in -enir (tenir, venir)', fr: 'Verbes en -enir (tenir, venir)' },
+      rule: { en: 'The stem alternates between a nasal form in the singular/ils and a schwa form in nous/vous; the futur/conditionnel stem doubles the d into ndr.', fr: 'La base alterne entre une forme nasale au singulier/ils et une forme en schwa à nous/vous ; la base du futur/conditionnel ajoute ndr.' },
+      model: 'venir', meaning: 'to come',
+      paradigm: paradigm(
+        [['vjɛ̃', 'viens'], ['vjɛ̃', 'viens'], ['vjɛ̃', 'vient'], ['vənɔ̃', 'venons'], ['vəne', 'venez'], ['vjɛn', 'viennent']],
+        [['vənɛ', 'venais'], ['vənɛ', 'venais'], ['vənɛ', 'venait'], ['vənjɔ̃', 'venions'], ['vənje', 'veniez'], ['vənɛ', 'venaient']],
+        [['vjɛ̃dʁe', 'viendrai'], ['vjɛ̃dʁa', 'viendras'], ['vjɛ̃dʁa', 'viendra'], ['vjɛ̃dʁɔ̃', 'viendrons'], ['vjɛ̃dʁe', 'viendrez'], ['vjɛ̃dʁɔ̃', 'viendront']],
+        [['vjɛ̃dʁɛ', 'viendrais'], ['vjɛ̃dʁɛ', 'viendrais'], ['vjɛ̃dʁɛ', 'viendrait'], ['vjɛ̃dʁjɔ̃', 'viendrions'], ['vjɛ̃dʁje', 'viendriez'], ['vjɛ̃dʁɛ', 'viendraient']],
+        [['vjɛn', 'vienne'], ['vjɛn', 'viennes'], ['vjɛn', 'vienne'], ['vənjɔ̃', 'venions'], ['vənje', 'veniez'], ['vjɛn', 'viennent']]
+      ),
+      participleNote: { en: 'Every -enir verb takes -enu: venu, tenu, obtenu, devenu.', fr: 'Chaque verbe en -enir prend -enu : venu, tenu, obtenu, devenu.' },
+      verbList: verbs([
+        ['venir', 'venu', 'to come'], ['devenir', 'devenu', 'to become'], ['revenir', 'revenu', 'to come back'],
+        ['parvenir', 'parvenu', 'to reach, to manage to'], ['survenir', 'survenu', 'to occur suddenly'],
+        ['se souvenir', 'souvenu', 'to remember'], ['prévenir', 'prévenu', 'to warn'], ['convenir', 'convenu', 'to suit, to agree'],
+        ['tenir', 'tenu', 'to hold'], ['obtenir', 'obtenu', 'to obtain'], ['retenir', 'retenu', 'to retain'],
+        ['maintenir', 'maintenu', 'to maintain'], ['soutenir', 'soutenu', 'to support'], ['contenir', 'contenu', 'to contain'],
+        ['appartenir', 'appartenu', 'to belong']
+      ])
+    },
+    {
+      id: 'boire',
+      title: { en: 'boire', fr: 'boire' },
+      rule: { en: 'The stem alternates between a short form in the singular/ils and buv- in nous/vous; the futur/conditionnel and subjonctif nous/vous are built regularly from the infinitive and the buv- stem.', fr: 'La base alterne entre une forme courte au singulier/ils et buv- à nous/vous ; le futur/conditionnel et le subjonctif nous/vous sont réguliers, construits sur l’infinitif et la base buv-.' },
+      model: 'boire', meaning: 'to drink',
+      paradigm: paradigm(
+        [['bwa', 'bois'], ['bwa', 'bois'], ['bwa', 'boit'], ['byvɔ̃', 'buvons'], ['byve', 'buvez'], ['bwav', 'boivent']],
+        [['byvɛ', 'buvais'], ['byvɛ', 'buvais'], ['byvɛ', 'buvait'], ['byvjɔ̃', 'buvions'], ['byvje', 'buviez'], ['byvɛ', 'buvaient']],
+        [['bwaʁe', 'boirai'], ['bwaʁa', 'boiras'], ['bwaʁa', 'boira'], ['bwaʁɔ̃', 'boirons'], ['bwaʁe', 'boirez'], ['bwaʁɔ̃', 'boiront']],
+        [['bwaʁɛ', 'boirais'], ['bwaʁɛ', 'boirais'], ['bwaʁɛ', 'boirait'], ['bwaʁjɔ̃', 'boirions'], ['bwaʁje', 'boiriez'], ['bwaʁɛ', 'boiraient']],
+        [['bwav', 'boive'], ['bwav', 'boives'], ['bwav', 'boive'], ['byvjɔ̃', 'buvions'], ['byvje', 'buviez'], ['bwav', 'boivent']]
+      ),
+      participleNote: { en: 'bu follows the wider -oir/-re tendency toward -u.', fr: 'bu suit la tendance plus large des verbes en -oir/-re vers -u.' },
+      verbList: verbs([['boire', 'bu', 'to drink']])
+    },
+    {
+      id: 'croire',
+      title: { en: 'croire', fr: 'croire' },
+      rule: { en: 'The stem alternates between croi- in the singular/ils and croy- everywhere the ending starts with a vowel sound.', fr: 'La base alterne entre croi- au singulier/ils et croy- partout où la terminaison commence par un son vocalique.' },
+      model: 'croire', meaning: 'to believe',
+      paradigm: paradigm(
+        [['kʁwa', 'crois'], ['kʁwa', 'crois'], ['kʁwa', 'croit'], ['kʁwajɔ̃', 'croyons'], ['kʁwaje', 'croyez'], ['kʁwa', 'croient']],
+        [['kʁwajɛ', 'croyais'], ['kʁwajɛ', 'croyais'], ['kʁwajɛ', 'croyait'], ['kʁwajjɔ̃', 'croyions'], ['kʁwajje', 'croyiez'], ['kʁwajɛ', 'croyaient']],
+        [['kʁwaʁe', 'croirai'], ['kʁwaʁa', 'croiras'], ['kʁwaʁa', 'croira'], ['kʁwaʁɔ̃', 'croirons'], ['kʁwaʁe', 'croirez'], ['kʁwaʁɔ̃', 'croiront']],
+        [['kʁwaʁɛ', 'croirais'], ['kʁwaʁɛ', 'croirais'], ['kʁwaʁɛ', 'croirait'], ['kʁwaʁjɔ̃', 'croirions'], ['kʁwaʁje', 'croiriez'], ['kʁwaʁɛ', 'croiraient']],
+        [['kʁwa', 'croie'], ['kʁwa', 'croies'], ['kʁwa', 'croie'], ['kʁwajjɔ̃', 'croyions'], ['kʁwajje', 'croyiez'], ['kʁwa', 'croient']]
+      ),
+      participleNote: { en: 'cru follows the wider -oir/-re tendency toward -u.', fr: 'cru suit la tendance plus large des verbes en -oir/-re vers -u.' },
+      verbList: verbs([['croire', 'cru', 'to believe']])
+    },
+    {
+      id: 'voir',
+      title: { en: 'voir', fr: 'voir' },
+      rule: { en: 'The stem alternates between voi- and voy- like croire, but the futur/conditionnel stem is irregular: verr-, not voir-.', fr: 'La base alterne entre voi- et voy- comme pour croire, mais la base du futur/conditionnel est irrégulière : verr-, et non voir-.' },
+      model: 'voir', meaning: 'to see',
+      paradigm: paradigm(
+        [['vwa', 'vois'], ['vwa', 'vois'], ['vwa', 'voit'], ['vwajɔ̃', 'voyons'], ['vwaje', 'voyez'], ['vwa', 'voient']],
+        [['vwajɛ', 'voyais'], ['vwajɛ', 'voyais'], ['vwajɛ', 'voyait'], ['vwajjɔ̃', 'voyions'], ['vwajje', 'voyiez'], ['vwajɛ', 'voyaient']],
+        [['vɛʁe', 'verrai'], ['vɛʁa', 'verras'], ['vɛʁa', 'verra'], ['vɛʁɔ̃', 'verrons'], ['vɛʁe', 'verrez'], ['vɛʁɔ̃', 'verront']],
+        [['vɛʁɛ', 'verrais'], ['vɛʁɛ', 'verrais'], ['vɛʁɛ', 'verrait'], ['vɛʁjɔ̃', 'verrions'], ['vɛʁje', 'verriez'], ['vɛʁɛ', 'verraient']],
+        [['vwa', 'voie'], ['vwa', 'voies'], ['vwa', 'voie'], ['vwajjɔ̃', 'voyions'], ['vwajje', 'voyiez'], ['vwa', 'voient']]
+      ),
+      participleNote: { en: 'vu follows the wider -oir/-re tendency toward -u.', fr: 'vu suit la tendance plus large des verbes en -oir/-re vers -u.' },
+      verbList: verbs([['voir', 'vu', 'to see'], ['revoir', 'revu', 'to see again'], ['prévoir', 'prévu', 'to foresee'], ['entrevoir', 'entrevu', 'to glimpse']])
+    },
+    {
+      id: 'aller',
+      title: { en: 'aller', fr: 'aller' },
+      rule: { en: 'Three unrelated stems share this one infinitive: va(is)- in the singular, all- in nous/vous, and v- in ils and the futur/conditionnel.', fr: 'Trois bases sans rapport se partagent cet infinitif : va(is)- au singulier, all- à nous/vous, et v- à ils et au futur/conditionnel.' },
+      model: 'aller', meaning: 'to go',
+      paradigm: paradigm(
+        [['vɛ', 'vais'], ['va', 'vas'], ['va', 'va'], ['alɔ̃', 'allons'], ['ale', 'allez'], ['vɔ̃', 'vont']],
+        [['alɛ', 'allais'], ['alɛ', 'allais'], ['alɛ', 'allait'], ['aljɔ̃', 'allions'], ['alje', 'alliez'], ['alɛ', 'allaient']],
+        [['iʁe', 'irai'], ['iʁa', 'iras'], ['iʁa', 'ira'], ['iʁɔ̃', 'irons'], ['iʁe', 'irez'], ['iʁɔ̃', 'iront']],
+        [['iʁɛ', 'irais'], ['iʁɛ', 'irais'], ['iʁɛ', 'irait'], ['iʁjɔ̃', 'irions'], ['iʁje', 'iriez'], ['iʁɛ', 'iraient']],
+        [['aj', 'aille'], ['aj', 'ailles'], ['aj', 'aille'], ['aljɔ̃', 'allions'], ['alje', 'alliez'], ['aj', 'aillent']]
+      ),
+      participleNote: { en: 'The participle allé is built regularly from the infinitive, unlike every other tense above.', fr: 'Le participe allé est construit régulièrement à partir de l’infinitif, contrairement à tous les autres temps ci-dessus.' },
+      verbList: verbs([['aller', 'allé', 'to go'], ['s’en aller', 'en allé', 'to go away']])
     }
   ];
+
+  APP.data.passeSimple = {
+    title: { en: 'Passé simple', fr: 'Passé simple' },
+    rule: {
+      en: 'Literary past tense with a definite endpoint, used only in formal writing and literature. It is worth learning to recognize, not to produce: am/at for nous/vous are unmistakable in any verb, and ɛʁ for ils is just as distinctive.',
+      fr: 'Temps du passé littéraire avec un point final précis, utilisé seulement à l’écrit soutenu et en littérature. Il vaut la peine de le reconnaître, pas de le produire : am/at pour nous/vous sont reconnaissables dans n’importe quel verbe, et ɛʁ pour ils est tout aussi distinctif.'
+    },
+    model: 'parler', meaning: 'to speak (shown for a regular -er verb)',
+    rows: [
+      { pron: 'je', ipa: 'paʁle', spell: 'parlai' },
+      { pron: 'tu / il', ipa: 'paʁla', spell: 'parlas / parla' },
+      { pron: 'nous', ipa: 'paʁlam', spell: 'parlâmes' },
+      { pron: 'vous', ipa: 'paʁlat', spell: 'parlâtes' },
+      { pron: 'ils', ipa: 'paʁlɛʁ', spell: 'parlèrent' }
+    ]
+  };
+
+  APP.data.conjIntro = {
+    moodTense: {
+      title: { en: 'Mood and tense are two different axes', fr: 'Mode et temps sont deux axes différents' },
+      p1: { en: 'These two words are often conflated. They answer different questions.', fr: 'Ces deux mots sont souvent confondus. Ils répondent à des questions différentes.' },
+      tenseLabel: { en: 'Tense answers', fr: 'Le temps répond à' }, tenseTerm: { en: 'When?', fr: 'Quand ?' },
+      tenseDef: { en: 'Tense can be past, present, or future. It locates an action in time.', fr: 'Le temps peut être passé, présent ou futur. Il situe une action dans le temps.' },
+      moodLabel: { en: 'Mood answers', fr: 'Le mode répond à' }, moodTerm: { en: 'How real is it?', fr: 'À quel point est-ce réel ?' },
+      moodDef: { en: 'Is this a fact, a hypothesis, a wish, a command? Mood expresses the speaker’s relationship to reality.', fr: 'Est-ce un fait, une hypothèse, un souhait, un ordre ? Le mode exprime le rapport du locuteur à la réalité.' },
+      p2: { en: 'French has four moods. The indicatif states facts; most of the tenses above belong to it. The subjonctif marks doubt, emotion, or necessity, not a fact. The conditionnel marks hypotheticals: things that would happen under some condition. The impératif issues commands.', fr: 'Le français compte quatre modes. L’indicatif énonce des faits ; la plupart des temps ci-dessus en font partie. Le subjonctif marque le doute, l’émotion ou la nécessité, pas un fait. Le conditionnel marque l’hypothétique : ce qui se produirait sous certaine condition. L’impératif donne des ordres.' }
+    },
+    futureVsCond: {
+      title: { en: 'Why the futur and conditionnel sound alike', fr: 'Pourquoi le futur et le conditionnel se ressemblent' },
+      p1: { en: 'They share the same stem: the infinitive, which carries its ʁ into the conjugated form. The futur attaches its own endings; the conditionnel attaches the imparfait’s endings to that same stem.', fr: 'Ils partagent la même base : l’infinitif, qui porte son ʁ jusque dans la forme conjuguée. Le futur ajoute ses propres terminaisons ; le conditionnel ajoute les terminaisons de l’imparfait à cette même base.' },
+      futureLabel: { en: 'Futur simple', fr: 'Futur simple' }, futureIpa: 'paʁlɛʁe', futureSpell: 'parlerai',
+      futureP: { en: 'A projection into future time, asserted as fact in the indicative mood.', fr: 'Une projection dans le futur, affirmée comme un fait au mode indicatif.' },
+      condLabel: { en: 'Conditionnel', fr: 'Conditionnel' }, condIpa: 'paʁlɛʁɛ', condSpell: 'parlerais',
+      condP: { en: 'A projection into a contingent or unreal situation.', fr: 'Une projection dans une situation contingente ou irréelle.' },
+      note: { en: 'The stem stays the same; only the ending vowel changes: closed e signals an asserted future, open ɛ signals something contingent.', fr: 'La base reste la même ; seule la voyelle de la terminaison change : e fermé signale un futur affirmé, ɛ ouvert signale quelque chose de contingent.' }
+    },
+    soundsKey: {
+      title: { en: 'The sounds that matter in verb endings', fr: 'Les sons qui comptent dans les terminaisons' },
+      p1: { en: 'A handful of sounds carry most of the information in a verb ending.', fr: 'Une poignée de sons porte l’essentiel de l’information dans une terminaison verbale.' },
+      thSymbol: { en: 'symbol', fr: 'symbole' }, thLike: { en: 'sounds like', fr: 'ressemble à' }, thAppears: { en: 'appears in', fr: 'apparaît dans' },
+      rows: [
+        ['e', '"ay" in "say," tense and closed', '‑er ‑ez ‑é (futur je)'],
+        ['ɛ', '"e" in "bet," open', '‑ait ‑ais ‑aient ‑è ‑ê'],
+        ['ɔ̃', 'nasalized "o," no English equivalent', '‑ons ‑ont'],
+        ['ʁ', 'back-of-throat fricative, never rolled', 'the futur/conditionnel stem marker'],
+        ['j', '"y" in "yes," brief glide', '‑ions ‑iez (imparfait/subj. nous/vous)']
+      ],
+      note: { en: 'The e / ɛ distinction is the one to train first: e is futur; ɛ is imparfait and conditionnel. Many spellings share one sound: -ait, -ais, -aient are all ɛ.', fr: 'La distinction e / ɛ est la première à entraîner : e est futur; ɛ est imparfait et conditionnel. Plusieurs orthographes partagent un seul son : -ait, -ais, -aient sont tous ɛ.' }
+    }
+  };
+
+  APP.data.conjFlow = {
+    title: { en: 'Sound → meaning: identifying a tense by ear', fr: 'Son → sens : identifier un temps à l’oreille' },
+    p1: { en: 'Every regular ending above reduces to one flow. Passé simple sits outside it; recognize it instead from am / at / ɛʁ.', fr: 'Chaque terminaison régulière ci-dessus se ramène à ce seul parcours. Le passé simple reste à part ; on le reconnaît par am / at / ɛʁ.' },
+    bare: { en: 'bare stem (nothing)', fr: 'base nue (rien)' }, hearR: { en: 'Hear ʁ in the stem?', fr: 'La base a-t-elle ʁ ?' },
+    noR: { en: 'No', fr: 'Non' }, yesR: { en: 'Yes', fr: 'Oui' },
+    hearE: { en: 'Hear ɛ?', fr: 'Entendez-vous ɛ ?' }, noE: { en: 'No', fr: 'Non' }, yesE: { en: 'Yes', fr: 'Oui' },
+    endingClosed: { en: 'Ending closed (e, a, ɔ̃)?', fr: 'Terminaison fermée (e, a, ɔ̃) ?' },
+    yesClosed: { en: 'Yes', fr: 'Oui' }, noClosed: { en: 'No (open ɛ, or glide j)', fr: 'Non (ɛ ouvert, ou semi-voyelle j)' },
+    present: { en: 'Présent', fr: 'Présent' }, presentNote: { en: 'fact, now or habitual', fr: 'fait, présent ou habituel' },
+    imperfect: { en: 'Imparfait', fr: 'Imparfait' }, imperfectNote: { en: 'past, ongoing (or subjonctif nous/vous, with que)', fr: 'passé continu (ou subjonctif nous/vous, avec que)' },
+    future: { en: 'Futur', fr: 'Futur' }, futureNote: { en: 'will happen', fr: 'va arriver' },
+    cond: { en: 'Conditionnel', fr: 'Conditionnel' }, condNote: { en: 'would happen', fr: 'arriverait' }
+  };
 
   APP.data.memorizeOnly = {
     title: { en: 'Isolated participles within their own families', fr: 'Participes isolés au sein de leur propre famille' },
