@@ -60,18 +60,13 @@ APP.tools.analyzer = (function () {
     return tokens;
   }
 
-  // POS/IPA resolution order, per word: the site's own curated dictionary
-  // (verified exact entries) first, then whatever the upgrade layer
-  // (fr-compromise / espeak-ng, once loaded) supplied for this word, then
-  // the hand-rolled heuristic engines as the last-resort fallback so the
-  // tool never shows nothing while the libraries are still loading.
   function analyzeWord(word, isSentenceStart, extPOS, extIPA) {
     var clean = word.replace(/[^a-zA-ZÀ-ÿœŒ'’-]/g, '').toLowerCase();
     var dictPOS = APP.data.wordPOS && APP.data.wordPOS[clean];
     var dictIPA = APP.data.wordIPA && APP.data.wordIPA[clean];
-    var pos = dictPOS || extPOS || APP.posTagger.tag(word, isSentenceStart);
-    var ipa = dictIPA || extIPA || APP.g2p.transcribe(word, pos);
-    return { word: word, pos: pos, ipa: ipa, upgraded: !dictPOS && !!extPOS || !dictIPA && !!extIPA };
+    var pos = dictPOS || extPOS || (!isSentenceStart && /^[A-ZÀ-Þ]/.test(word) ? 'propnoun' : null);
+    var ipa = dictIPA || extIPA || null;
+    return { word: word, pos: pos, ipa: ipa };
   }
 
   // posArr/ipaArr, when given, are arrays parallel to the word-type tokens
@@ -98,11 +93,11 @@ APP.tools.analyzer = (function () {
       var extPOS = posArr ? posArr[idx] : null;
       var extIPA = ipaArr ? ipaArr[idx] : null;
       var a = analyzeWord(t.text, isStart, extPOS, extIPA);
-      var card = el('div', 'token-card' + (a.upgraded ? ' token-upgraded' : ''));
+      var card = el('div', 'token-card');
       card.innerHTML =
         '<div class="token-word">' + H.say(t.text, t.text) + '</div>' +
-        '<div class="token-pos">' + i18n.t(POS_LABEL[a.pos] || { en: a.pos, fr: a.pos }) + '</div>' +
-        '<div class="token-ipa">' + (a.ipa ? '/' + H.ipa(a.ipa) + '/' : '') + '</div>';
+        '<div class="token-pos">' + (a.pos ? i18n.t(POS_LABEL[a.pos] || { en: a.pos, fr: a.pos }) : '…') + '</div>' +
+        '<div class="token-ipa">' + (a.ipa ? '/' + H.ipa(a.ipa) + '/' : '…') + '</div>';
       wrap.appendChild(card);
     });
     container.appendChild(wrap);
@@ -221,7 +216,6 @@ APP.tools.analyzer = (function () {
     var shT = el('div', 'sh');
     shT.innerHTML = '<div class="sh-marker">§</div><h2>' + i18n.s('analyzer_translations') + '</h2>';
     root.appendChild(shT);
-    root.appendChild(el('p', 'prose', i18n.s('analyzer_translate_privacy')));
 
     var translateGrid = el('div', 'translate-grid');
 
@@ -313,7 +307,7 @@ APP.tools.analyzer = (function () {
         alignCompromise(wordTokens, terms, posArr);
         renderTokens(tokensContainer, text, tokens, posArr, ipaArr);
         APP.phonemeColor.apply(tokensContainer);
-      }).catch(function () { /* fr-compromise unavailable — heuristics keep serving */ });
+      }).catch(function () {});
 
       APP.nlpEngines.transcribeSentence(text, 'fr').then(function (raw) {
         if (seq !== renderSeq) return;
@@ -322,7 +316,7 @@ APP.tools.analyzer = (function () {
         for (var i = 0; i < parts.length; i++) ipaArr[i] = parts[i];
         renderTokens(tokensContainer, text, tokens, posArr, ipaArr);
         APP.phonemeColor.apply(tokensContainer);
-      }).catch(function () { /* espeak-ng unavailable — g2p.js keeps serving */ });
+      }).catch(function () {});
     }
 
     function refresh() {

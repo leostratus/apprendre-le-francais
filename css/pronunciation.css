@@ -240,7 +240,6 @@ tr.stable td { background: rgba(79,142,245,0.04); }
   margin: 0.2rem 0;
 }
 .token-ipa { font-family: 'Noto Sans Mono', monospace; font-size: 0.85rem; }
-.token-upgraded { border-color: var(--accent); }
 
 .analyzer-legend { display: flex; flex-wrap: wrap; gap: 0.5rem 1.2rem; margin-bottom: 2rem; }
 .analyzer-legend-item { font-size: 0.8rem; color: var(--dim); }

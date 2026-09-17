@@ -91,7 +91,7 @@ APP.data = APP.data || {};
             next: 'end',
             result: {
               muted: true, tone: 'gray',
-              html: { en: 'No reliable ending pattern applies here — the gender has to be memorized. Always learn a new noun together with its article (le/la/un/une), not on its own.', fr: 'Aucune terminaison fiable ne s’applique ici — le genre doit être mémorisé. Apprenez toujours un nouveau nom avec son article (le/la/un/une), jamais seul.' }
+              html: { en: 'No reliable ending pattern applies here: the gender has to be memorized. Always learn a new noun together with its article (le/la/un/une), not on its own.', fr: 'Aucune terminaison fiable ne s’applique ici : le genre doit être mémorisé. Apprenez toujours un nouveau nom avec son article (le/la/un/une), jamais seul.' }
             }
           }
         ]

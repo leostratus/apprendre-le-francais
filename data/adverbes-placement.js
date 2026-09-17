@@ -38,7 +38,7 @@ APP.data = APP.data || {};
                   [{ en: 'End', fr: 'Fin' }, ex('On parle français ici.'), { en: 'neutral', fr: 'neutre' }]
                 ]
               ),
-              note: { en: 'Both positions are correct — placing the adverb at the start of the sentence gives it stylistic emphasis.', fr: 'Les deux positions sont correctes — le début de phrase met l’adverbe en relief stylistique.' }
+              note: { en: 'Both positions are correct. Placing the adverb at the start of the sentence gives it stylistic emphasis.', fr: 'Les deux positions sont correctes. Le début de phrase met l’adverbe en relief stylistique.' }
             }
           },
           {
@@ -57,7 +57,7 @@ APP.data = APP.data || {};
                   [{ en: 'adjective', fr: 'adjectif' }, ex('vraiment beau, plutôt sympa')]
                 ]
               ),
-              note: { en: 'These intensity adverbs always precede the word they modify — never after.', fr: 'Ces adverbes d’intensité précèdent toujours le mot qu’ils modifient — jamais après.' }
+              note: { en: 'These intensity adverbs always precede the word they modify, never after.', fr: 'Ces adverbes d’intensité précèdent toujours le mot qu’ils modifient, jamais après.' }
             }
           }
         ]

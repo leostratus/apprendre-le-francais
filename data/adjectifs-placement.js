@@ -27,7 +27,7 @@ APP.data = APP.data || {};
                 [ex('un beau jardin')], [ex('une jolie maison')], [ex('un bon film')],
                 [ex('un petit chien')], [ex('une grosse valise')], [ex('un vieux livre')], [ex('une nouvelle voiture')]
               ]),
-              note: { en: 'These short, frequent adjectives are an exception to the general rule — memorize them as a set.', fr: 'Ces adjectifs courts et fréquents sont une exception à la règle générale — à mémoriser comme un ensemble.' }
+              note: { en: 'These short, frequent adjectives are an exception to the general rule. Memorize them as a set.', fr: 'Ces adjectifs courts et fréquents sont une exception à la règle générale. Mémorisez-les comme un ensemble.' }
             }
           },
           { id: 'non', tone: 'blue', label: { en: 'No', fr: 'Non' }, next: 'q_meaning' }
@@ -102,7 +102,7 @@ APP.data = APP.data || {};
                   [{ en: 'material', fr: 'matière' }, ex('une table en bois')]
                 ]
               ),
-              note: { en: 'This is the general rule — most descriptive adjectives go after the noun. The short BAGS-type set and the meaning-changing set are the exceptions.', fr: 'C’est la règle générale — la plupart des adjectifs descriptifs se placent après le nom. Le petit ensemble d’adjectifs courts et l’ensemble à sens variable sont les exceptions.' }
+              note: { en: 'This is the general rule: most descriptive adjectives go after the noun. The short BAGS-type set and the meaning-changing set are the exceptions.', fr: 'C’est la règle générale : la plupart des adjectifs descriptifs se placent après le nom. Le petit ensemble d’adjectifs courts et l’ensemble à sens variable sont les exceptions.' }
             }
           }
         ]
