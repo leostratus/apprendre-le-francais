@@ -1,7 +1,5 @@
 // Exact-match dictionary for common French function words and high-frequency
-// vocabulary: word -> { pos, ipa }. This is consulted before the rule-based
-// G2P/POS fallbacks in js/lib/, since these words carry the exceptions
-// (silent/pronounced -es, -ent, -s, elisions) that no general rule gets right.
+// vocabulary: word -> { pos, ipa }.
 //
 // POS codes: art (article), det (determiner: possessive/demonstrative),
 // pron (pronoun), verb, noun, adj, adv, prep, conj, neg (negation), num
@@ -75,8 +73,7 @@ APP.data = APP.data || {};
     ['temps', 'noun', 'tɑ̃'], ['femme', 'noun', 'fam'], ['exemple', 'noun', 'ɛgzɑ̃pl'],
     ['monsieur', 'noun', 'məsjø'], ['femmes', 'noun', 'fam'],
 
-    // common -ais words that would otherwise collide with the imparfait
-    // suffix heuristic (see pos-tagger.js) if left unlisted
+    // common -ais adjectives, exact
     ['anglais', 'adj', 'ɑ̃glɛ'], ['anglaise', 'adj', 'ɑ̃glɛz'],
     ['portugais', 'adj', 'pɔʁtygɛ'], ['japonais', 'adj', 'ʒapɔnɛ'], ['irlandais', 'adj', 'iʁlɑ̃dɛ'],
     ['hollandais', 'adj', 'ɔlɑ̃dɛ'], ['palais', 'noun', 'palɛ'], ['jamais', 'adv', 'ʒamɛ'],

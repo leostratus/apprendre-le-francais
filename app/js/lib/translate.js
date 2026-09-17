@@ -1,16 +1,3 @@
-// Client-side translation calls, no server/build step available on this
-// static site.
-//
-// Google: uses the unofficial translate.googleapis.com "gtx" endpoint (the
-// same one many free browser-extension translators call) — it answers plain
-// fetch() with no API key and no CORS block, but it is undocumented, can
-// change or rate-limit without notice, and is not the paid Cloud Translation
-// API. Treated as best-effort, with the official translate.google.com link
-// kept as a fallback.
-//
-// DeepL: has no keyless public endpoint. If the user supplies their own
-// DeepL API key (stored only in this browser's localStorage — never in the
-// repo, never sent anywhere but DeepL's own API), this calls it directly.
 window.APP = window.APP || {};
 
 APP.translate = (function () {
