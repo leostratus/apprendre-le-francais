@@ -16,7 +16,7 @@ APP.data.sons = [
     { spelling: 'y', example: 'stylo' },
     { spelling: 'ie', example: 'vie' },
     { spelling: 'is', example: 'fils' },
-    { spelling: 'it', example: 'gît' },
+    { spelling: 'it', example: 'petit' },
     { spelling: 'ix', example: 'dix' },
   ] },
   { ipa: '/e/', type: 'vowel', soundsLike: '"ay" in "say", tense and closed, with no diphthong glide', items: [
@@ -100,7 +100,7 @@ APP.data.sons = [
   { ipa: '/ɑ̃/', type: 'nasal', soundsLike: 'nasalized "ah"; push air through your nose, no English equivalent', items: [
     { spelling: 'an', example: 'sans' },
     { spelling: 'am', example: 'chambre' },
-    { spelling: 'en', example: 'temps' },
+    { spelling: 'en', example: 'vent' },
     { spelling: 'em', example: 'exemple' },
     { spelling: 'aon', example: 'paon' },
     { spelling: 'éan', example: 'océan' },
@@ -125,13 +125,13 @@ APP.data.sons = [
     { spelling: 'yn', example: 'syndicat' },
     { spelling: 'ym', example: 'thym' },
     { spelling: 'ien', example: 'bien' },
-    { spelling: 'inc', example: 'cinq' },
+    { spelling: 'inc', example: 'distinct' },
     { spelling: 'ind', example: 'peindre' },
     { spelling: 'ing', example: 'vingt' },
-    { spelling: 'int', example: 'instinct' },
+    { spelling: 'int', example: 'teint' },
     { spelling: 'imp', example: 'impossible' },
     { spelling: 'imb', example: 'timbre' },
-    { spelling: 'aint', example: 'peint' },
+    { spelling: 'aint', example: 'craint' },
     { spelling: 'eint', example: 'atteint' },
     { spelling: 'en', example: 'examen (après i/é)' },
   ] },
@@ -160,7 +160,7 @@ APP.data.sons = [
     { spelling: 'ieu', example: 'lieu' },
     { spelling: 'io', example: 'violon' },
     { spelling: 'ion', example: 'avion' },
-    { spelling: 'iou', example: 'caillou' },
+    { spelling: 'illou', example: 'caillou' },
     { spelling: 'yé', example: 'yéti' },
     { spelling: 'ya', example: 'yacht' },
     { spelling: 'yeux', example: 'yeux' },
@@ -169,8 +169,8 @@ APP.data.sons = [
   ] },
   { ipa: '/ɥ/', type: 'glide', soundsLike: 'no English equivalent: say "y" with tightly rounded lips, very brief', items: [
     { spelling: 'ui', example: 'huit' },
-    { spelling: 'ué', example: 'tuer' },
-    { spelling: 'uie', example: 'huile' },
+    { spelling: 'ue', example: 'tuer' },
+    { spelling: 'uie', example: 'pluie' },
   ] },
   { ipa: '/w/', type: 'glide', soundsLike: '"w" in "west"', items: [
     { spelling: 'oi', example: 'moi' },
@@ -234,7 +234,7 @@ APP.data.sons = [
     { spelling: 'ci', example: 'cible' },
     { spelling: 'cy', example: 'cycle' },
     { spelling: 'ç', example: 'garçon' },
-    { spelling: 'sce', example: 'scène' },
+    { spelling: 'scè', example: 'scène' },
     { spelling: 'sci', example: 'science' },
     { spelling: 'scy', example: 'scythe' },
     { spelling: 'ti', example: 'nation' },
@@ -259,7 +259,7 @@ APP.data.sons = [
     { spelling: 'gi', example: 'girafe' },
     { spelling: 'gy', example: 'gymnase' },
     { spelling: 'gea', example: 'mangea' },
-    { spelling: 'geo', example: 'geôlier' },
+    { spelling: 'geô', example: 'geôlier' },
   ] },
   { ipa: '/m/', type: 'cons', soundsLike: '"m" in "mère", like English "m"', items: [
     { spelling: 'm', example: 'mère' },
@@ -275,7 +275,7 @@ APP.data.sons = [
   ] },
   { ipa: '/ŋ/', type: 'cons', soundsLike: '"ng" in "camping", a borrowed sound, mostly in English loanwords', items: [
     { spelling: 'ng', example: 'camping' },
-    { spelling: 'nk', example: 'parking' },
+    { spelling: 'ing', example: 'parking' },
   ] },
   { ipa: '/l/', type: 'cons', soundsLike: '"l" in "livre", lighter and clearer than English "l", tongue at the teeth', items: [
     { spelling: 'l', example: 'livre' },
@@ -295,7 +295,7 @@ APP.data.sons = [
     { spelling: 'x', example: 'examen' },
   ] },
   { ipa: '/sj/', type: 'cons', soundsLike: '"sy" as in "yes, you" run together', items: [
-    { spelling: 'tia', example: 'patience' },
+    { spelling: 'tien', example: 'patience' },
     { spelling: 'tie', example: 'initier' },
     { spelling: 'tio', example: 'nation' },
     { spelling: 'tion', example: 'action' },
@@ -310,7 +310,7 @@ APP.data.sons = [
     { spelling: 'eille', example: 'abeille' },
   ] },
   { ipa: '/œj/', type: 'glide', soundsLike: 'no English equivalent: rounded /œ/ with a quick "y" glide', items: [
-    { spelling: 'euil', example: 'accueil' },
+    { spelling: 'ueil', example: 'accueil' },
     { spelling: 'euille', example: 'feuille' },
   ] },
   { ipa: '/uj/', type: 'glide', soundsLike: '"ooey" as in "gooey"', items: [
@@ -339,6 +339,6 @@ APP.data.sons = [
   ] },
   { ipa: '/je/', type: 'glide', soundsLike: '"ye" in "yes", but with the closed /e/', items: [
     { spelling: 'ier', example: 'premier' },
-    { spelling: 'iez', example: 'papier' },
+    { spelling: 'iez', example: 'priez' },
   ] },
 ];
