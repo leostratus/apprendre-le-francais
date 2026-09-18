@@ -1,22 +1,28 @@
-// Universal phoneme coloring: walks rendered DOM text and wraps any bare IPA
-// symbol in the site's five phoneme-type spans (v/nv/c/r/g), so a symbol
+// Universal phoneme coloring: walks rendered DOM text and colors any bare
+// vowel IPA symbol with its fixed color from APP.phonemePalette, so a symbol
 // mentioned in flowing prose gets the same color as the same symbol inside a
 // hand-built table cell. Only touches IPA-exclusive characters — glyphs that
 // never appear in real French/English spelling — so ordinary prose text is
 // never mistaken for a phoneme. (œ is excluded even though it's IPA /œ/,
 // because œ is also a real French spelling character — sœur, œuf, vœu.)
+// Consonants, glides, and the rhotic are left uncolored.
 window.APP = window.APP || {};
 
 APP.phonemeColor = (function () {
-  var MAP = { 'ʁ': 'r', 'ɛ': 'v', 'ɔ': 'v', 'ɑ': 'v', 'ø': 'v', 'ə': 'v', 'ɲ': 'c', 'ʃ': 'c', 'ʒ': 'c', 'ɥ': 'g' };
+  var VOWELS = 'ɛɔɑøə'; // ɛ ɔ ɑ ø ə (i, e, a, u, y, o are real spelling letters too, left to callers)
   var NASAL_BASE = 'ɛɔɑ';
   var TILDE = '̃';
   var SKIP_TAGS = { SCRIPT: 1, STYLE: 1, CODE: 1 };
-  var COLOR_CLASSES = ['v', 'nv', 'c', 'r', 'g'];
 
   function classify(ch, next) {
-    if (NASAL_BASE.indexOf(ch) !== -1 && next === TILDE) return { cls: 'nv', len: 2 };
-    if (MAP[ch]) return { cls: MAP[ch], len: 1 };
+    if (NASAL_BASE.indexOf(ch) !== -1 && next === TILDE) {
+      var nasalColor = APP.phonemePalette.colorFor(ch + next);
+      return nasalColor ? { color: nasalColor, len: 2 } : null;
+    }
+    if (VOWELS.indexOf(ch) !== -1) {
+      var color = APP.phonemePalette.colorFor(ch);
+      return color ? { color: color, len: 1 } : null;
+    }
     return null;
   }
 
@@ -36,7 +42,7 @@ APP.phonemeColor = (function () {
       if (m) {
         if (buf) { frag.appendChild(document.createTextNode(buf)); buf = ''; }
         var span = document.createElement('span');
-        span.className = m.cls;
+        span.style.color = m.color;
         span.textContent = text.substr(i, m.len);
         frag.appendChild(span);
         i += m.len - 1;
@@ -57,7 +63,7 @@ APP.phonemeColor = (function () {
       var parent = node.parentNode;
       if (!parent || !parent.tagName) continue;
       if (SKIP_TAGS[parent.tagName]) continue;
-      if (parent.classList && COLOR_CLASSES.some(function (c) { return parent.classList.contains(c); })) continue;
+      if (parent.tagName === 'SPAN' && parent.style && parent.style.color) continue;
       if (hasMatch(node.nodeValue)) toProcess.push(node);
     }
     toProcess.forEach(splitTextNode);

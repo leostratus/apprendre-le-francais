@@ -43,13 +43,12 @@ APP.dataHelpers = (function () {
     return label + ' <button class="say" data-say="' + phrase.replace(/"/g, '&quot;') + '" title="hear it">▶</button>';
   }
 
-  // ipa(str) — auto color-codes a raw IPA string, character by character, into
-  // the site's five phoneme-type spans (v/nv/c/r/g). Nasal vowels are written
-  // as base+combining tilde (e.g. 'ɔ' + '̃') and merged into one nv span.
+  // ipa(str) — auto color-codes a raw IPA string, character by character.
+  // Only vowels (oral and nasal) get a color, each its own fixed shade from
+  // APP.phonemePalette; consonants, glides, and the rhotic stay plain.
+  // Nasal vowels are written as base+combining tilde (e.g. 'ɔ' + '̃') and
+  // colored as one unit.
   var NASAL_BASE = 'ɔɑɛœ';
-  var ORAL_VOWEL = 'aeɛiouyøœə';
-  var GLIDE = 'jwɥ';
-  var RHOTIC = 'ʁ';
   var TILDE = '̃';
 
   // IPA punctuation that carries no phoneme color of its own — stress marks,
@@ -64,15 +63,13 @@ APP.dataHelpers = (function () {
       if (NEUTRAL.indexOf(ch) !== -1) { out += ch; continue; }
       var next = str[i + 1];
       if (NASAL_BASE.indexOf(ch) !== -1 && next === TILDE) {
-        out += '<span class="nv">' + ch + next + '</span>';
+        var nasalColor = APP.phonemePalette.colorFor(ch + next);
+        out += nasalColor ? '<span style="color:' + nasalColor + '">' + ch + next + '</span>' : (ch + next);
         i++;
         continue;
       }
-      var cls = RHOTIC.indexOf(ch) !== -1 ? 'r'
-        : GLIDE.indexOf(ch) !== -1 ? 'g'
-        : ORAL_VOWEL.indexOf(ch) !== -1 ? 'v'
-        : 'c';
-      out += '<span class="' + cls + '">' + ch + '</span>';
+      var color = APP.phonemePalette.colorFor(ch);
+      out += color ? '<span style="color:' + color + '">' + ch + '</span>' : ch;
     }
     return '<span class="ipa">' + out + '</span>';
   }
