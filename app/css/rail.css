@@ -42,6 +42,13 @@
   flex-wrap: wrap;
 }
 
+.rail-legend-vowels {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem 0.6rem;
+}
+.rail-legend-vowels .rail-leg { gap: 0.4rem; font-size: 0.78rem; }
+
 .rail-symbols {
   font-size: 0.72rem;
   color: var(--muted);

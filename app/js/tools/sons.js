@@ -24,40 +24,30 @@ APP.tools.sons = (function () {
     return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
   }
 
-  // One distinct hue per phoneme entry, spread by the golden angle so no two
-  // stay visually adjacent regardless of how many entries there are. This is
-  // the only color a phoneme gets on this page: its card title, its spelling
-  // pattern, and every occurrence of that pattern in every example word all
-  // share it, in place of the site's five broad category colors.
-  function phonemeColor(i) {
-    var hue = (i * 137.508) % 360;
-    return 'hsl(' + hue.toFixed(1) + ', 72%, 62%)';
-  }
+  // Vowels (oral and nasal) each get their own fixed color from the shared
+  // palette; consonants, glides, and the rhotic are never colored, on this
+  // page or anywhere else on the site.
+  function bareIpa(ipa) { return ipa.replace(/\//g, ''); }
 
-  var COLOR_BY_IPA = {};
-  APP.data.sons.forEach(function (entry, i) { COLOR_BY_IPA[entry.ipa] = phonemeColor(i); });
-  var COLOR_BY_BARE_IPA = {};
-  APP.data.sons.forEach(function (entry, i) { COLOR_BY_BARE_IPA[entry.ipa.replace(/\//g, '')] = phonemeColor(i); });
-
-  // Renders a whole example word with every phoneme it contains colored,
-  // using the precomputed letter-to-phoneme breakdown (data/sons-breakdown.js).
-  // Falls back to plain text for anything not covered by that breakdown.
+  // Renders a whole example word with every vowel it contains colored, using
+  // the precomputed letter-to-phoneme breakdown (data/sons-breakdown.js).
   function renderWord(word) {
     var segs = APP.data.sonsBreakdown && APP.data.sonsBreakdown[word];
     if (!segs) return escapeHtml(word);
     return segs.map(function (s) {
-      if (!s.ipa) return escapeHtml(s.text);
-      var color = COLOR_BY_BARE_IPA[s.ipa];
+      var color = s.ipa && APP.phonemePalette.colorFor(s.ipa);
       if (!color) return escapeHtml(s.text);
       return '<span style="color:' + color + '">' + escapeHtml(s.text) + '</span>';
     }).join('');
   }
 
   function phonemeCard(entry) {
-    var color = COLOR_BY_IPA[entry.ipa];
+    var color = APP.phonemePalette.colorFor(bareIpa(entry.ipa));
     var card = el('div', 'son-card');
     var head = el('div', 'son-head');
-    head.innerHTML = '<span class="ipa son-ipa" style="color:' + color + '">' + entry.ipa + '</span>';
+    head.innerHTML = color
+      ? '<span class="ipa son-ipa" style="color:' + color + '">' + entry.ipa + '</span>'
+      : '<span class="ipa son-ipa">' + entry.ipa + '</span>';
     if (entry.soundsLike) head.innerHTML += '<div class="son-sounds-like">' + entry.soundsLike + '</div>';
     card.appendChild(head);
 
@@ -74,7 +64,10 @@ APP.tools.sons = (function () {
     var tbody = el('tbody');
     entry.items.forEach(function (it) {
       var tr = el('tr');
-      tr.innerHTML = '<td><code style="color:' + color + '">' + escapeHtml(it.spelling) + '</code></td>' +
+      var spellingCode = color
+        ? '<code style="color:' + color + '">' + escapeHtml(it.spelling) + '</code>'
+        : '<code>' + escapeHtml(it.spelling) + '</code>';
+      tr.innerHTML = '<td>' + spellingCode + '</td>' +
         '<td>' + say(renderWord(it.example), it.example) + '</td>';
       tbody.appendChild(tr);
     });
