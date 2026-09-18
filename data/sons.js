@@ -88,9 +88,8 @@ APP.data.sons = [
   { ipa: '/œ/', type: 'vowel', soundsLike: 'no English equivalent: say "e" in "bet" with rounded lips', items: [
     { spelling: 'eu', example: 'fleur' },
     { spelling: 'œu', example: 'sœur' },
-    { spelling: 'euil', example: 'feuil' },
-    { spelling: 'ueil', example: 'orgueil' },
-    { spelling: 'œil', example: 'œil' },
+    { spelling: 'eur', example: 'peur' },
+    { spelling: 'eul', example: 'seul' },
   ] },
   { ipa: '/ə/', type: 'vowel', soundsLike: '"a" in "about", the neutral, weak schwa', items: [
     { spelling: 'e', example: 'le' },
