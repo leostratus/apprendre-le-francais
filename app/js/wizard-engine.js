@@ -160,6 +160,7 @@ APP.WizardEngine = function (opts) {
     container.appendChild(wrap);
     APP.speech.wireSpeakers(container);
     APP.phonemeColor.apply(container);
+    APP.wordPhonemeColor.applyToTables(container);
   }
 
   return { render: render, clear: function () { APP.state.clearPath(wizardId); render(); } };

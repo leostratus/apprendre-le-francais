@@ -42,6 +42,7 @@ APP.tools.adjectifs = (function () {
     engines.forEach(function (e) { e.render(); });
     APP.speech.wireSpeakers(root);
     APP.phonemeColor.apply(root);
+    APP.wordPhonemeColor.applyToTables(root);
   }
 
   function renderAll() { engines.forEach(function (e) { e.render(); }); }
