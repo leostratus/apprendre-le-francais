@@ -5,8 +5,8 @@ APP.data = APP.data || {};
 // word split into spans tagged with the phoneme (bare IPA, no slashes) each
 // span realizes, or null where the letters are silent. Generated from real
 // espeak-ng transcriptions aligned against this page’s own spelling patterns,
-// with hand-checked corrections where espeak misreads an isolated word or
-// the alignment can’t resolve a spelling-vs-nasal ordering conflict.
+// with hand-checked overrides where espeak misreads an isolated word or the
+// alignment can’t resolve a spelling-vs-nasal ordering conflict.
 APP.data.sonsBreakdown = {
  "lit": [
   {
@@ -230,12 +230,8 @@ APP.data.sonsBreakdown = {
    "ipa": "l"
   },
   {
-   "text": "e",
-   "ipa": null
-  },
-  {
-   "text": "t",
-   "ipa": null
+   "text": "et",
+   "ipa": "ɛ"
   }
  ],
  "clef": [
@@ -269,7 +265,7 @@ APP.data.sonsBreakdown = {
  "ex æquo": [
   {
    "text": "e",
-   "ipa": null
+   "ipa": "ɛ"
   },
   {
    "text": "x",
@@ -919,7 +915,7 @@ APP.data.sonsBreakdown = {
  "exemple": [
   {
    "text": "e",
-   "ipa": null
+   "ipa": "ɛ"
   },
   {
    "text": "x",
@@ -1371,7 +1367,7 @@ APP.data.sonsBreakdown = {
  "examen (après i/é)": [
   {
    "text": "e",
-   "ipa": null
+   "ipa": "ɛ"
   },
   {
    "text": "x",
@@ -1704,20 +1700,8 @@ APP.data.sonsBreakdown = {
  ],
  "yeux": [
   {
-   "text": "y",
-   "ipa": null
-  },
-  {
-   "text": "e",
-   "ipa": null
-  },
-  {
-   "text": "u",
-   "ipa": null
-  },
-  {
-   "text": "x",
-   "ipa": null
+   "text": "yeux",
+   "ipa": "j"
   }
  ],
  "fille": [
@@ -1818,12 +1802,8 @@ APP.data.sonsBreakdown = {
    "ipa": "k"
   },
   {
-   "text": "i",
-   "ipa": null
-  },
-  {
-   "text": "n",
-   "ipa": null
+   "text": "in",
+   "ipa": "ɛ̃"
   }
  ],
  "noyau": [
@@ -1832,12 +1812,12 @@ APP.data.sonsBreakdown = {
    "ipa": "n"
   },
   {
-   "text": "o",
-   "ipa": "o"
+   "text": "oy",
+   "ipa": "w"
   },
   {
-   "text": "ya",
-   "ipa": "j"
+   "text": "a",
+   "ipa": "a"
   },
   {
    "text": "u",
@@ -1984,12 +1964,8 @@ APP.data.sonsBreakdown = {
    "ipa": "i"
   },
   {
-   "text": "i",
-   "ipa": null
-  },
-  {
-   "text": "on",
-   "ipa": "ɔ̃"
+   "text": "ion",
+   "ipa": "j"
   }
  ],
  "table": [
@@ -2167,7 +2143,7 @@ APP.data.sonsBreakdown = {
   },
   {
    "text": "e",
-   "ipa": null
+   "ipa": "ɛ"
   },
   {
    "text": "t",
@@ -2377,7 +2353,7 @@ APP.data.sonsBreakdown = {
   },
   {
    "text": "e",
-   "ipa": null
+   "ipa": "a"
   },
   {
    "text": "mm",
@@ -2449,7 +2425,7 @@ APP.data.sonsBreakdown = {
   },
   {
    "text": "a",
-   "ipa": null
+   "ipa": "a"
   },
   {
    "text": "tt",
@@ -3117,7 +3093,7 @@ APP.data.sonsBreakdown = {
  "excellent": [
   {
    "text": "e",
-   "ipa": null
+   "ipa": "ɛ"
   },
   {
    "text": "xc",
@@ -3139,7 +3115,7 @@ APP.data.sonsBreakdown = {
  "examen": [
   {
    "text": "e",
-   "ipa": null
+   "ipa": "ɛ"
   },
   {
    "text": "x",
@@ -3190,12 +3166,12 @@ APP.data.sonsBreakdown = {
    "ipa": "i"
   },
   {
-   "text": "i",
-   "ipa": null
+   "text": "ie",
+   "ipa": "j"
   },
   {
-   "text": "er",
-   "ipa": "e"
+   "text": "r",
+   "ipa": null
   }
  ],
  "action": [
@@ -3240,12 +3216,16 @@ APP.data.sonsBreakdown = {
    "ipa": null
   },
   {
-   "text": "y",
+   "text": "ya",
+   "ipa": "j"
+  },
+  {
+   "text": "n",
    "ipa": null
   },
   {
-   "text": "ant",
-   "ipa": "ɑ̃"
+   "text": "t",
+   "ipa": null
   }
  ],
  "réveil": [

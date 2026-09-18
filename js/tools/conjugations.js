@@ -244,6 +244,7 @@ APP.tools.conjugations = (function () {
 
     APP.speech.wireSpeakers(root);
     APP.phonemeColor.apply(root);
+    APP.wordPhonemeColor.applyToTables(root);
   }
 
   function renderAll() {}
