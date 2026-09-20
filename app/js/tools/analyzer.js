@@ -127,21 +127,72 @@ APP.tools.analyzer = (function () {
   // Aligns fr-compromise's own term list against our word tokens by text
   // match with a small lookahead window, since fr-compromise sometimes
   // emits extra empty-text terms around elisions that would otherwise throw
-  // off a strict positional zip.
+  // off a strict positional zip. An elision like "C'est" comes back as ONE
+  // term carrying the pronoun's tags with the full "c'est" text, followed by
+  // a zero-width "implicit" term carrying the verb's tags — our own
+  // tokenizer, by contrast, always splits the elision ("C'") from the word
+  // it attaches to ("est") into two tokens, so both halves need their tags
+  // pulled from that single fused term pair.
   function alignCompromise(wordTokens, terms, posArr) {
     var j = 0;
     for (var i = 0; i < wordTokens.length; i++) {
       var target = wordTokens[i].text.replace(/[’]/g, "'").toLowerCase();
+      var isElisionPrefix = /'$/.test(target);
       var found = -1;
       for (var k = j; k < Math.min(terms.length, j + 4); k++) {
         var tt = (terms[k].text || '').replace(/[’]/g, "'").trim().toLowerCase();
-        if (tt && (tt === target || tt === target.replace(/['-]$/, ''))) { found = k; break; }
+        if (!tt) continue;
+        if (tt === target || tt === target.replace(/['-]$/, '')) { found = k; break; }
+        if (isElisionPrefix && tt.indexOf(target) === 0) { found = k; break; }
       }
       if (found === -1) continue;
       var pos = mapCompromiseTags(terms[found].tags);
       if (pos) posArr[i] = pos;
       j = found + 1;
+
+      if (isElisionPrefix && i + 1 < wordTokens.length) {
+        var implicitTerm = terms[j];
+        if (implicitTerm && !implicitTerm.text && implicitTerm.implicit) {
+          var pos2 = mapCompromiseTags(implicitTerm.tags);
+          if (pos2) posArr[i + 1] = pos2;
+          i++;
+          j++;
+        }
+      }
     }
+  }
+
+  // espeak fuses an elision ("c'") into the phonetic word that follows it
+  // ("c'est" -> one token "sɛ"), so a plain word-for-word split undercounts
+  // by one for every elision in the sentence. Walks both lists in lock
+  // step, merging an elision-prefix token with the next word whenever the
+  // counts call for it, and uses the elision's own known pronunciation
+  // (already in the dictionary) to split the fused phoneme string between
+  // the two. Returns false if the counts still don't reconcile, so the
+  // caller can skip rendering IPA rather than show a misaligned guess.
+  function alignEspeakParts(wordTokens, parts, ipaArr) {
+    var wi = 0, pi = 0;
+    while (wi < wordTokens.length) {
+      if (pi >= parts.length) return false;
+      var text = wordTokens[wi].text.replace(/[’]/g, "'");
+      var isElisionPrefix = /'$/.test(text) && wi + 1 < wordTokens.length;
+      if (isElisionPrefix) {
+        var merged = parts[pi];
+        var prefixIpa = APP.data.wordIPA && APP.data.wordIPA[text.toLowerCase()];
+        if (prefixIpa && merged.toLowerCase().indexOf(prefixIpa.toLowerCase()) === 0) {
+          ipaArr[wi] = prefixIpa;
+          ipaArr[wi + 1] = merged.slice(prefixIpa.length);
+        } else {
+          ipaArr[wi] = null;
+          ipaArr[wi + 1] = merged;
+        }
+        wi += 2; pi += 1;
+      } else {
+        ipaArr[wi] = parts[pi];
+        wi += 1; pi += 1;
+      }
+    }
+    return pi === parts.length;
   }
 
   function updateTranslateLinks(root, text) {
@@ -203,6 +254,16 @@ APP.tools.analyzer = (function () {
     textarea.value = loadText();
     currentTextarea = textarea;
     inputWrap.appendChild(textarea);
+
+    var inputActions = el('div', 'analyzer-input-actions');
+    var playBtn = el('button', 'analyzer-play-all', '▶ ' + i18n.s('analyzer_play_all'));
+    playBtn.type = 'button';
+    playBtn.addEventListener('click', function () {
+      if (textarea.value.trim()) APP.speech.speak(textarea.value, playBtn);
+    });
+    inputActions.appendChild(playBtn);
+    inputWrap.appendChild(inputActions);
+
     root.appendChild(inputWrap);
 
     // ── breakdown ──
@@ -303,7 +364,11 @@ APP.tools.analyzer = (function () {
       APP.nlpEngines.loadFrCompromise().then(function (nlp) {
         if (seq !== renderSeq) return;
         var doc = nlp(text);
-        var terms = ((doc.json()[0] || {}).terms) || [];
+        // doc.json() returns one entry per sentence it detects (split on
+        // ./!/?/newlines) — every sentence's terms are needed, not just the
+        // first, or anything after the first sentence never gets tagged.
+        var terms = [];
+        doc.json().forEach(function (sentence) { terms = terms.concat(sentence.terms || []); });
         alignCompromise(wordTokens, terms, posArr);
         renderTokens(tokensContainer, text, tokens, posArr, ipaArr);
         APP.phonemeColor.apply(tokensContainer);
@@ -312,8 +377,7 @@ APP.tools.analyzer = (function () {
       APP.nlpEngines.transcribeSentence(text, 'fr').then(function (raw) {
         if (seq !== renderSeq) return;
         var parts = raw.split(/\s+/).filter(Boolean);
-        if (parts.length !== wordTokens.length) return; // alignment not safe, skip
-        for (var i = 0; i < parts.length; i++) ipaArr[i] = parts[i];
+        if (!alignEspeakParts(wordTokens, parts, ipaArr)) return; // alignment not safe, skip
         renderTokens(tokensContainer, text, tokens, posArr, ipaArr);
         APP.phonemeColor.apply(tokensContainer);
       }).catch(function () {});
