@@ -109,7 +109,7 @@ APP.data = APP.data || {};
         ['-tion / -sion', w('la nation'), 'nation'], ['-son', w('la maison'), 'house'], ['-té / -tié', w('la beauté'), 'beauty'],
         ['-ure', w('la culture'), 'culture'], ['-ude', w('l’habitude'), 'habit'], ['-ance / -ence', w('la naissance'), 'birth'],
         ['-ette', w('la baguette'), 'baguette'], ['-elle', w('la nouvelle'), 'news'], ['-esse', w('la vitesse'), 'speed'], ['-ie', w('la boulangerie'), 'bakery']
-      ])
+      ], { glossCols: [2] })
     },
     masc: {
       title: { en: 'Reliable masculine endings', fr: 'Terminaisons masculines fiables' },
@@ -117,7 +117,7 @@ APP.data = APP.data || {};
         ['-age', w('le fromage'), 'cheese'], ['-ment', w('le moment'), 'moment'], ['-eau', w('le chapeau'), 'hat'],
         ['-isme', w('le réalisme'), 'realism'], ['-oir', w('le couloir'), 'hallway'], ['-al', w('le journal'), 'newspaper'],
         ['-et', w('le carnet'), 'notebook'], ['-ier', w('le papier'), 'paper'], ['-in', w('le magasin'), 'store'], ['-acle', w('le spectacle'), 'show']
-      ])
+      ], { glossCols: [2] })
     }
   };
 })();

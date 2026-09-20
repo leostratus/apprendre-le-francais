@@ -193,16 +193,18 @@ APP.wordPhonemeColor = (function () {
 
   // A table cell often holds French vocabulary in one column and an
   // English gloss in the next (e.g. "très" | "very"), and nothing in the
-  // rendered DOM distinguishes them — so this never scans table cells at
-  // large. It only colors text the site's own markup already vouches for as
-  // French: inside a <code> tag, or immediately in front of a `.say`
+  // rendered DOM distinguishes them by default — so this never scans table
+  // cells at large. It only colors text the site's own markup already
+  // vouches for as French: inside a <code> tag, inside a <span
+  // class="fr-auto"> (data-helpers.table()'s own marker for a plain-string
+  // cell not opted out via glossCols), or immediately in front of a `.say`
   // speaker button (say()'s own contract is that its label is always the
   // French word being spoken).
   function collectFrenchTextNodes(root) {
     var out = [];
     var seen = new Set();
 
-    root.querySelectorAll('code').forEach(function (code) {
+    root.querySelectorAll('code, .fr-auto').forEach(function (code) {
       if (code.closest('script, style')) return;
       var walker = document.createTreeWalker(code, NodeFilter.SHOW_TEXT, null, false);
       var node;

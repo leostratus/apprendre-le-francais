@@ -56,7 +56,7 @@ APP.tools.conjugations = (function () {
     var tbody = el('tbody');
     list.forEach(function (v) {
       var tr = el('tr');
-      tr.innerHTML = '<td>' + v.infinitive + '</td><td>' + H.say('<code>' + v.participle + '</code>', v.infinitive + ', ' + v.participle) + '</td><td>' + v.meaning + '</td>';
+      tr.innerHTML = '<td><span class="fr-auto">' + v.infinitive + '</span></td><td>' + H.say('<code>' + v.participle + '</code>', v.infinitive + ', ' + v.participle) + '</td><td>' + v.meaning + '</td>';
       tbody.appendChild(tr);
     });
     table.appendChild(tbody);
@@ -122,7 +122,7 @@ APP.tools.conjugations = (function () {
     var tbody = el('tbody');
     d.soundsKey.rows.forEach(function (r) {
       var tr = el('tr');
-      tr.innerHTML = '<td class="sound-col">' + H.ipa(r[0]) + '</td><td style="font-size:0.83rem; color:var(--dim);">' + r[1] + '</td><td style="font-family:\'Noto Sans Mono\',monospace; font-size:0.78rem; color:var(--muted);">' + r[2] + '</td>';
+      tr.innerHTML = '<td class="sound-col">' + H.ipa(r[0]) + '</td><td style="font-size:0.83rem; color:var(--dim);">' + r[1] + '</td><td style="font-family:\'Noto Sans Mono\',monospace; font-size:0.78rem; color:var(--muted);"><span class="fr-auto">' + r[2] + '</span></td>';
       tbody.appendChild(tr);
     });
     table.appendChild(tbody);
