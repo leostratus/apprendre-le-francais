@@ -6,12 +6,6 @@ APP.components = APP.components || {};
 APP.components.phonemeRail = (function () {
   var i18n = APP.i18n;
 
-  // Every vowel, oral then nasal, each with its own fixed color — the only
-  // color-coding on the site. Consonants, glides, and the rhotic are never
-  // colored, so they're left off this legend.
-  var VOWELS = ['i', 'e', 'ɛ', 'a', 'ɑ', 'ɔ', 'o', 'u', 'y', 'ø', 'œ', 'ə'];
-  var NASALS = ['ɑ̃', 'ɛ̃', 'ɔ̃', 'œ̃'];
-
   function el(tag, cls, html) {
     var e = document.createElement(tag);
     if (cls) e.className = cls;
@@ -23,12 +17,18 @@ APP.components.phonemeRail = (function () {
     var frag = document.createElement('div');
     frag.appendChild(el('div', 'rail-title', i18n.s('rail_title')));
 
+    // Every phoneme the Sounds page teaches, each with its own fixed color —
+    // the only color-coding on the site. Pulled straight from that page's
+    // own data so this legend can never drift out of sync with it.
     var list = el('div', 'rail-legend rail-legend-vowels');
-    VOWELS.concat(NASALS).forEach(function (symbol) {
+    (APP.data.sons || []).forEach(function (entry) {
+      var symbol = entry.ipa.replace(/\//g, '');
+      var color = APP.phonemePalette.colorFor(symbol);
+      if (!color) return;
       var item = el('div', 'rail-leg');
       item.innerHTML =
-        '<span class="ph-dot" style="background:' + APP.phonemePalette.colorFor(symbol) + '"></span>' +
-        '<span class="ipa">/' + symbol + '/</span>';
+        '<span class="ph-dot" style="background:' + color + '"></span>' +
+        '<span class="ipa">' + entry.ipa + '</span>';
       list.appendChild(item);
     });
     frag.appendChild(list);
