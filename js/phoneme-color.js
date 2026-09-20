@@ -1,15 +1,16 @@
 // Universal phoneme coloring: walks rendered DOM text and colors any bare
-// vowel IPA symbol with its fixed color from APP.phonemePalette, so a symbol
+// IPA symbol with its fixed color from APP.phonemePalette, so a symbol
 // mentioned in flowing prose gets the same color as the same symbol inside a
 // hand-built table cell. Only touches IPA-exclusive characters — glyphs that
 // never appear in real French/English spelling — so ordinary prose text is
-// never mistaken for a phoneme. (œ is excluded even though it's IPA /œ/,
-// because œ is also a real French spelling character — sœur, œuf, vœu.)
-// Consonants, glides, and the rhotic are left uncolored.
+// never mistaken for a phoneme. That rules out i, e, a, o, u, y, j, w (all
+// real letters) and œ (real French spelling — sœur, œuf, vœu); those get
+// colored by callers that already know the text is IPA (data-helpers.ipa()),
+// not by this prose scanner.
 window.APP = window.APP || {};
 
 APP.phonemeColor = (function () {
-  var VOWELS = 'ɛɔɑøə'; // ɛ ɔ ɑ ø ə (i, e, a, u, y, o are real spelling letters too, left to callers)
+  var SAFE = 'ɛɔɑøəɲʃʒɥʁ';
   var NASAL_BASE = 'ɛɔɑ';
   var TILDE = '̃';
   var SKIP_TAGS = { SCRIPT: 1, STYLE: 1, CODE: 1 };
@@ -19,7 +20,7 @@ APP.phonemeColor = (function () {
       var nasalColor = APP.phonemePalette.colorFor(ch + next);
       return nasalColor ? { color: nasalColor, len: 2 } : null;
     }
-    if (VOWELS.indexOf(ch) !== -1) {
+    if (SAFE.indexOf(ch) !== -1) {
       var color = APP.phonemePalette.colorFor(ch);
       return color ? { color: color, len: 1 } : null;
     }
