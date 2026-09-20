@@ -1,9 +1,13 @@
-// The site's one color-coding system: a fixed, hand-picked color per
-// phoneme — every oral vowel, nasal vowel, glide, the rhotic, every
-// consonant, and every glide/cluster combination the Sounds page teaches
-// as its own spelling unit (oi, tion, ail...). Grouped into hue families
-// below for orientation, but every individual entry has its own distinct
-// color, chosen for contrast rather than an even hue sweep.
+// The site's one color-coding system: a fixed, hand-picked color per vowel
+// phoneme — every oral vowel, nasal vowel, and glide-vowel combination the
+// Sounds page teaches as its own spelling unit (oi, ien, ail...). Those
+// combinations keep their color even though the spelling includes a glide
+// or a silent consonant letter (oin, tion's nasal ending, etc.) — the
+// letters together spell a vowel sound, so the whole unit counts as one.
+// Bare consonants, bare glides (j, w, ɥ on their own), and the rhotic are
+// never colored. Chosen for contrast against its neighbors, not an even hue
+// sweep, which put too many similar colors next to each other once there
+// were more than a handful.
 window.APP = window.APP || {};
 
 APP.phonemePalette = (function () {
@@ -26,34 +30,8 @@ APP.phonemePalette = (function () {
     'ɛ̃': '#e6beff',
     'ɔ̃': '#2dd4bf',
     'œ̃': '#ffd8b1',
-    // glides
-    'j': '#f3c300',
-    'ɥ': '#875692',
-    'w': '#f38400',
-    // rhotic
-    'ʁ': '#a1caf1',
-    // consonants
-    'p': '#be0032',
-    'b': '#c2b280',
-    'd': '#0067a5',
-    't': '#e68fac',
-    'k': '#f99379',
-    'g': '#604e97',
-    'f': '#f6a600',
-    'v': '#b3446c',
-    's': '#dcd300',
-    'z': '#882d17',
-    'ʃ': '#8db600',
-    'ʒ': '#654522',
-    'm': '#e25822',
-    'n': '#2b3d26',
-    'ɲ': '#6699cc',
-    'ŋ': '#cc6699',
-    'l': '#99cc33',
-    // glide/cluster combinations, taught as their own single spelling unit
-    'ks': '#708090',
-    'gz': '#4b0082',
-    'sj': '#daa520',
+    // glide-vowel combinations (a glide onset plus a vowel, taught and
+    // spelled as one unit — aille, oi, ien, oin...)
     'aj': '#ff6347',
     'ɛj': '#20b2aa',
     'œj': '#ba55d3',
