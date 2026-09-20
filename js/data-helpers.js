@@ -12,12 +12,21 @@ APP.dataHelpers = (function () {
 
   // headers: array of string | {en,fr} | null (null => empty <th>)
   // rows: array of arrays of cell strings (invariant HTML, same both languages)
+  // opts.glossCols: column indices to exclude from auto phoneme-coloring —
+  // for the rare table that pairs a French word with a plain-string English
+  // gloss (an {en,fr} object cell is never marked, since that's already
+  // known chrome/label text; only bare strings need this opt-out).
   function table(headers, rows, opts) {
     opts = opts || {};
+    var glossCols = opts.glossCols || [];
     function build(lang) {
       var h = '<tr>' + headers.map(function (x) { return '<th>' + tr(x, lang) + '</th>'; }).join('') + '</tr>';
       var b = rows.map(function (r) {
-        return '<tr>' + r.map(function (c) { return '<td>' + tr(c, lang) + '</td>'; }).join('') + '</tr>';
+        return '<tr>' + r.map(function (c, ci) {
+          var content = tr(c, lang);
+          var markFrench = typeof c === 'string' && glossCols.indexOf(ci) === -1;
+          return '<td>' + (markFrench ? '<span class="fr-auto">' + content + '</span>' : content) + '</td>';
+        }).join('') + '</tr>';
       }).join('');
       var cls = 'mini-table' + (opts.style ? '' : '');
       var style = opts.style ? ' style="' + opts.style + '"' : '';

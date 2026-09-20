@@ -35,7 +35,7 @@ APP.data = APP.data || {};
                 ['bien', 'well (irregular, from bon)'], ['mal', 'badly (irregular, from mauvais)'],
                 ['mieux', 'better (irregular, from meilleur)'], ['vite', 'fast (irregular, from rapide)'],
                 ['peu', 'little (irregular, from petit)']
-              ].map(function (r) { return ['<code>' + r[0] + '</code>', r[1]]; })),
+              ].map(function (r) { return ['<code>' + r[0] + '</code>', r[1]]; }), { glossCols: [1] }),
               note: { en: 'bien, mal, mieux, vite, peu are irregular. Their base adjective follows no formation rule.', fr: 'bien, mal, mieux, vite, peu sont irréguliers. Leur adjectif de base ne suit aucune règle de formation.' }
             }
           },
@@ -230,7 +230,7 @@ APP.data = APP.data || {};
       table: T([{ en: 'Base adjective', fr: 'Adjectif de base' }, { en: 'Irregular adverb', fr: 'Adverbe irrégulier' }, Sens], [
         ['bon', '<code>bien</code>', 'well'], ['mauvais', '<code>mal</code>', 'badly'], ['meilleur', '<code>mieux</code>', 'better'],
         ['petit', '<code>peu</code>', 'little / not much'], ['rapide', '<code>vite</code>', 'fast']
-      ])
+      ], { glossCols: [2] })
     }
   };
 })();

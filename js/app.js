@@ -148,7 +148,7 @@
   function buildRail() {
     var rail = document.getElementById('phoneme-rail');
     var toggle = document.getElementById('rail-toggle');
-    APP.components.phonemeRail.render(rail, toggle, function () { selectTool('sons'); });
+    APP.components.phonemeRail.render(rail, toggle, function () { APP.components.sonsDrawer.open(); });
   }
 
   function fullRebuild() {
