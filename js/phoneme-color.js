@@ -1,16 +1,16 @@
 // Universal phoneme coloring: walks rendered DOM text and colors any bare
-// IPA symbol with its fixed color from APP.phonemePalette, so a symbol
+// vowel IPA symbol with its fixed color from APP.phonemePalette, so a symbol
 // mentioned in flowing prose gets the same color as the same symbol inside a
 // hand-built table cell. Only touches IPA-exclusive characters — glyphs that
 // never appear in real French/English spelling — so ordinary prose text is
-// never mistaken for a phoneme. That rules out i, e, a, o, u, y, j, w (all
-// real letters) and œ (real French spelling — sœur, œuf, vœu); those get
-// colored by callers that already know the text is IPA (data-helpers.ipa()),
-// not by this prose scanner.
+// never mistaken for a phoneme. That rules out i, e, a, o, u, y (all real
+// letters) and œ (real French spelling — sœur, œuf, vœu); those get colored
+// by callers that already know the text is IPA (data-helpers.ipa()), not by
+// this prose scanner. Consonants, glides, and the rhotic are never colored.
 window.APP = window.APP || {};
 
 APP.phonemeColor = (function () {
-  var SAFE = 'ɛɔɑøəɲʃʒɥʁ';
+  var SAFE = 'ɛɔɑøə';
   var NASAL_BASE = 'ɛɔɑ';
   var TILDE = '̃';
   var SKIP_TAGS = { SCRIPT: 1, STYLE: 1, CODE: 1 };
