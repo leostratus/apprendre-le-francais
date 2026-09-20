@@ -212,6 +212,18 @@ tr.stable td { background: rgba(79,142,245,0.04); }
 .analyzer-input:focus { outline: none; border-color: var(--dim); }
 .analyzer-input::placeholder { color: var(--muted); }
 
+.analyzer-input-actions { display: flex; justify-content: flex-end; margin-top: 0.5rem; }
+.analyzer-play-all {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  border: 1px solid var(--border); border-radius: 999px;
+  background: var(--surface2); color: var(--dim);
+  font-family: inherit; font-size: 0.8rem;
+  padding: 0.35rem 0.9rem; cursor: pointer;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+.analyzer-play-all:hover { background: var(--border); color: var(--bright); }
+.analyzer-play-all.playing { color: var(--accent); border-color: var(--accent); }
+
 
 .analyzer-tokens {
   display: flex; flex-wrap: wrap; align-items: flex-start; gap: 0.5rem 0.3rem;

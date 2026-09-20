@@ -47,6 +47,11 @@ APP.nlpEngines = (function () {
     }).then(function (instance) {
       var out = '';
       try { out = instance.FS.readFile('/out.txt', { encoding: 'utf8' }); } catch (e) { out = ''; }
+      // espeak wraps a word in (‍en‍)...(‍fr‍) (zero-width-joiner-delimited)
+      // when its language auto-detection thinks that word is English — the
+      // markers themselves aren't phonemes and would otherwise render as
+      // stray parentheses.
+      out = out.replace(/‍/g, '').replace(/\((?:en|fr)\)/g, '');
       return out.trim();
     });
   }
